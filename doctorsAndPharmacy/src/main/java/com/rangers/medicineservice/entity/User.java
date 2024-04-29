@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -37,29 +38,44 @@ public class User {
     @Column(name = "address")
     private String address;
 
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "country")
+    private String country;
+
+    @Column(name = "postal_code")
+    private String postalCode;
+
     @Column(name = "chatId")
     private String chatId;
 
-    @Column(name = "health_ticket")
-    private String healthTicket;
+    @Column(name = "policy_number")
+    private String policyNumber;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     List<Prescription> prescriptions;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     List<Schedule> schedule;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    Set<CartItem> cartItems;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    Set<Order> orders;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(userId, user.userId) && Objects.equals(firstname, user.firstname) && Objects.equals(lastname, user.lastname) && Objects.equals(email, user.email) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(address, user.address) && Objects.equals(chatId, user.chatId) && Objects.equals(healthTicket, user.healthTicket);
+        return Objects.equals(userId, user.userId) && Objects.equals(firstname, user.firstname) && Objects.equals(lastname, user.lastname) && Objects.equals(email, user.email) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(chatId, user.chatId) && Objects.equals(policyNumber, user.policyNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, firstname, lastname, email, phoneNumber, address, chatId, healthTicket);
+        return Objects.hash(userId, firstname, lastname, email, phoneNumber, chatId, policyNumber);
     }
 
     @Override
@@ -71,10 +87,11 @@ public class User {
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", postalCode='" + postalCode + '\'' +
                 ", chatId='" + chatId + '\'' +
-                ", healthTicket='" + healthTicket + '\'' +
-                ", recepts=" + prescriptions +
-                ", schedule=" + schedule +
+                ", policyNumber='" + policyNumber + '\'' +
                 '}';
     }
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <include file="/db/changelog/changes/v0.0.1-SNAPSHOT/create-tables-changelog.sql"/>
+    <include file="/db/changelog/changes/v0.0.1-SNAPSHOT/insert_test_data_into_doctors.sql"/>
+    <include file="/db/changelog/changes/v0.0.1-SNAPSHOT/insert_test_data_into_medicines.sql"/>
+    <include file="/db/changelog/changes/v0.0.1-SNAPSHOT/insert_test_data_into_pharmacies.sql"/>
+    <include file="/db/changelog/changes/v0.0.1-SNAPSHOT/insert_test_data_into_schedules.sql"/>
+    
+
+    <include file="/db/changelog/changes/v0.0.1-SNAPSHOT/create-sequence.xml"/>
+
+
+</databaseChangeLog>

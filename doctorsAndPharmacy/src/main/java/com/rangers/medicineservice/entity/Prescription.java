@@ -12,7 +12,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name = "recepts")
+@Table(name = "prescriptions")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -20,8 +20,8 @@ import java.util.UUID;
 public class Prescription {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "recept_id")
-    private UUID receptId;
+    @Column(name = "prescription_id")
+    private UUID prescriptionId;
 
     @Column(name = "quantity")
     private Integer quantity;
@@ -35,13 +35,19 @@ public class Prescription {
     @Column(name = "is_active")
     private boolean isActive;
 
-
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "doctor_id", referencedColumnName = "doctor_id")
     private Doctor doctor;
 
-    private List<Medicine> madicine;
+    //    to do!!!
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "medicines_prescriptions",
+            joinColumns = @JoinColumn(name = "medicine_id"),
+            inverseJoinColumns = @JoinColumn(name = "prescription_id"))
+    private List<Medicine> medicines;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
 
     @Override
@@ -49,24 +55,24 @@ public class Prescription {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Prescription prescription = (Prescription) o;
-        return isActive == prescription.isActive && Objects.equals(receptId, prescription.receptId) && Objects.equals(quantity, prescription.quantity) && Objects.equals(expDate, prescription.expDate) && Objects.equals(createdAt, prescription.createdAt);
+        return isActive == prescription.isActive && Objects.equals(prescriptionId, prescription.prescriptionId) && Objects.equals(quantity, prescription.quantity) && Objects.equals(expDate, prescription.expDate) && Objects.equals(createdAt, prescription.createdAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(receptId, quantity, expDate, createdAt, isActive);
+        return Objects.hash(prescriptionId, quantity, expDate, createdAt, isActive);
     }
 
     @Override
     public String toString() {
         return "Recept{" +
-                "receptId=" + receptId +
+                "receptId=" + prescriptionId +
                 ", quantity=" + quantity +
                 ", expDate=" + expDate +
                 ", createdAt=" + createdAt +
                 ", isActive=" + isActive +
                 ", doctor=" + doctor +
-                ", madicine=" + madicine +
+                ", madicine=" + medicines +
                 ", user=" + user +
                 '}';
     }
