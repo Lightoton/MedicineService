@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "doctor")
+@Table(name = "doctors")
 @NoArgsConstructor
 @Getter
 @Setter
@@ -35,12 +35,16 @@ public class Doctor {
     @Column(name = "rating")
     private String rating;
 
-    //Relationships
+    //    Relationships
 //    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH},
 //            fetch = FetchType.LAZY)
 //    @JoinColumn(name = "schedule_id", referencedColumnName = "schedule_id")
 //    @JsonIgnore
-//    private Shedule shedule;
+    @OneToMany(mappedBy = "doctor", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Schedule> schedules;
+
+    @OneToMany(mappedBy = "doctor", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Prescription> prescriptions;
 
     @Override
     public boolean equals(Object o) {

@@ -24,31 +24,37 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "order_id")
-    UUID ordeId;
+    private UUID ordeId;
 
-    @Column(name = "user_id")
-    User user;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private User user;
 
-    @Column(name = "recept_id")
-    Prescription prescription;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "prescription_id", referencedColumnName = "prescription_id")
+    private Prescription prescription;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    List<OrderDetails> orderDetails;
+    private List<OrderDetail> orderDetails;
 
     @Column(name = "order_date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    LocalDate orderDate;
+    private LocalDate orderDate;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    OrderStatus status;
+    private OrderStatus status;
 
     @Column(name = "order_cost")
-    BigDecimal orderCost;
+    private BigDecimal orderCost;
 
     @Column(name = "delivery_address")
-    String deliveryAddress;
+    private String deliveryAddress;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "pharmacy_id", referencedColumnName = "pharmacy_id")
+    private Pharmacy pharmacy;
 
     @Override
     public boolean equals(Object o) {
