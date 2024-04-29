@@ -26,7 +26,11 @@
             <artifactId>telegramBot</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.rangers.medicineservice</groupId>
+            <artifactId>openai-chatbot</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
