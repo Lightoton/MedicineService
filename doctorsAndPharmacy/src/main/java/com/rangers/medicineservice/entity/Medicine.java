@@ -1,6 +1,6 @@
 package com.rangers.medicineservice.entity;
 
-import com.rangers.medicineservice.entity.enums.*;
+import com.rangers.medicineservice.entity.enums.MedicineCategory;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

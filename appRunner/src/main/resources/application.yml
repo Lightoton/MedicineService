@@ -9,23 +9,13 @@ spring:
     serialization:
       fail-on-empty-beans: false
 
-  #  datasource:
-  #    url: ${DATASOURCE.URL}
-  #    username: ${DATASOURCE.USERNAME}
-  #    password: ${DATASOURCE.PASSWORD}
-
-
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:medicine_service}
-    username: ${MYSQL_USER:root}
-    password: ${MYSQL_PASSWORD:23402}
+    url: jdbc:mysql://localhost:3306/bank
+    username: root
+    password: 7203312
 
   liquibase:
     change-log: classpath:db/changelog/changelog-master.xml
 
 server:
   port: 8080
-
-bot:
-  name: MedicineServiceBot
-  token: 6796722629:AAECYIdED5TD6Jehztc6NC4JzQhnbTK7w2s

@@ -1,13 +1,11 @@
 package com.rangers.medicineservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.rangers.medicineservice.entity.enums.*;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 

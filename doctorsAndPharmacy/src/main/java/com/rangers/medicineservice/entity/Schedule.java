@@ -1,7 +1,6 @@
 package com.rangers.medicineservice.entity;
 
 import com.rangers.medicineservice.entity.enums.AppointmentType;
-import com.rangers.medicineservice.entity.enums.OrderStatus;
 import com.rangers.medicineservice.entity.enums.ScheduleStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
