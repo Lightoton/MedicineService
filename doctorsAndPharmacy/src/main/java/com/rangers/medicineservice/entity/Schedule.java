@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -28,9 +29,11 @@ public class Schedule {
     @Column(name = "date_and_time")
     private LocalDateTime dateAndTime;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private ScheduleStatus status;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private AppointmentType type;
 
@@ -44,4 +47,30 @@ public class Schedule {
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "doctor_id", referencedColumnName = "doctor_id")
     private Doctor doctor;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Schedule schedule = (Schedule) o;
+        return Objects.equals(scheduleId, schedule.scheduleId) && Objects.equals(dateAndTime, schedule.dateAndTime) && status == schedule.status && type == schedule.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(scheduleId, dateAndTime, status, type);
+    }
+
+    @Override
+    public String toString() {
+        return "Schedule{" +
+                "scheduleId=" + scheduleId +
+                ", dateAndTime=" + dateAndTime +
+                ", status=" + status +
+                ", type=" + type +
+                ", link='" + link + '\'' +
+                ", user=" + user +
+                ", doctor=" + doctor +
+                '}';
+    }
 }
