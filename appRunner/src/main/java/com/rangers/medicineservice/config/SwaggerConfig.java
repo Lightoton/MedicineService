@@ -20,11 +20,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
                         "Data consist of doctors, medicines, orders, orderDetails, cartItems, " +
                         "pharmacies, prescriptions, schedules, users.</br>" +
                         "Developed by: </br>" +
-                        "<a href=\" link\">Oleksii Chilibiiskyi</a></br>" +
-                        "<a href=\" link\">Maksym Bondarenko</a></br>" +
-                        "<a href=\" link\">Oleksandr Harbuz</a></br>" +
+                        "<a href=\" https://github.com/Alexf17\">Oleksii Chilibiiskyi</a></br>" +
+                        "<a href=\" https://www.linkedin.com/in/maksym-bondarenko-8a6ba0280/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app\">Maksym Bondarenko</a></br>" +
+                        "<a href=\" https://www.linkedin.com/in/oleksandr-harbuz-1b9b41300\">Oleksandr Harbuz</a></br>" +
                         "<a href=\"https://www.linkedin.com/feed/?trk=guest_homepage-basic_google-one-tap-submit\">Volha Zadziarkouskaya</a> </br>" +
-                        "<a href=\" link\">Viktor Bulatov</a></br>",
+                        "<a href=\" https://github.com/Lightoton\">Viktor Bulatov</a></br>",
                 version = "1.0.0"
         )
 )
