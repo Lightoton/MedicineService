@@ -1,8 +1,6 @@
-package com.rangers.medicineservice.service;
+package com.rangers.medicineservice.service.interf;
 
-import com.rangers.medicineservice.dto.CartItemToOrderDetailDto;
 import com.rangers.medicineservice.dto.CreatedOrderDto;
-import com.rangers.medicineservice.dto.OrderBeforeCreation;
 import com.rangers.medicineservice.entity.CartItem;
 
 public interface OrderService {
