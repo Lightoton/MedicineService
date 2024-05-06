@@ -17,20 +17,21 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring",imports = {GetNameFromUserUtil.class},
         unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface OrderMapper {
+public interface OrderFromPrescriptionMapper {
     @Mappings({
-//            @Mapping(target = "status", source = "status"),
-            @Mapping(target = "user",  expression = "java(GetNameFromUserUtil.getName(order))")
+            @Mapping(target = "status", source = "status"),
+            @Mapping(target = "user",  expression = "java(GetNameFromUserUtil.getName(order))"),
+            @Mapping(target = "address", source = "deliveryAddress")
 
     })
     OrderDto toDto(Order order);
 
     @AfterMapping
     default void genInfo(@MappingTarget OrderDetailDto orderDetailDto, OrderDetail orderDetail){
-//        System.out.println("orderDetailDto: " + orderDetailDto);
-//        System.out.println("orderDetail: " + orderDetail);
+
         orderDetailDto.setName(orderDetail.getMedicine().getName());
         orderDetailDto.setPrice(orderDetail.getMedicine().getPrice());
+
 
     }
 

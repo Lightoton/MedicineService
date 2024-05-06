@@ -3,7 +3,7 @@ package com.rangers.medicineservice.service.impl;
 import com.rangers.medicineservice.dto.OrderDto;
 import com.rangers.medicineservice.dto.PrescriptionDto;
 import com.rangers.medicineservice.entity.*;
-import com.rangers.medicineservice.mapper.OrderMapper;
+import com.rangers.medicineservice.mapper.OrderFromPrescriptionMapper;
 import com.rangers.medicineservice.repository.MedicineRepository;
 import com.rangers.medicineservice.repository.OrderRepository;
 import com.rangers.medicineservice.repository.PrescriptionRepository;
@@ -21,7 +21,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrdersService {
-    private final OrderMapper orderMapper;
+    private final OrderFromPrescriptionMapper orderFromPrescriptionMapper;
     private final UserRepository userRepository;
     private final PrescriptionRepository prescriptionRepository;
     private final MedicineRepository medicineRepository;
@@ -30,11 +30,10 @@ public class OrderServiceImpl implements OrdersService {
     @Override
     @Transactional
     public OrderDto addOrder(PrescriptionDto prescriptionDto) {
-        Order order = orderMapper.toEntity(prescriptionDto);
+        Order order = orderFromPrescriptionMapper.toEntity(prescriptionDto);
+
         Optional<User> user = userRepository.findById(UUID.fromString(prescriptionDto.getUserId()));
         order.setUser(user.orElse(null));
-
-//        order.setDeliveryAddress(order.getUser().getAddress());
 
         Optional<Prescription> prescription = prescriptionRepository.findById(UUID.fromString(prescriptionDto.getPrescriptionId()));
         order.setPrescription(prescription.orElse(null));
@@ -62,6 +61,6 @@ public class OrderServiceImpl implements OrdersService {
 
         Order save = orderRepository.saveAndFlush(order);
 
-        return orderMapper.toDto(save);
+        return orderFromPrescriptionMapper.toDto(save);
     }
 }

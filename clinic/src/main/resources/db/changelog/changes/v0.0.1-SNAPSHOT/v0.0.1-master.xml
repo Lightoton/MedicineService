@@ -9,7 +9,9 @@
     <include file="/db/changelog/changes/v0.0.1-SNAPSHOT/insert_test_data_into_medicines.sql"/>
     <include file="/db/changelog/changes/v0.0.1-SNAPSHOT/insert_test_data_into_pharmacies.sql"/>
     <include file="/db/changelog/changes/v0.0.1-SNAPSHOT/insert_test_data_into_schedules.sql"/>
-    
+    <include file="/db/changelog/changes/v0.0.1-SNAPSHOT/insert_test_data_into_users.sql"/>
+    <include file="/db/changelog/changes/v0.0.1-SNAPSHOT/insert_test_data_into_prescriptions.sql"/>
+
 
     <include file="/db/changelog/changes/v0.0.1-SNAPSHOT/create-sequence.xml"/>
 
