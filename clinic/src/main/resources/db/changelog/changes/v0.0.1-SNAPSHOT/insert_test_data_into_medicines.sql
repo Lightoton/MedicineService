@@ -11,77 +11,77 @@ VALUES
     (UNHEX('8bda13952ee34aee80c1842bedd9f4c2'), 'Ibuprofen', 'NSAID for pain relief, inflammation reduction, and fever lowering.', 9.29, 'PAIN_RELIEVERS', UNHEX('ac5c8867676f4737931f052cbb9b4a94'))
 
 
--- (UNHEX('e6b3c4f5e7f8b3a2c3e6f5a9c1c2f7a4'), 'DreamSleep', 'Natural sleep aid for restful nights.', 18.65, 'SEDATIVES', UNHEX('ac5c8867676f4737931f052cbb9b4a94'))
--- (UNHEX('c5f6a7e4c3f7e8f3c6b2c3f5e7f8a1c2'), 'AllergyRelief', 'Fast-acting antihistamine for allergy relief.', 22.50, 'ANTIHISTAMINES', UNHEX('ac5c8867676f4737931f052cbb9b4a94'))
--- (UNHEX('e7c3f6b2a1c3e7f8f5c3e7c1c3e7f8b2'), 'Vitamin C Booster', 'High-dose vitamin C for immune system.', 14.75, 'VITAMINS_AND_SUPPLEMENTS', UNHEX('ac5c8867676f4737931f052cbb9b4a94'))
--- (UNHEX('c3f7e6f5c4e7a1c2e6f7f8c3e6f5b4c1'), 'PainAway', 'Pain reliever for muscle and joint pain.', 14.25, 'PAIN_RELIEVERS', UNHEX('ac5c8867676f4737931f052cbb9b4a94'))
--- (UNHEX('c7f6e5a3c2e7f8c3e5a1c3f7c6d5e8f4'), 'AntibioticUltra', 'Advanced antibiotic for various infections.', 33.50, 'ANTIBIOTICS', UNHEX('ac5c8867676f4737931f052cbb9b4a94'))
--- (UNHEX('b3c4e7f6a2c1e7f8f5a3c2f7f6e7f4a1'), 'SleepEase', 'Natural sleep aid for restful nights.', 18.75, 'SEDATIVES')
--- (UNHEX('c3e5f6c3b2c1f7e8f6c3a9b3c2f7e6f5'), 'AllergyBlock', 'Quick-acting antihistamine for quick relief.', 23.40, 'ANTIHISTAMINES')
--- (UNHEX('e5f6b3c4a2c3e7f8f3c2e6f7f8c3e7d6'), 'Vitamin D Supplement', 'Essential vitamin D for bone health.', 14.99, 'VITAMINS_AND_SUPPLEMENTS')
--- (UNHEX('c3e7f6f5c4e7a1c2e7f8f6c3e7c5a9b1'), 'PainAway', 'Pain reliever for muscle and joint pain.', 14.25, 'PAIN_RELIEVERS')
--- (UNHEX('c5f6e7f8a3c4e7f6c2b1c7f8a3c2f7e6'), 'AntibioticMax', 'Broad-spectrum antibiotic for severe infections.', 32.99, 'ANTIBIOTICS')
--- (UNHEX('c3f4e7f6c3b2c1e6f7f8c2a3c3f5e7f4'), 'DreamEase', 'Natural sleep aid for gentle nights.', 18.65, 'SEDATIVES')
--- (UNHEX('e6b3c4f7e8f3c2a1c3f7e8f6c5a1b3c6'), 'AllergyRelief', 'Fast-acting antihistamine.', 22.50, 'ANTIHISTAMINES')
--- (UNHEX('c5f7e6c4e7a1c3e6f7f8c3e7a2c3e7f4'), 'Vitamin C Booster', 'High-dose vitamin C for immune system.', 14.75, 'VITAMINS_AND_SUPPLEMENTS')
--- (UNHEX('c3f7e6f5c4e7b1c2e6f7c3a1c7f6e5c3'), 'PainAway', 'Pain reliever for muscle and joint pain.', 14.50, 'PAIN_RELIEVERS')
--- (UNHEX('e7c5a3b1c3e7f8f6c5e7f6a3c2b1c3f4'), 'AntibioticUltra', 'Advanced antibiotic for various infections.', 33.75, 'ANTIBIOTICS')
--- (UNHEX('c4e7f5c3e7b2a1c6e5f7a3c2f7e8b3c1'), 'SleepWell', 'Natural sleep aid for restful nights.', 18.85, 'SEDATIVES')
--- (UNHEX('e6c5f7e6c3a9b2c1f7f8c3a2c5f6e7f4'), 'AllergyBlock', 'Quick-acting antihistamine for allergy relief.', 23.40, 'ANTIHISTAMINES')
--- (UNHEX('c7e6c3b2a1c3e6f7f8c5e7a3c2c7f6f5'), 'Vitamin D Supplement', 'Essential vitamin D for bone health.', 14.99, 'VITAMINS_AND_SUPPLEMENTS')
--- (UNHEX('c4e7f6b1c3e6f7f8c3b2c1f5e7f6c3a9'), 'PainAway', 'Quick pain relief for headaches.', 14.25, 'PAIN_RELIEVERS')
--- (UNHEX('e6c5f7e6b3c2e7f6a3c2f5e7a1c3c4f6'), 'AntibioticMax', 'Broad-spectrum antibiotic for severe infections.', 33.50, 'ANTIBIOTICS')
--- (UNHEX('c7e6c5f3b2c3e7f8a9c1c2b3c7e6f5d4'), 'DreamEase', 'Natural sleep aid for restful nights.', 18.65, 'SEDATIVES')
--- (UNHEX('b4c3f6e7f8c5d3a9c2e7f5b1c6a2e7f6'), 'AllergyBlock', 'Fast-acting antihistamine for quick relief.', 23.40, 'ANTIHISTAMINES')
--- (UNHEX('e3c4f7e5c6a1b2c3f5e7f8a9c2c3f6a7'), 'Vitamin D Supplement', 'Essential vitamin D for bone health.', 14.99, 'VITAMINS_AND_SUPPLEMENTS')
--- (UNHEX('c6e7f5c3a4c7f8e3c2e7f6b1c4d5f7e6'), 'PainAway', 'Pain reliever for muscle and joint pain.', 14.25, 'PAIN_RELIEVERS')
--- (UNHEX('e7c5a9b3c3e7f8a2b1c2f7e6f4c3d5e8'), 'AntibioticUltra', 'Advanced antibiotic for various infections.', 33.50, 'ANTIBIOTICS')
--- (UNHEX('f5c6e4b7a1c3e7f8f3c1b2a9c2c5e7f6'), 'SleepEase', 'Natural sleep aid for gentle nights.', 17.85, 'SEDATIVES')
--- (UNHEX('c4e5f6a7c2c3e7f8a1b3c2f6e5d7e3f4'), 'AllergyRelief', 'Quick-acting antihistamine.', 22.40, 'ANTIHISTAMINES')
--- (UNHEX('e3c7f6a9c1b3e7f8a2c3b1c5e7f6d5c4'), 'Vitamin B Complex', 'High-dose vitamin B for energy and metabolism.', 14.99, 'VITAMINS_AND_SUPPLEMENTS')
--- (UNHEX('c3e7f6f5d3a1c3e4f5e6b3c2f7e8c6d7'), 'PainAway', 'Quick pain relief for muscle and joint pain.', 14.25, 'PAIN_RELIEVERS')
--- (UNHEX('e6f7c5a3b2c3e6f5e7a1c3b6a2c5d7f8'), 'AntibioticMax', 'Broad-spectrum antibiotic for severe infections.', 33.50, 'ANTIBIOTICS')
--- (UNHEX('c4e7f5c3a1c3e7f8f6a3c2e7f6b3c4d5'), 'DreamSleep', 'Natural sleep aid for gentle nights.', 18.85, 'SEDATIVES')
--- (UNHEX('b5c4e7f6a3c2e7f8b1c2b3c6e7f4a9c1'), 'AllergyBlock', 'Fast-acting antihistamine for quick relief.', 22.50, 'ANTIHISTAMINES')
--- (UNHEX('c4e7f6d3b2c3f5e4f7f8b3c2c1c7f5e6'), 'Vitamin D Supplement', 'Essential vitamin D for bone health.', 14.99, 'VITAMINS_AND_SUPPLEMENTS')
--- (UNHEX('e5c7f6b2c3f7e8a1c3c2b1e7f6f4c3d7'), 'PainAway', 'Pain reliever for muscle and joint pain.', 14.50, 'PAIN_RELIEVERS')
--- (UNHEX('f6c4e5c7b3a1c3e7f8a9b2c3e6f7f6a4'), 'AntibioticUltra', 'Broad-spectrum antibiotic for serious infections.', 33.75, 'ANTIBIOTICS')
--- (UNHEX('c6f5e3b3c4f7e6f8f3c2b1c7e4c3f5e6'), 'DreamEase', 'Natural sleep aid for restful nights.', 18.55, 'SEDATIVES')
--- (UNHEX('c3f6e7f8c2c5e4c7f8a3b1a9c2c3e6f5'), 'AllergyBlock', 'Fast-acting antihistamine for allergy relief.', 22.50, 'ANTIHISTAMINES')
--- (UNHEX('c4e7d6c7a2c1b3c5e7f6b2c3c1f5e7f8'), 'Vitamin B Complex', 'High-dose vitamin B for energy and metabolism.', 14.75, 'VITAMINS_AND_SUPPLEMENTS')
--- (UNHEX('f5c6e7d3c3f7e8a1c2e7f4b3c6f5e6c2'), 'PainAway', 'Pain reliever for muscle and joint pain.', 14.25, 'PAIN_RELIEVERS')
--- (UNHEX('c3e5f7f8c6a9c1f3f6d7c2b3c1e4c3f5'), 'AntibioticMax', 'Broad-spectrum antibiotic for severe infections.', 32.99, 'ANTIBIOTICS')
--- (UNHEX('f3c5e7a2b1c3e7f8f5a9b3c4d6e5a1c7'), 'SleepWell', 'Gentle sleep aid for restful nights.', 18.65, 'SEDATIVES')
--- (UNHEX('c4e5f7c3e7f8a9b1c3e7f6c2b3c7e6f5'), 'AllergyEase', 'Fast-acting antihistamine for allergy relief.', 23.30, 'ANTIHISTAMINES')
--- (UNHEX('f5e4c7f3c4e6b7a2c1c3e5f6a9c4d7e8'), 'Vitamin C Booster', 'High-dose vitamin C for immunity.', 14.45, 'VITAMINS_AND_SUPPLEMENTS')
--- (UNHEX('c4f7e6b3a1c3e7f8b1c3e6f7f4c3d5e6'), 'PainAway', 'Pain reliever for muscle and joint pain.', 14.75, 'PAIN_RELIEVERS')
--- (UNHEX('f5d6e3a4c5e7c2b1c3e7f8a9c2f6e5d3'), 'AntibioticUltra', 'Advanced antibiotic for various infections.', 32.75, 'ANTIBIOTICS')
--- (UNHEX('c7e6f5a3c3e7b1c4d5f7e8c6a2b3e7f6'), 'SleepEase', 'Natural sleep aid for restful nights.', 17.99, 'SEDATIVES')
--- (UNHEX('c5f6a7e4c3f7e8a1c3e7f6d5e3a9b2c4'), 'AllergyStop', 'Quick antihistamine for fast relief.', 22.40, 'ANTIHISTAMINES')
--- (UNHEX('e7c6f4b3a1c3e5f7f8b3c4e7f6a9b2c7'), 'Vitamin D Supplement', 'Essential vitamin D for bone health.', 14.99, 'VITAMINS_AND_SUPPLEMENTS')
--- (UNHEX('c4e7f5d6b3a9c1f3e6f7c2e7f6d3e5c4'), 'PainAway', 'Quick pain relief for headaches.', 14.50, 'PAIN_RELIEVERS')
--- (UNHEX('e6f4c3e7d6b2a3c7e5f8b3c1c2d3e7f4'), 'AntibioticMax', 'Broad-spectrum antibiotic for severe infections.', 33.20, 'ANTIBIOTICS')
--- (UNHEX('b3c4f6e7d5a1c2f5e4f7e8c3e6a9c3f7'), 'DreamEase', 'Natural sleep aid for restful nights.', 18.85, 'SEDATIVES')
--- (UNHEX('f5e7c3d6c5b2a1c3e7f8f6b3c4e5f6d7'), 'AllergyBlock', 'Fast-acting antihistamine for allergy relief.', 23.50, 'ANTIHISTAMINES')
--- (UNHEX('c7f6e5b4a3c3e7f8f4c3e6b3c2d7e5a1'), 'Vitamin B Complex', 'High-dose vitamin B for energy and focus.', 14.99, 'VITAMINS_AND_SUPPLEMENTS')
--- (UNHEX('e7c3f6b5d4e3f7a2b3c1f6e4f5d7a9c2'), 'PainAway', 'Pain reliever for muscle and joint pain.', 14.25, 'PAIN_RELIEVERS')
--- (UNHEX('c4f7d6c5b3e7f8a2c1c3e5f6d3e7f8c2'), 'AntibioticUltra', 'Strong antibiotic for serious infections.', 33.50, 'ANTIBIOTICS')
--- (UNHEX('e7b6f4c5d3a1c3e7f8f4c3e6f5e7f6c2'), 'SleepWell', 'Sleep aid with gentle effects.', 17.85, 'SEDATIVES')
--- (UNHEX('c3f6e7c5d3e7f8a1c3f6a9c2f5e7b3c6'), 'AllergyRelief', 'Quick-acting antihistamine.', 22.40, 'ANTIHISTAMINES')
--- (UNHEX('c4f5e6d3a9c2f4c7f8a1b3c2f7e6f4c5'), 'Vitamin C Booster', 'High-dose vitamin C for immune system.', 14.75, 'VITAMINS_AND_SUPPLEMENTS')
--- (UNHEX('c6e7f4b5a1c3e7f6b2c1c3f5e6f8b3d2'), 'PainAway', 'Quick pain relief for headaches.', 14.50, 'PAIN_RELIEVERS')
--- (UNHEX('f3c7e6f5d4a1c3e7f8f6b3c4e7f6e5c3'), 'AntibioticMax', 'Broad-spectrum antibiotic for severe infections.', 33.49, 'ANTIBIOTICS')
--- (UNHEX('f3e4c6b7a9c1c3e6f7a2b3c4e5f6a7b3'), 'DreamSleep', 'Natural sleep aid for restful nights.', 18.75, 'SEDATIVES')
--- (UNHEX('c3f6e7b2a1c3f7e8f3a9c2b3c7e6f5d4'), 'AllergyRelief', 'Fast-acting antihistamine for quick relief.', 23.40, 'ANTIHISTAMINES')
--- (UNHEX('c4e5d3f6c7e7f8b1c2e7a9c3f7e8f6d5'), 'Vitamin B Complex', 'High-dose vitamin B for energy and focus.', 14.99, 'VITAMINS_AND_SUPPLEMENTS')
--- (UNHEX('c3f7e6b5d4e7f8c1a9b2f5c4e7f6c2d3'), 'PainAway', 'Quick pain relief for muscle and joint pain.', 14.25, 'PAIN_RELIEVERS')
--- (UNHEX('e6c3b5f7c2a1c3e6f7f8c1b2c4e5d6f7'), 'AntibioticUltra', 'Advanced antibiotic for various infections.', 33.50, 'ANTIBIOTICS')
--- (UNHEX('e3f6c5a3c7e5f8f3b2c3f4e7c6f7d8a9'), 'DreamEase', 'Natural sleep aid for gentle nights.', 18.55, 'SEDATIVES')
--- (UNHEX('c3e7f6d3b1c2a3e7f8b3c5e6f7c2d5e4'), 'AllergyBlock', 'Fast-acting antihistamine for quick relief.', 22.50, 'ANTIHISTAMINES')
--- (UNHEX('c4d5f7c6b3e7f8a9c1e7f5d3e6a2b3c7'), 'Vitamin D Supplement', 'Essential vitamin for bone health.', 14.99, 'VITAMINS_AND_SUPPLEMENTS')
--- (UNHEX('c3e7f6a3b1c3e4f7f8b1c3f6d3e6f7a9'), 'PainAway', 'Pain reliever for various aches.', 14.25, 'PAIN_RELIEVERS')
--- (UNHEX('c4f5e6d7a9b2c3f7e8f6c3a1c3f4e7d5'), 'AntibioticMax', 'Broad-spectrum antibiotic for severe infections.', 32.50, 'ANTIBIOTICS')
--- (UNHEX('e7c5a3b2c6e8f4a9b1c3e7f6d4b5c3e6'), 'SleepEase', 'Natural sleep aid for restful nights.', 18.85, 'SEDATIVES')
+-- (UNHEX('e6b3c4f5e7f8b3a2c3e6f5a9c1c2f7a4'), 'DreamSleep', 'Natural sleep aid for restful nights.', 18.65, 'SEDATIVES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c5f6a7e4c3f7e8f3c6b2c3f5e7f8a1c2'), 'AllergyRelief', 'Fast-acting antihistamine for allergy relief.', 22.50, 'ANTIHISTAMINES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('e7c3f6b2a1c3e7f8f5c3e7c1c3e7f8b2'), 'Vitamin C Booster', 'High-dose vitamin C for immune system.', 14.75, 'VITAMINS_AND_SUPPLEMENTS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c3f7e6f5c4e7a1c2e6f7f8c3e6f5b4c1'), 'PainAway', 'Pain reliever for muscle and joint pain.', 14.25, 'PAIN_RELIEVERS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c7f6e5a3c2e7f8c3e5a1c3f7c6d5e8f4'), 'AntibioticUltra', 'Advanced antibiotic for various infections.', 33.50, 'ANTIBIOTICS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('b3c4e7f6a2c1e7f8f5a3c2f7f6e7f4a1'), 'SleepEase', 'Natural sleep aid for restful nights.', 18.75, 'SEDATIVES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c3e5f6c3b2c1f7e8f6c3a9b3c2f7e6f5'), 'AllergyBlock', 'Quick-acting antihistamine for quick relief.', 23.40, 'ANTIHISTAMINES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('e5f6b3c4a2c3e7f8f3c2e6f7f8c3e7d6'), 'Vitamin D Supplement', 'Essential vitamin D for bone health.', 14.99, 'VITAMINS_AND_SUPPLEMENTS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c3e7f6f5c4e7a1c2e7f8f6c3e7c5a9b1'), 'PainAway', 'Pain reliever for muscle and joint pain.', 14.25, 'PAIN_RELIEVERS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c5f6e7f8a3c4e7f6c2b1c7f8a3c2f7e6'), 'AntibioticMax', 'Broad-spectrum antibiotic for severe infections.', 32.99, 'ANTIBIOTICS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c3f4e7f6c3b2c1e6f7f8c2a3c3f5e7f4'), 'DreamEase', 'Natural sleep aid for gentle nights.', 18.65, 'SEDATIVES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('e6b3c4f7e8f3c2a1c3f7e8f6c5a1b3c6'), 'AllergyRelief', 'Fast-acting antihistamine.', 22.50, 'ANTIHISTAMINES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c5f7e6c4e7a1c3e6f7f8c3e7a2c3e7f4'), 'Vitamin C Booster', 'High-dose vitamin C for immune system.', 14.75, 'VITAMINS_AND_SUPPLEMENTS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c3f7e6f5c4e7b1c2e6f7c3a1c7f6e5c3'), 'PainAway', 'Pain reliever for muscle and joint pain.', 14.50, 'PAIN_RELIEVERS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('e7c5a3b1c3e7f8f6c5e7f6a3c2b1c3f4'), 'AntibioticUltra', 'Advanced antibiotic for various infections.', 33.75, 'ANTIBIOTICS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c4e7f5c3e7b2a1c6e5f7a3c2f7e8b3c1'), 'SleepWell', 'Natural sleep aid for restful nights.', 18.85, 'SEDATIVES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('e6c5f7e6c3a9b2c1f7f8c3a2c5f6e7f4'), 'AllergyBlock', 'Quick-acting antihistamine for allergy relief.', 23.40, 'ANTIHISTAMINES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c7e6c3b2a1c3e6f7f8c5e7a3c2c7f6f5'), 'Vitamin D Supplement', 'Essential vitamin D for bone health.', 14.99, 'VITAMINS_AND_SUPPLEMENTS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c4e7f6b1c3e6f7f8c3b2c1f5e7f6c3a9'), 'PainAway', 'Quick pain relief for headaches.', 14.25, 'PAIN_RELIEVERS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('e6c5f7e6b3c2e7f6a3c2f5e7a1c3c4f6'), 'AntibioticMax', 'Broad-spectrum antibiotic for severe infections.', 33.50, 'ANTIBIOTICS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c7e6c5f3b2c3e7f8a9c1c2b3c7e6f5d4'), 'DreamEase', 'Natural sleep aid for restful nights.', 18.65, 'SEDATIVES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('b4c3f6e7f8c5d3a9c2e7f5b1c6a2e7f6'), 'AllergyBlock', 'Fast-acting antihistamine for quick relief.', 23.40, 'ANTIHISTAMINES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('e3c4f7e5c6a1b2c3f5e7f8a9c2c3f6a7'), 'Vitamin D Supplement', 'Essential vitamin D for bone health.', 14.99, 'VITAMINS_AND_SUPPLEMENTS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c6e7f5c3a4c7f8e3c2e7f6b1c4d5f7e6'), 'PainAway', 'Pain reliever for muscle and joint pain.', 14.25, 'PAIN_RELIEVERS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('e7c5a9b3c3e7f8a2b1c2f7e6f4c3d5e8'), 'AntibioticUltra', 'Advanced antibiotic for various infections.', 33.50, 'ANTIBIOTICS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('f5c6e4b7a1c3e7f8f3c1b2a9c2c5e7f6'), 'SleepEase', 'Natural sleep aid for gentle nights.', 17.85, 'SEDATIVES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c4e5f6a7c2c3e7f8a1b3c2f6e5d7e3f4'), 'AllergyRelief', 'Quick-acting antihistamine.', 22.40, 'ANTIHISTAMINES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('e3c7f6a9c1b3e7f8a2c3b1c5e7f6d5c4'), 'Vitamin B Complex', 'High-dose vitamin B for energy and metabolism.', 14.99, 'VITAMINS_AND_SUPPLEMENTS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c3e7f6f5d3a1c3e4f5e6b3c2f7e8c6d7'), 'PainAway', 'Quick pain relief for muscle and joint pain.', 14.25, 'PAIN_RELIEVERS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('e6f7c5a3b2c3e6f5e7a1c3b6a2c5d7f8'), 'AntibioticMax', 'Broad-spectrum antibiotic for severe infections.', 33.50, 'ANTIBIOTICS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c4e7f5c3a1c3e7f8f6a3c2e7f6b3c4d5'), 'DreamSleep', 'Natural sleep aid for gentle nights.', 18.85, 'SEDATIVES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('b5c4e7f6a3c2e7f8b1c2b3c6e7f4a9c1'), 'AllergyBlock', 'Fast-acting antihistamine for quick relief.', 22.50, 'ANTIHISTAMINES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c4e7f6d3b2c3f5e4f7f8b3c2c1c7f5e6'), 'Vitamin D Supplement', 'Essential vitamin D for bone health.', 14.99, 'VITAMINS_AND_SUPPLEMENTS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('e5c7f6b2c3f7e8a1c3c2b1e7f6f4c3d7'), 'PainAway', 'Pain reliever for muscle and joint pain.', 14.50, 'PAIN_RELIEVERS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('f6c4e5c7b3a1c3e7f8a9b2c3e6f7f6a4'), 'AntibioticUltra', 'Broad-spectrum antibiotic for serious infections.', 33.75, 'ANTIBIOTICS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c6f5e3b3c4f7e6f8f3c2b1c7e4c3f5e6'), 'DreamEase', 'Natural sleep aid for restful nights.', 18.55, 'SEDATIVES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c3f6e7f8c2c5e4c7f8a3b1a9c2c3e6f5'), 'AllergyBlock', 'Fast-acting antihistamine for allergy relief.', 22.50, 'ANTIHISTAMINES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c4e7d6c7a2c1b3c5e7f6b2c3c1f5e7f8'), 'Vitamin B Complex', 'High-dose vitamin B for energy and metabolism.', 14.75, 'VITAMINS_AND_SUPPLEMENTS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('f5c6e7d3c3f7e8a1c2e7f4b3c6f5e6c2'), 'PainAway', 'Pain reliever for muscle and joint pain.', 14.25, 'PAIN_RELIEVERS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c3e5f7f8c6a9c1f3f6d7c2b3c1e4c3f5'), 'AntibioticMax', 'Broad-spectrum antibiotic for severe infections.', 32.99, 'ANTIBIOTICS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('f3c5e7a2b1c3e7f8f5a9b3c4d6e5a1c7'), 'SleepWell', 'Gentle sleep aid for restful nights.', 18.65, 'SEDATIVES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c4e5f7c3e7f8a9b1c3e7f6c2b3c7e6f5'), 'AllergyEase', 'Fast-acting antihistamine for allergy relief.', 23.30, 'ANTIHISTAMINES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('f5e4c7f3c4e6b7a2c1c3e5f6a9c4d7e8'), 'Vitamin C Booster', 'High-dose vitamin C for immunity.', 14.45, 'VITAMINS_AND_SUPPLEMENTS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c4f7e6b3a1c3e7f8b1c3e6f7f4c3d5e6'), 'PainAway', 'Pain reliever for muscle and joint pain.', 14.75, 'PAIN_RELIEVERS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('f5d6e3a4c5e7c2b1c3e7f8a9c2f6e5d3'), 'AntibioticUltra', 'Advanced antibiotic for various infections.', 32.75, 'ANTIBIOTICS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c7e6f5a3c3e7b1c4d5f7e8c6a2b3e7f6'), 'SleepEase', 'Natural sleep aid for restful nights.', 17.99, 'SEDATIVES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c5f6a7e4c3f7e8a1c3e7f6d5e3a9b2c4'), 'AllergyStop', 'Quick antihistamine for fast relief.', 22.40, 'ANTIHISTAMINES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('e7c6f4b3a1c3e5f7f8b3c4e7f6a9b2c7'), 'Vitamin D Supplement', 'Essential vitamin D for bone health.', 14.99, 'VITAMINS_AND_SUPPLEMENTS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c4e7f5d6b3a9c1f3e6f7c2e7f6d3e5c4'), 'PainAway', 'Quick pain relief for headaches.', 14.50, 'PAIN_RELIEVERS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('e6f4c3e7d6b2a3c7e5f8b3c1c2d3e7f4'), 'AntibioticMax', 'Broad-spectrum antibiotic for severe infections.', 33.20, 'ANTIBIOTICS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('b3c4f6e7d5a1c2f5e4f7e8c3e6a9c3f7'), 'DreamEase', 'Natural sleep aid for restful nights.', 18.85, 'SEDATIVES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('f5e7c3d6c5b2a1c3e7f8f6b3c4e5f6d7'), 'AllergyBlock', 'Fast-acting antihistamine for allergy relief.', 23.50, 'ANTIHISTAMINES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c7f6e5b4a3c3e7f8f4c3e6b3c2d7e5a1'), 'Vitamin B Complex', 'High-dose vitamin B for energy and focus.', 14.99, 'VITAMINS_AND_SUPPLEMENTS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('e7c3f6b5d4e3f7a2b3c1f6e4f5d7a9c2'), 'PainAway', 'Pain reliever for muscle and joint pain.', 14.25, 'PAIN_RELIEVERS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c4f7d6c5b3e7f8a2c1c3e5f6d3e7f8c2'), 'AntibioticUltra', 'Strong antibiotic for serious infections.', 33.50, 'ANTIBIOTICS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('e7b6f4c5d3a1c3e7f8f4c3e6f5e7f6c2'), 'SleepWell', 'Sleep aid with gentle effects.', 17.85, 'SEDATIVES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c3f6e7c5d3e7f8a1c3f6a9c2f5e7b3c6'), 'AllergyRelief', 'Quick-acting antihistamine.', 22.40, 'ANTIHISTAMINES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c4f5e6d3a9c2f4c7f8a1b3c2f7e6f4c5'), 'Vitamin C Booster', 'High-dose vitamin C for immune system.', 14.75, 'VITAMINS_AND_SUPPLEMENTS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c6e7f4b5a1c3e7f6b2c1c3f5e6f8b3d2'), 'PainAway', 'Quick pain relief for headaches.', 14.50, 'PAIN_RELIEVERS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('f3c7e6f5d4a1c3e7f8f6b3c4e7f6e5c3'), 'AntibioticMax', 'Broad-spectrum antibiotic for severe infections.', 33.49, 'ANTIBIOTICS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('f3e4c6b7a9c1c3e6f7a2b3c4e5f6a7b3'), 'DreamSleep', 'Natural sleep aid for restful nights.', 18.75, 'SEDATIVES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c3f6e7b2a1c3f7e8f3a9c2b3c7e6f5d4'), 'AllergyRelief', 'Fast-acting antihistamine for quick relief.', 23.40, 'ANTIHISTAMINES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c4e5d3f6c7e7f8b1c2e7a9c3f7e8f6d5'), 'Vitamin B Complex', 'High-dose vitamin B for energy and focus.', 14.99, 'VITAMINS_AND_SUPPLEMENTS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c3f7e6b5d4e7f8c1a9b2f5c4e7f6c2d3'), 'PainAway', 'Quick pain relief for muscle and joint pain.', 14.25, 'PAIN_RELIEVERS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('e6c3b5f7c2a1c3e6f7f8c1b2c4e5d6f7'), 'AntibioticUltra', 'Advanced antibiotic for various infections.', 33.50, 'ANTIBIOTICS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('e3f6c5a3c7e5f8f3b2c3f4e7c6f7d8a9'), 'DreamEase', 'Natural sleep aid for gentle nights.', 18.55, 'SEDATIVES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c3e7f6d3b1c2a3e7f8b3c5e6f7c2d5e4'), 'AllergyBlock', 'Fast-acting antihistamine for quick relief.', 22.50, 'ANTIHISTAMINES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c4d5f7c6b3e7f8a9c1e7f5d3e6a2b3c7'), 'Vitamin D Supplement', 'Essential vitamin for bone health.', 14.99, 'VITAMINS_AND_SUPPLEMENTS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c3e7f6a3b1c3e4f7f8b1c3f6d3e6f7a9'), 'PainAway', 'Pain reliever for various aches.', 14.25, 'PAIN_RELIEVERS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('c4f5e6d7a9b2c3f7e8f6c3a1c3f4e7d5'), 'AntibioticMax', 'Broad-spectrum antibiotic for severe infections.', 32.50, 'ANTIBIOTICS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
+-- (UNHEX('e7c5a3b2c6e8f4a9b1c3e7f6d4b5c3e6'), 'SleepEase', 'Natural sleep aid for restful nights.', 18.85, 'SEDATIVES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
 -- (UNHEX('b3c7f6a2e3f4c5e6a7c8b2f1d3e6f4a9'), 'AllergyRelief', 'Quick antihistamine for allergy relief.', 21.99, 'ANTIHISTAMINES')
 -- (UNHEX('d5c4e6f7a9c2a3e5c3f7e8b1d3a6c7f4'), 'Vitamin D Supplement', 'High-dose vitamin D for bone health.', 14.95, 'VITAMINS_AND_SUPPLEMENTS')
 -- (UNHEX('c5f6d7a3c4e3f7f8c1e6a9b3c2e5d6f4'), 'PainAway', 'Pain reliever for muscle and joint pain.', 14.25, 'PAIN_RELIEVERS')

@@ -10,9 +10,9 @@ spring:
       fail-on-empty-beans: false
 
   datasource:
-    url: jdbc:mysql://localhost:3306/medicine_service
+    url: jdbc:mysql://localhost:3306/bank
     username: root
-    password: 23402
+    password: 7203312
 
   liquibase:
     change-log: classpath:db/changelog/changelog-master.xml

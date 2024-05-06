@@ -24,7 +24,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "order_id")
-    private UUID ordeId;
+    private UUID orderId;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
@@ -61,18 +61,18 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return Objects.equals(ordeId, order.ordeId) && Objects.equals(user, order.user) && Objects.equals(prescription, order.prescription) && Objects.equals(orderDate, order.orderDate);
+        return Objects.equals(orderId, order.orderId) && Objects.equals(user, order.user) && Objects.equals(prescription, order.prescription) && Objects.equals(orderDate, order.orderDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ordeId, user, prescription, orderDate);
+        return Objects.hash(orderId, user, prescription, orderDate);
     }
 
     @Override
     public String toString() {
         return "Order{" +
-                "ordeId=" + ordeId +
+                "ordeId=" + orderId +
                 ", orderDetails=" + orderDetails +
                 ", orderDate=" + orderDate +
                 ", status=" + status +

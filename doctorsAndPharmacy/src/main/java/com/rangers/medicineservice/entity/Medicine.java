@@ -22,7 +22,7 @@ public class Medicine {
     @Column(name = "medicine_id")
     private UUID medicineId;
 
-    @Column(name = "name")
+    @Column(name = "medicine_name")
     private String name;
 
     @Column(name = "description")
@@ -58,7 +58,7 @@ public class Medicine {
     @Override
     public String toString() {
         return "Medicine{" +
-                "doctorId=" + medicineId +
+                "medicineId=" + medicineId +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +

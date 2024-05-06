@@ -23,9 +23,6 @@ public class Prescription {
     @Column(name = "prescription_id")
     private UUID prescriptionId;
 
-//    @Column(name = "quantity")
-//    private Integer quantity;
-
     @Column(name = "exp_date")
     private LocalDate expDate;
 

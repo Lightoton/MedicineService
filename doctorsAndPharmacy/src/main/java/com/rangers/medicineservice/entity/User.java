@@ -23,10 +23,10 @@ public class User {
     @Column(name = "user_id")
     private UUID userId;
 
-    @Column(name = "firstname")
+    @Column(name = "first_name")
     private String firstname;
 
-    @Column(name = "lastname")
+    @Column(name = "last_name")
     private String lastname;
 
     @Column(name = "email")
