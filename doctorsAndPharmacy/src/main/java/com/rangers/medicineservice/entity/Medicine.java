@@ -1,5 +1,6 @@
 package com.rangers.medicineservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rangers.medicineservice.entity.enums.MedicineCategory;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -37,6 +38,7 @@ public class Medicine {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "pharmacy_id", referencedColumnName = "pharmacy_id")
+    @JsonIgnore
     private Pharmacy pharmacy;
 
     @ManyToMany(mappedBy = "medicines", fetch = FetchType.EAGER)

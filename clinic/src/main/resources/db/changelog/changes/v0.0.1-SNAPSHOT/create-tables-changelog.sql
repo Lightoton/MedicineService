@@ -1,5 +1,4 @@
 --liquibase formatted sql
-
 --changeset liquibase:1
 
 CREATE TABLE IF NOT EXISTS doctors (
@@ -87,15 +86,13 @@ CREATE TABLE IF NOT EXISTS prescriptions (
 CREATE TABLE IF NOT EXISTS orders (
                         order_id BINARY(16) PRIMARY KEY,
                         prescription_id BINARY(16),
-                        od_id BINARY(16),
                         user_id BINARY(16),
                         pharmacy_id BINARY(16),
                         order_date DATETIME,
                         status VARCHAR(50),
-                        sum DECIMAL(10,2),
+                        order_cost DECIMAL(10,2),
                         delivery_address VARCHAR(255),
                         FOREIGN KEY (prescription_id) REFERENCES prescriptions(prescription_id),
-                        FOREIGN KEY (od_id) REFERENCES order_details(order_detail_id),
                         FOREIGN KEY (user_id) REFERENCES users(user_id),
                         FOREIGN KEY (pharmacy_id) REFERENCES pharmacies(pharmacy_id)
 );
