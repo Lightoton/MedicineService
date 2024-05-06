@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -14,20 +16,20 @@ import java.util.UUID;
 @Setter
 @RequiredArgsConstructor
 public class OrderDetail {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "order_detail_id")
     private UUID orderDetailId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "medicine_id", referencedColumnName = "medicine_id")
-    private Medicine medicine;
-
     @Column(name = "quantity")
     private Integer quantity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "medicine_id", referencedColumnName = "medicine_id")
+    private Medicine medicine;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id", referencedColumnName = "order_id")
     private Order order;
 
