@@ -12,7 +12,7 @@ import com.rangers.medicineservice.mapper.util.OrderMapper;
 import com.rangers.medicineservice.repository.CartItemRepository;
 import com.rangers.medicineservice.repository.OrderDetailRepository;
 import com.rangers.medicineservice.repository.OrderRepository;
-import com.rangers.medicineservice.service.OrderService;
+import com.rangers.medicineservice.service.interf.OrderService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
