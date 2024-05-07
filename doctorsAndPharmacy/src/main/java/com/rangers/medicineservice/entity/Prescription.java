@@ -39,7 +39,6 @@ public class Prescription {
     @JoinColumn(name = "doctor_id", referencedColumnName = "doctor_id")
     private Doctor doctor;
 
-    //    to do!!!
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "medicines_prescriptions",
             joinColumns = @JoinColumn(name = "medicine_id"),
