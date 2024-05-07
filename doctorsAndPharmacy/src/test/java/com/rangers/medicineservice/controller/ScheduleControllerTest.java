@@ -39,7 +39,7 @@ class ScheduleControllerTest {
     private ObjectMapper objectMapper;
 
     private final UUID doctorId = UUID.fromString("01f558a1-736b-4916-b7e8-02a06c63ac7a");
-    private final List<String> dateAndTimes = List.of("2023-11-25T21:00", "2023-11-23T19:00");
+    private final List<String> dateAndTimes = List.of("2024-11-23T15:00", "2024-11-23T10:00");
 
 
     @Test
@@ -80,8 +80,8 @@ class ScheduleControllerTest {
     @Test
     void getScheduleTimeByDoctorAndDatePositiveTest() throws Exception {
         ScheduleDateTimeDto scheduleDateTimeDto = new ScheduleDateTimeDto();
-        scheduleDateTimeDto.setDateAndTime(LocalDateTime.parse(dateAndTimes.getLast()));
-        String date = "2023-11-23";
+        scheduleDateTimeDto.setDateAndTime(LocalDateTime.parse(dateAndTimes.getFirst()));
+        String date = "2024-11-23";
         MvcResult mvcResult = mockMvc
                 .perform(MockMvcRequestBuilders
                         .get("/schedule/get_schedule_time_by_Doctor_and_Date/" + doctorId)
@@ -116,11 +116,9 @@ class ScheduleControllerTest {
         ScheduleFullDto scheduleFullDto = new ScheduleFullDto();
         scheduleFullDto.setDoctorSpecialization("THERAPIST");
         scheduleFullDto.setDoctorName("Michael Johnson");
-        scheduleFullDto.setLink("google_meet_link_1");
         scheduleFullDto.setStatus("FREE");
-        scheduleFullDto.setAppointmentType("ONLINE");
-        scheduleFullDto.setDateAndTime("2023-11-23 19:00");
-        String dateAndTime = "2023-11-23 19:00:00";
+        scheduleFullDto.setDateAndTime("2024-11-23 15:00");
+        String dateAndTime = "2024-11-23 15:00:00";
 
         MvcResult mvcResult = mockMvc
                 .perform(MockMvcRequestBuilders

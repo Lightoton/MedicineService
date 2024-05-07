@@ -24,8 +24,6 @@ public interface ScheduleMapper {
     @AfterMapping
     default void updateFullDto(Schedule schedule, @MappingTarget ScheduleFullDto scheduleFullDto) {
         scheduleFullDto.setDateAndTime(schedule.getDateAndTime().toLocalDate().toString()+ " " + schedule.getDateAndTime().toLocalTime());
-        scheduleFullDto.setLink(schedule.getLink());
-        scheduleFullDto.setAppointmentType(schedule.getType().toString());
         scheduleFullDto.setStatus(schedule.getStatus().toString());
         scheduleFullDto.setDoctorName(schedule.getDoctor().getFirstName()+" "+schedule.getDoctor().getLastName());
         scheduleFullDto.setDoctorSpecialization(schedule.getDoctor().getSpecialization().toString());

@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS schedules (
                            schedule_id BINARY(16) PRIMARY KEY,
                            user_id BINARY(16),
                            doctor_id BINARY(16),
-                           date_and_time DATETIME,
+                           date_time DATETIME,
                            status VARCHAR(50),
                            type VARCHAR(50),
                            link VARCHAR(255),
