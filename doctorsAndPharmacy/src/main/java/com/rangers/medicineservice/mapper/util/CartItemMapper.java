@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = MedicineMapper.class)
 public interface CartItemMapper {
 
     CreatedCartItemDto toDto(CartItem cartItem);
@@ -17,8 +17,9 @@ public interface CartItemMapper {
     CartItem toEntity(CartItemBeforeCreationDto cartItemDto);
 
     @Mapping(target = "quantity", source = "quantity")
-    @Mapping(target = "medicine", source = "medicine")
+    @Mapping(target = "medicine", source = "medicine", qualifiedByName = "toDto")
     @Mapping(target = "user", source = "user")
     CartItemToOrderDetailDto toOrderDetailDto(CartItem cartItem);
 }
+
 

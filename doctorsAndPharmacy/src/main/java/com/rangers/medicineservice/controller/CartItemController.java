@@ -2,7 +2,7 @@ package com.rangers.medicineservice.controller;
 
 import com.rangers.medicineservice.dto.CartItemBeforeCreationDto;
 import com.rangers.medicineservice.dto.CreatedCartItemDto;
-import com.rangers.medicineservice.service.CartItemService;
+import com.rangers.medicineservice.service.interf.CartItemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

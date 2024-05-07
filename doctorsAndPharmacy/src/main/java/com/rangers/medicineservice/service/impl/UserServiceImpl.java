@@ -3,7 +3,7 @@ package com.rangers.medicineservice.service.impl;
 import com.rangers.medicineservice.entity.Prescription;
 import com.rangers.medicineservice.entity.User;
 import com.rangers.medicineservice.repository.UserRepository;
-import com.rangers.medicineservice.service.UserService;
+import com.rangers.medicineservice.service.interf.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

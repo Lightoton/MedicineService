@@ -1,4 +1,4 @@
-package com.rangers.medicineservice.service;
+package com.rangers.medicineservice.service.interf;
 
 import com.rangers.medicineservice.dto.CartItemBeforeCreationDto;
 import com.rangers.medicineservice.dto.CreatedCartItemDto;

@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 public class CreatedOrderDto {
     String orderId;
-    User user;
+    UserDto user;
     List<OrderDetail> orderDetails;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     LocalDate orderDate;

@@ -18,7 +18,8 @@ import java.time.LocalDate;
 public interface OrderMapper {
 
 
-    @Mapping(target = "quantity", source = "quantity")
+    @Mapping(target = "orderDetailId", ignore = true)
+    @Mapping(target = "quantity", source = "cartItemDto.quantity")
     @Mapping(target = "medicine", source = "medicine")
     OrderDetail toOrderDetail(CartItemToOrderDetailDto cartItemDto);
 
@@ -28,8 +29,8 @@ public interface OrderMapper {
     OrderBeforeCreation toOrderBeforeCreation(OrderDetail orderDetail);
 
     @Mapping(target = "orderId", ignore = true)
-    @Mapping(target = "user", source = "orderBeforeCreation.user")
-    @Mapping(target = "orderDetails", source = "orderBeforeCreation.orderDetails")
+    @Mapping(target = "user", source = "user")
+    @Mapping(target = "orderDetails", source = "orderDetails")
     @Mapping(target = "orderDate", expression = "java(LocalDate.now())")
     @Mapping(target = "status", expression = "java(OrderStatus.CREATED)")
     @Mapping(target = "orderCost", source = "orderBeforeCreation.orderCost")
@@ -37,7 +38,7 @@ public interface OrderMapper {
     @Mapping(target = "pharmacy", ignore = true)
     CreatedOrderDto toDto(OrderBeforeCreation orderBeforeCreation);
 
-    @Mapping(target = "orderId", source = "orderId")
+    @Mapping(target = "orderId", ignore = true)
     @Mapping(target = "user", source = "user")
     @Mapping(target = "orderDetails", source = "orderDetails")
     @Mapping(target = "orderDate",  source = "orderDate")

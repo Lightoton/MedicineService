@@ -8,7 +8,7 @@ import com.rangers.medicineservice.mapper.util.CartItemMapper;
 import com.rangers.medicineservice.repository.CartItemRepository;
 import com.rangers.medicineservice.repository.MedicineRepository;
 import com.rangers.medicineservice.repository.UserRepository;
-import com.rangers.medicineservice.service.CartItemService;
+import com.rangers.medicineservice.service.interf.CartItemService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

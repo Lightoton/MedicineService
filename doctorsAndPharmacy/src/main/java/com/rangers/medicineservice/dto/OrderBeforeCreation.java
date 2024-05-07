@@ -10,9 +10,9 @@ import java.util.List;
 
 @Data
 public class OrderBeforeCreation {
-    User user;
+    UserDto user;
     List<OrderDetail> orderDetails;
     BigDecimal orderCost;
     String deliveryAddress;
-    Pharmacy pharmacy;
+    String pharmacy;
 }
