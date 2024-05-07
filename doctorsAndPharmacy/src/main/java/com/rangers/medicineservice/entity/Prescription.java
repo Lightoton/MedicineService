@@ -38,10 +38,10 @@ public class Prescription {
 
     //    to do!!!
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "medicines_prescriptions",
-            joinColumns = @JoinColumn(name = "medicine_id"),
+    @JoinTable(name = "prescription_details",
+            joinColumns = @JoinColumn(name = "prescription_details_id"),
             inverseJoinColumns = @JoinColumn(name = "prescription_id"))
-    private List<Medicine> medicines;
+    private List<PrescriptionDetails> prescriptionDetailsList;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
@@ -68,7 +68,6 @@ public class Prescription {
                 ", createdAt=" + createdAt +
                 ", isActive=" + isActive +
                 ", doctor=" + doctor +
-                ", madicine=" + medicines +
                 ", user=" + user +
                 '}';
     }

@@ -1,4 +1,4 @@
-package com.rangers.medicineservice.controller;
+package com.rangers.medicineservice.controller.handler;
 
 import lombok.Value;
 

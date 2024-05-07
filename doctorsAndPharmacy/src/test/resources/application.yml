@@ -3,19 +3,19 @@ spring:
     banner-mode: off
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     open-in-view: false
   jackson:
     serialization:
       fail-on-empty-beans: false
 
   datasource:
-    url: jdbc:mysql://localhost:3306/training
+    url: jdbc:mysql://localhost:3306/test
     username: root
     password: 7203312
 
   liquibase:
-    change-log: classpath:db/changelog/changelog-master.xml
+    enabled: false
 
 server:
   port: 8080

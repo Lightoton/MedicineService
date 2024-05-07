@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS orders (
                         pharmacy_id BINARY(16),
                         order_date DATETIME,
                         status VARCHAR(50),
-                        sum DECIMAL(10,2),
+                        order_cost DECIMAL(10,2),
                         delivery_address VARCHAR(255),
                         FOREIGN KEY (prescription_id) REFERENCES prescriptions(prescription_id),
                         FOREIGN KEY (user_id) REFERENCES users(user_id),

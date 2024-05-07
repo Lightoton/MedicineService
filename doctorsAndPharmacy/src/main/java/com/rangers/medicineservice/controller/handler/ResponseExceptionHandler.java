@@ -1,8 +1,6 @@
-package com.rangers.medicineservice.controller;
+package com.rangers.medicineservice.controller.handler;
 
 import com.rangers.medicineservice.exeption.DataNotExistExp;
-import com.rangers.medicineservice.exeption.InActivePrescriptionExp;
-import com.rangers.medicineservice.exeption.NotEnoughBalanceExp;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

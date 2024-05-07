@@ -57,7 +57,6 @@ public interface OrderFromPrescriptionMapper {
     @AfterMapping
     default void createOrder(@MappingTarget Order order, PrescriptionDto prescriptionDto) {
         order.setStatus(OrderStatus.CREATED);
-//        prescriptionDto.getDeliveryAddress()==null ? order.se
         User user = new User();
         user.setUserId(UUID.fromString(prescriptionDto.getUserId()));
         order.setUser(user);

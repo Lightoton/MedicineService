@@ -3,7 +3,7 @@ package com.rangers.medicineservice.controller.util;
 public class Generator {
     public static String getNewPrescription(){
         return "{\n" +
-                "  \"prescriptionId\": \"ac5c8867-676f-4754-1357-f52cbb9b4a95\",\n" +
+                "  \"prescriptionId\": \"ac5c8867-676f-4754-1357-f74cbb9b4a96\",\n" +
                 "  \"userId\": \"ac5c9927-676f-4737-9357-f52cbb9b4a95\",\n" +
                 "  \"expiryDate\": \"2024-11-25\",\n" +
                 "  \"medicines\": [{\n" +

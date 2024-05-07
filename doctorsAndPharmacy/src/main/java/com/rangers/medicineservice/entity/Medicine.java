@@ -8,7 +8,6 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.Objects;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -42,8 +41,6 @@ public class Medicine {
     @JoinColumn(name = "pharmacy_id", referencedColumnName = "pharmacy_id")
     private Pharmacy pharmacy;
 
-    @ManyToMany(mappedBy = "medicines", fetch = FetchType.EAGER)
-    Set<Prescription> prescriptions;
 
     @Override
     public boolean equals(Object o) {

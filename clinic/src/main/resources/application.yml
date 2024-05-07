@@ -3,7 +3,7 @@ spring:
     banner-mode: off
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     open-in-view: false
   jackson:
     serialization:
