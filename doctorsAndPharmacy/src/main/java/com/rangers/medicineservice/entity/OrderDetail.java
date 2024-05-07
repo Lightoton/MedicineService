@@ -20,12 +20,12 @@ public class OrderDetail {
     @Column(name = "order_detail_id")
     private UUID orderDetailId;
 
+    @Column(name = "quantity")
+    private Integer quantity;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "medicine_id", referencedColumnName = "medicine_id")
     private Medicine medicine;
-
-    @Column(name = "quantity")
-    private Integer quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", referencedColumnName = "order_id")
