@@ -1,12 +1,10 @@
 package com.rangers.medicineservice.service.interf;
 
-import com.rangers.medicineservice.dto.CancelVisitRequestDto;
-import com.rangers.medicineservice.dto.CancelVisitResponseDto;
-import com.rangers.medicineservice.dto.CreateVisitRequestDto;
-import com.rangers.medicineservice.dto.CreateVisitResponseDto;
+import com.rangers.medicineservice.dto.*;
 import com.rangers.medicineservice.entity.Schedule;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 public interface ScheduleService {
@@ -15,4 +13,10 @@ public interface ScheduleService {
     CancelVisitResponseDto cancelVisit(String scheduleId, CancelVisitRequestDto cancelVisitRequestDto);
 
     Schedule findById(UUID id);
+
+    List<ScheduleDateTimeDto> getScheduleDate(UUID doctorId);
+
+    List<ScheduleDateTimeDto> getScheduleTime(UUID doctorId, String date);
+
+    ScheduleFullDto getSchedule(UUID doctorId, String dateAndTime);
 }

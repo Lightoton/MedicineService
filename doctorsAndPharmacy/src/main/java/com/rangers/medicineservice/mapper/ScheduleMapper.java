@@ -17,13 +17,13 @@ public interface ScheduleMapper {
 
     @AfterMapping
     default void updateDto(Schedule schedule, @MappingTarget ScheduleDateTimeDto scheduleDto) {
-        scheduleDto.setDateAndTime(schedule.getDateAndTime());
+        scheduleDto.setDateAndTime(schedule.getDateTime());
     }
 
     ScheduleFullDto toFullDto(Schedule schedule);
     @AfterMapping
     default void updateFullDto(Schedule schedule, @MappingTarget ScheduleFullDto scheduleFullDto) {
-        scheduleFullDto.setDateAndTime(schedule.getDateAndTime().toLocalDate().toString()+ " " + schedule.getDateAndTime().toLocalTime());
+        scheduleFullDto.setDateAndTime(schedule.getDateTime().toLocalDate().toString()+ " " + schedule.getDateTime().toLocalTime());
         scheduleFullDto.setStatus(schedule.getStatus().toString());
         scheduleFullDto.setDoctorName(schedule.getDoctor().getFirstName()+" "+schedule.getDoctor().getLastName());
         scheduleFullDto.setDoctorSpecialization(schedule.getDoctor().getSpecialization().toString());
