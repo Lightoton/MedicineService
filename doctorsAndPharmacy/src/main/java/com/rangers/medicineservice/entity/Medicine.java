@@ -1,5 +1,6 @@
 package com.rangers.medicineservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rangers.medicineservice.entity.enums.MedicineCategory;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -22,7 +23,7 @@ public class Medicine {
     @Column(name = "medicine_id")
     private UUID medicineId;
 
-    @Column(name = "name")
+    @Column(name = "medicine_name")
     private String name;
 
     @Column(name = "description")
@@ -30,6 +31,9 @@ public class Medicine {
 
     @Column(name = "price")
     private BigDecimal price;
+
+    @Column(name = "available_quantity")
+    private int availableQuantity;
 
     @Column(name = "category")
     @Enumerated(EnumType.STRING)
