@@ -27,7 +27,6 @@ public class MedicineServiceImpl implements MedicineService {
             throw new ListIsEmptyException(ErrorMessage.THERE_ARE_NO_MEDICINES);
         }
         return medicineList.stream().map(medicineMapper::toDto).toList();
-
     }
 
     @Transactional
