@@ -31,6 +31,9 @@ public class Medicine {
     @Column(name = "price")
     private BigDecimal price;
 
+    @Column(name = "quantity")
+    private int quantity;
+
     @Column(name = "category")
     @Enumerated(EnumType.STRING)
     private MedicineCategory category;

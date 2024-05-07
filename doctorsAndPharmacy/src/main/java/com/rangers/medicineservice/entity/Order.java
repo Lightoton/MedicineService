@@ -26,10 +26,12 @@ public class Order {
     @Column(name = "order_id")
     private UUID orderId;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
 
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "prescription_id", referencedColumnName = "prescription_id")
     private Prescription prescription;
@@ -52,6 +54,7 @@ public class Order {
     @Column(name = "delivery_address")
     private String deliveryAddress;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "pharmacy_id", referencedColumnName = "pharmacy_id")
     private Pharmacy pharmacy;
