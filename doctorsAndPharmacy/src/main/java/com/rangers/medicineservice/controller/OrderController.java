@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+
 @RestController
 @RequestMapping("/order")
 @RequiredArgsConstructor
@@ -29,7 +31,7 @@ public class OrderController {
                             mediaType = "application/json",
                             schema = @Schema(implementation = CreatedOrderDto.class))
             })
-    public CreatedOrderDto createOrder(@RequestBody CartItem cartItem){
-        return service.createOrder(cartItem);
+    public CreatedOrderDto createOrder(@RequestBody Set<CartItem> cartItems){
+        return service.createOrder(cartItems);
     }
 }

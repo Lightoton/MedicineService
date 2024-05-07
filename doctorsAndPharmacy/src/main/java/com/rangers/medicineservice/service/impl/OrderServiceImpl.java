@@ -39,47 +39,52 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public CreatedOrderDto createOrder(CartItem cartItem) {
-        CartItemToOrderDetailDto cartItemToOrderDetailDto =
-                cartItemMapper.toOrderDetailDto(
-                        cartItemRepository.findById(cartItem.getCartItemId()).orElse(null)
-                );
+    public CreatedOrderDto createOrder(Set<CartItem> cartItems) {
+        if (cartItems.isEmpty()) {
+            throw new IllegalArgumentException("Cart items set cannot be empty.");
+        }
 
-        OrderDetail orderDetail = orderMapper.toOrderDetail(cartItemToOrderDetailDto);
-        orderDetail.setMedicine(medicineMapper.toEntity(cartItemToOrderDetailDto.getMedicine()));
+        List<OrderDetail> orderDetails = new ArrayList<>();
+        BigDecimal orderCost = BigDecimal.ZERO;
 
-        OrderBeforeCreation orderBeforeCreation = orderMapper.toOrderBeforeCreation(orderDetail);
+        OrderBeforeCreation orderBeforeCreation = new OrderBeforeCreation(); // Создаем один объект для заказа
+
+        for (CartItem cartItem : cartItems) {
+            CartItemToOrderDetailDto dto = cartItemMapper.toOrderDetailDto(
+                    cartItemRepository.findById(cartItem.getCartItemId()).orElse(null)
+            );
+
+            OrderDetail orderDetail = orderMapper.toOrderDetail(dto);
+            orderDetail.setMedicine(medicineMapper.toEntity(dto.getMedicine()));
+            orderDetails.add(orderDetail);
+
+            BigDecimal itemCost = orderDetail.getMedicine().getPrice().multiply(new BigDecimal(orderDetail.getQuantity()));
+            orderCost = orderCost.add(itemCost);
+        }
+
+        orderBeforeCreation.setOrderDetails(orderDetails); // Устанавливаем все детали заказа
+        orderBeforeCreation.setOrderCost(orderCost); // Устанавливаем стоимость заказа
 
         Order order = orderMapper.toEntity(orderMapper.toDto(orderBeforeCreation));
-
-        //set OrderDetail to Order
-        List<OrderDetail> orderDetailList = new ArrayList<>();
-        orderDetailList.add(orderDetail);
-        orderBeforeCreation.setOrderDetails(orderDetailList);
-        orderDetail.setOrder(order);
-
-        //count total sum of order (orderCost)
-        BigDecimal orderCost =
-                orderBeforeCreation.getOrderDetails().stream()
-                        .map(detail -> detail.getMedicine()
-                                .getPrice()
-                                .multiply(new BigDecimal(detail.getQuantity())))
-                        .reduce(BigDecimal.ZERO, BigDecimal::add);
-        //save orderCost
-        orderBeforeCreation.setOrderCost(orderCost);
         order.setOrderCost(orderCost);
+        order.setOrderDetails(orderDetails);
 
-        order.setUser(userMapper.toEntity(cartItemToOrderDetailDto.getUser()));
+        // Определяем пользователя из первого элемента корзины
+        CartItem firstCartItem = cartItems.iterator().next();
+        CartItemToOrderDetailDto firstDto = cartItemMapper.toOrderDetailDto(
+                cartItemRepository.findById(firstCartItem.getCartItemId()).orElse(null)
+        );
+        order.setUser(userMapper.toEntity(firstDto.getUser()));
 
-        //set order to user
-        Set<Order> orders = new HashSet<>();
-        orders.add(order);
-        userMapper.toEntity(cartItemToOrderDetailDto.getUser()).setOrders(orders);
+        // Сохраняем все детали заказа
+        for (OrderDetail detail : orderDetails) {
+            detail.setOrder(order);
+            orderDetailRepository.save(detail);
+        }
 
-        //saving
-        orderDetailRepository.save(orderDetail);
-        orderRepository.saveAndFlush(order);
+        orderRepository.saveAndFlush(order); // Сохраняем заказ
 
         return orderMapper.toDto(orderBeforeCreation);
     }
+
 }
