@@ -24,7 +24,21 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "order_id")
-    private UUID ordeId;
+    private UUID orderId;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
+
+    @Column(name = "order_cost")
+    private BigDecimal orderCost;
+
+    @Column(name = "delivery_address")
+    private String deliveryAddress;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "pharmacy_id", referencedColumnName = "pharmacy_id")
+    private Pharmacy pharmacy;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
@@ -42,37 +56,23 @@ public class Order {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate orderDate;
 
-    @Column(name = "status")
-    @Enumerated(EnumType.STRING)
-    private OrderStatus status;
-
-    @Column(name = "order_cost")
-    private BigDecimal orderCost;
-
-    @Column(name = "delivery_address")
-    private String deliveryAddress;
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "pharmacy_id", referencedColumnName = "pharmacy_id")
-    private Pharmacy pharmacy;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return Objects.equals(ordeId, order.ordeId) && Objects.equals(user, order.user) && Objects.equals(prescription, order.prescription) && Objects.equals(orderDate, order.orderDate);
+        return Objects.equals(orderId, order.orderId) && Objects.equals(user, order.user) && Objects.equals(prescription, order.prescription) && Objects.equals(orderDate, order.orderDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ordeId, user, prescription, orderDate);
+        return Objects.hash(orderId, user, prescription, orderDate);
     }
 
     @Override
     public String toString() {
         return "Order{" +
-                "ordeId=" + ordeId +
+                "ordeId=" + orderId +
                 ", orderDetails=" + orderDetails +
                 ", orderDate=" + orderDate +
                 ", status=" + status +
