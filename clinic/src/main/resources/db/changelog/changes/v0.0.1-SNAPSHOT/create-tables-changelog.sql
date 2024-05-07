@@ -76,7 +76,6 @@ CREATE TABLE IF NOT EXISTS prescriptions (
                                prescription_id BINARY(16) PRIMARY KEY,
                                medicine_id BINARY(16),
                                doctor_id BINARY(16),
-                               quantity INT,
                                user_id BINARY(16),
                                exp_date DATETIME,
                                created_at DATETIME,

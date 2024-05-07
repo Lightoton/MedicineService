@@ -22,6 +22,11 @@
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <version>8.3.0</version>
+        <dependency>
+            <groupId>org.jacoco</groupId>
+            <artifactId>org.jacoco.agent</artifactId>
+            <version>0.8.10</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
@@ -30,6 +35,40 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.10</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jcc-report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <excludes>
+                        <exclude>com/rangers/medicineservice/aspect/*</exclude>
+                        <exclude>com/rangers/medicineservice/entity/*</exclude>
+                        <exclude>com/rangers/medicineservice/dto/*</exclude>
+                        <exclude>com/rangers/medicineservice/exception/**</exclude>
+                        <exclude>com/rangers/medicineservice/mapper/*</exclude>
+                        <exclude>com/rangers/medicineservice/model/*</exclude>
+                        <exclude>com/rangers/medicineservice/config/*</exclude>
+                        <exclude>com/rangers/medicineservice/validation/**</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 </project>

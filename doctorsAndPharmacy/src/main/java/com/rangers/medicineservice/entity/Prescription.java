@@ -23,8 +23,8 @@ public class Prescription {
     @Column(name = "prescription_id")
     private UUID prescriptionId;
 
-    @Column(name = "quantity")
-    private Integer quantity;
+//    @Column(name = "quantity")
+//    private Integer quantity;
 
     @Column(name = "exp_date")
     private LocalDate expDate;
@@ -54,19 +54,18 @@ public class Prescription {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Prescription prescription = (Prescription) o;
-        return isActive == prescription.isActive && Objects.equals(prescriptionId, prescription.prescriptionId) && Objects.equals(quantity, prescription.quantity) && Objects.equals(expDate, prescription.expDate) && Objects.equals(createdAt, prescription.createdAt);
+        return isActive == prescription.isActive && Objects.equals(prescriptionId, prescription.prescriptionId)  && Objects.equals(expDate, prescription.expDate) && Objects.equals(createdAt, prescription.createdAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(prescriptionId, quantity, expDate, createdAt, isActive);
+        return Objects.hash(prescriptionId, expDate, createdAt, isActive);
     }
 
     @Override
     public String toString() {
         return "Recept{" +
                 "receptId=" + prescriptionId +
-                ", quantity=" + quantity +
                 ", expDate=" + expDate +
                 ", createdAt=" + createdAt +
                 ", isActive=" + isActive +
