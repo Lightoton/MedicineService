@@ -1,13 +1,9 @@
 package com.rangers.medicineservice.mapper;
 
 import com.rangers.medicineservice.dto.OrderDto;
-import com.rangers.medicineservice.dto.UserHistoryOrdersDto;
 import com.rangers.medicineservice.entity.Order;
 import org.mapstruct.*;
 import org.springframework.stereotype.Component;
-
-import java.sql.Timestamp;
-import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE)

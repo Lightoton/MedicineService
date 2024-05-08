@@ -1,7 +1,5 @@
 package com.rangers.medicineservice.mapper;
 
-import java.sql.Timestamp;
-
 import com.rangers.medicineservice.dto.UserAfterRegistrationDto;
 import com.rangers.medicineservice.dto.UserInfoDto;
 import com.rangers.medicineservice.dto.UserRegistrationDto;

@@ -1,9 +1,6 @@
 package com.rangers.medicineservice.dto;
 
 import lombok.Data;
-import lombok.Value;
-
-import java.util.UUID;
 
 @Data
 public class UserAfterRegistrationDto {
