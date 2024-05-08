@@ -6,11 +6,9 @@ import com.rangers.medicineservice.dto.UserRegistrationDto;
 import com.rangers.medicineservice.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
-import org.mapstruct.ReportingPolicy;
 import org.springframework.stereotype.Component;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
-        unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 @Component
 public interface UserMapper {
     UserInfoDto toDto(User user);

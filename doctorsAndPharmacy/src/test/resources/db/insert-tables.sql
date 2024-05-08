@@ -1,6 +1,6 @@
-# --liquibase formatted sql
-#
-# --changeset liquibase:10
+--liquibase formatted sql
+
+--changeset liquibase:10
 
 INSERT INTO doctors (doctor_id, first_name, last_name, specialization, rating)
 VALUES

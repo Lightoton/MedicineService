@@ -46,12 +46,12 @@ class UserControllerTest {
                                 {
                                   "firstname": "Test firstname of user",
                                   "lastname": "Test lastname of user",
-                                  "email": "email",
-                                  "phoneNumber": "phoneNumber",
-                                  "address": "address",
-                                  "city": "city",
-                                  "country": "country",
-                                  "postalCode": "postalCode",
+                                  "email": "test email",
+                                  "phoneNumber": "test phoneNumber",
+                                  "address": "test address",
+                                  "city": "test city",
+                                  "country": "test country",
+                                  "postalCode": "51000",
                                   "policyNumber": "25449599043",
                                   "chatId": "099"
                                 }
