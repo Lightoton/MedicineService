@@ -1,5 +1,3 @@
---liquibase formatted sql
---changeset liquibase:10
 
 INSERT INTO users (user_id, first_name, last_name, email, phone_number, address, city, country, postal_code, chat_id, policy_number)
 VALUES
@@ -14,7 +12,7 @@ VALUES
     (UNHEX('8bda13952ee34aee80c1842bedd9f4c1'), 'David', 'Martinez', 'OCULIST', 4.8);
 
 
-INSERT INTO medicines (medicine_id, medicine_name, description, price, category, pharmacy_id,quantity)
+INSERT INTO medicines (medicine_id, medicine_name, description, price, category, pharmacy_id,available_quantity)
 VALUES
     (UNHEX('ac5c8867676f4737931f052cbb9b4a84'), 'SleepEase', 'Gentle sleep aid with natural ingredients for restful sleep.', 19.99, 'SEDATIVES', UNHEX('ac5c8867676f4737931f052cbb9b4a94'),10),
     (UNHEX('b585b9c08b7f493fb3c39018d3f8773d'), 'Amoxicillin', 'Commonly used antibiotic for bacterial infections.', 12.49, 'ANTIBIOTICS', UNHEX('ac5c8867676f4737931f052cbb9b4a94'),15),
@@ -36,13 +34,24 @@ VALUES
 
 INSERT INTO prescriptions (prescription_id, doctor_id,user_id,exp_date,created_at,is_active )
 VALUES
-    (UNHEX('ac5c9927676f47142357f52cbb9b4a95'),UNHEX('d1fd8b7990aa4f4aae0c8ae2069443e3'), UNHEX('ac5c9927676f47379357f52cbb9b4a95'),'2024-11-25 17:00:00','2023-11-25 17:00:00' ,true),
-    (UNHEX('ac5c8867676f47541357f74cbb9b4a96'),UNHEX('d1fd8b7990aa4f4aae0c8ae2069443e3'), UNHEX('ac5c9927676f47379357f52cbb9b4a95'),'2024-11-25 17:00:00','2023-11-25 17:00:00', true);
+--     ok
+(UNHEX('ac5c9927676f47142357f52cbb9b4a95'),UNHEX('d1fd8b7990aa4f4aae0c8ae2069443e3'), UNHEX('ac5c9927676f47379357f52cbb9b4a95'),'2024-11-25 17:00:00','2023-11-25 17:00:00' ,true),
+--    expDate
+(UNHEX('ac5c8867676f47541357f52cbb9b4a95'),UNHEX('d1fd8b7990aa4f4aae0c8ae2069443e3'), UNHEX('ac5c9927676f47379357f52cbb9b4a95'), '2023-11-26 17:00:00','2023-11-25 17:00:00', true),
+--     inActive
+(UNHEX('ac5c7767676f47541357f52cbb9b4a95'),UNHEX('d1fd8b7990aa4f4aae0c8ae2069443e3'), UNHEX('ac5c9927676f47379357f52cbb9b4a95'), '2025-11-26 17:00:00','2023-11-25 17:00:00', false),
+--     negativeBalance
+(UNHEX('ac5c5567676f47541357f52cbb9b4a95'),UNHEX('d1fd8b7990aa4f4aae0c8ae2069443e3'), UNHEX('ac5c9927676f47379357f52cbb9b4a95'), '2025-11-26 17:00:00','2023-11-25 17:00:00', true),
+--     empty
+(UNHEX('ac4c4467676f47541357f52cbb9b4a95'),UNHEX('d1fd8b7990aa4f4aae0c8ae2069443e3'), UNHEX('ac5c9927676f47379357f52cbb9b4a95'), '2025-11-26 17:00:00','2023-11-25 17:00:00', true);
+
 
 
 INSERT INTO prescription_details(prescription_details_id,prescription_id,medicine_id,quantity)
 VALUES (UNHEX('c5f4e7d8a1c3b6e2f7d9b3a5c6f4a2e7'),UNHEX('ac5c9927676f47142357f52cbb9b4a95'),UNHEX('ac5c8867676f4737931f052cbb9b4a84'),2),
-       (UNHEX('b7d8a29f5e6f4874b3c2d1f4a9b6c7e5'),UNHEX('ac5c9927676f47142357f52cbb9b4a95'),UNHEX('b585b9c08b7f493fb3c39018d3f8773d'),1),
        (UNHEX('e7f3c6a9d5c4b2a1f8e5c6a3f7b2d9c4'),UNHEX('ac5c9927676f47142357f52cbb9b4a95'),UNHEX('01f558a1736b4916b7e802a06c63ac8a'),1),
-       (UNHEX('d4e5f7b3c6a8f2c1a3e7f6b5c4d9e8a7'),UNHEX('ac5c9927676f47142357f52cbb9b4a95'),UNHEX('5c51a0874b5f4d038ab12d2bc4fc2f15'),1),
-       (UNHEX('a3c7e6f5b4a9b1f2e3f6c4d5a2b3c9f7'),UNHEX('ac5c9927676f47142357f52cbb9b4a95'),UNHEX('8bda13952ee34aee80c1842bedd9f4c2'),1);
+       (UNHEX('a3c7e6f5b4a9b1f2e3f6c4d5a2b3c9f7'),UNHEX('ac5c9927676f47142357f52cbb9b4a95'),UNHEX('8bda13952ee34aee80c1842bedd9f4c2'),1),
+       (UNHEX('a5c3e6f5b4a9b1f2e3f6c4d5a2b3c9f7'),UNHEX('ac5c8867676f47541357f52cbb9b4a95'),UNHEX('8bda13952ee34aee80c1842bedd9f4c2'),1),
+       (UNHEX('a1c1e6f2b4a9b1f2e3f6c4d5a2b3c9f7'),UNHEX('ac5c7767676f47541357f52cbb9b4a95'),UNHEX('8bda13952ee34aee80c1842bedd9f4c2'),1),
+       (UNHEX('a4c3e6f2b4a9b1f2e3f6c4d5a2b3c9f7'),UNHEX('ac5c5567676f47541357f52cbb9b4a95'),UNHEX('8bda13952ee34aee80c1842bedd9f4c2'),1),
+       (UNHEX('a4c5e6f2b6a9b1f2e3f6c4d5a2b3c9f7'),UNHEX('ac5c5567676f47541357f52cbb9b4a95'),UNHEX('b585b9c08b7f493fb3c39018d3f8773d'),1);

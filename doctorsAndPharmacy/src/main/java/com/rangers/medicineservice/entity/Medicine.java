@@ -30,8 +30,8 @@ public class Medicine {
     @Column(name = "price")
     private BigDecimal price;
 
-    @Column(name = "quantity")
-    private int quantity;
+    @Column(name = "available_quantity")
+    private int availableQuantity;
 
     @Column(name = "category")
     @Enumerated(EnumType.STRING)
@@ -40,7 +40,6 @@ public class Medicine {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "pharmacy_id", referencedColumnName = "pharmacy_id")
     private Pharmacy pharmacy;
-
 
     @Override
     public boolean equals(Object o) {

@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS medicines (
                            price DECIMAL(8,2),
                            category VARCHAR(255),
                            pharmacy_id BINARY(16),
-                           quantity INT
+    available_quantity INT
 );
 
 CREATE TABLE IF NOT EXISTS users (
@@ -74,13 +74,11 @@ CREATE TABLE IF NOT EXISTS order_details (
 
 CREATE TABLE IF NOT EXISTS prescriptions (
                                prescription_id BINARY(16) PRIMARY KEY,
-                               medicine_id BINARY(16),
                                doctor_id BINARY(16),
                                user_id BINARY(16),
                                exp_date DATETIME,
                                created_at DATETIME,
                                is_active BOOLEAN,
-                               FOREIGN KEY (medicine_id) REFERENCES medicines(medicine_id),
                                FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id),
                                FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
@@ -99,10 +97,11 @@ CREATE TABLE IF NOT EXISTS orders (
                         FOREIGN KEY (pharmacy_id) REFERENCES pharmacies(pharmacy_id)
 );
 
-CREATE TABLE IF NOT EXISTS medicines_prescriptions (
-                                         medicine_id BINARY(16),
-                                         prescription_id BINARY(16),
-                                         PRIMARY KEY (medicine_id, prescription_id),
-                                         FOREIGN KEY (prescription_id) REFERENCES prescriptions(prescription_id),
-                                         FOREIGN KEY (medicine_id) REFERENCES medicines(medicine_id)
-);
+CREATE TABLE IF NOT EXISTS prescription_details (
+    prescription_details_id BINARY(16) PRIMARY KEY,
+    prescription_id BINARY(16),
+    medicine_id BINARY(16),
+    quantity int,
+    FOREIGN KEY (prescription_id) REFERENCES prescriptions(prescription_id),
+    FOREIGN KEY (medicine_id) REFERENCES medicines(medicine_id)
+    );
