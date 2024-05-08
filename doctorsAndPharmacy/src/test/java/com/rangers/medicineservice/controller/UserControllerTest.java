@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultMatcher;
@@ -31,13 +32,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @DisplayName("Test class for UserController")
+@Sql("/db/drop-tables.sql")
+@Sql("/db/create-tables.sql")
+@Sql("/db/insert-tables.sql")
 class UserControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Autowired
     private UserRepository userRepository;
@@ -59,16 +60,16 @@ class UserControllerTest {
                                   "city": "city",
                                   "country": "country",
                                   "postalCode": "postalCode",
-                                  "policyNumber": "12344321",
-                                  "chatId": "011"
+                                  "policyNumber": "25449599043",
+                                  "chatId": "099"
                                 }
                                 """))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstname", is("Test firstname of user")))
                 .andExpect(jsonPath("$.lastname", is("Test lastname of user")))
-                .andExpect(jsonPath("$.policyNumber", is("12344321")));
-        UUID userId = userRepository.getUserByPolicyNumber("12344321").getUserId();
+                .andExpect(jsonPath("$.policyNumber", is("25449599043")));
+        UUID userId = userRepository.getUserByPolicyNumber("25449599043").getUserId();
         userRepository.deleteById(userId);
         Optional<User> findUser = userRepository.findById(userId);
         assertFalse(findUser.isPresent());

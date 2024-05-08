@@ -1,20 +1,21 @@
 package com.rangers.medicineservice.dto;
 
+import lombok.Data;
 import lombok.Value;
 
 import java.util.UUID;
 
-@Value
+@Data
 public class UserAfterRegistrationDto {
-    String operation = "USER CREATION";
-    String status = "CREATED";
-    String firstname;
-    String lastname;
-    String email;
-    String phoneNumber;
-    String address;
-    String city;
-    String country;
-    String postalCode;
-    String policyNumber;
+    private String operation = "USER CREATION";
+    private String status = "CREATED";
+    private String firstname;
+    private String lastname;
+    private String email;
+    private String phoneNumber;
+    private String address;
+    private String city;
+    private String country;
+    private String postalCode;
+    private String policyNumber;
 }

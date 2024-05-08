@@ -2,7 +2,7 @@ package com.rangers.medicineservice.controller;
 
 import com.rangers.medicineservice.annotation.user.*;
 import com.rangers.medicineservice.dto.*;
-import com.rangers.medicineservice.service.interfaces.UserService;
+import com.rangers.medicineservice.service.interf.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
