@@ -43,9 +43,6 @@ public class Medicine {
     @JoinColumn(name = "pharmacy_id", referencedColumnName = "pharmacy_id")
     private Pharmacy pharmacy;
 
-    @ManyToMany(mappedBy = "medicines", fetch = FetchType.EAGER)
-    Set<Prescription> prescriptions;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

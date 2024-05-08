@@ -5,7 +5,6 @@ import com.rangers.medicineservice.annotation.GetScheduleByDoctorAndDateMapping;
 import com.rangers.medicineservice.annotation.GetScheduleByDoctorMapping;
 import com.rangers.medicineservice.dto.ScheduleDateTimeDto;
 import com.rangers.medicineservice.dto.ScheduleFullDto;
-import com.rangers.medicineservice.service.interfaces.ScheduleService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import com.rangers.medicineservice.annotation.CancelVisit;
 import com.rangers.medicineservice.annotation.CreateVisit;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.UUID;
-import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/schedule")
@@ -47,8 +45,6 @@ public class ScheduleController {
         dateAndTime = dateAndTime.replace("\"", "");
         return scheduleService.getSchedule(doctorId, dateAndTime);
     }
-
-    private final ScheduleService scheduleService;
 
     @CreateVisit(path = "/create/{schedule_id}")
     public CreateVisitResponseDto createVisit(@RequestBody CreateVisitRequestDto createVisitRequestDto,

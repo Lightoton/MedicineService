@@ -10,15 +10,17 @@ import org.springframework.stereotype.Component;
 @Component
 public interface DoctorMapper {
 
-    @Mappings({
-            @Mapping(target = "fullName", ignore = true),
-            @Mapping(target = "rating", source = "rating"),
-            @Mapping(target = "specialization", source = "specialization")
-    })
+//    @Mappings({
+//            @Mapping(target = "fullName", ignore = true),
+//            @Mapping(target = "rating", ignore = true),
+//            @Mapping(target = "specialization", ignore = true)
+//    })
     public DoctorDto toDto(Doctor doctor);
 
     @AfterMapping
     default void generateDoctorDto(@MappingTarget DoctorDto doctorDto, Doctor doctor){
+        doctorDto.setRating(doctor.getRating());
+        doctorDto.setSpecialization(String.valueOf(doctor.getSpecialization()));
         String fullName = doctor.getFirstName() + " " + doctor.getLastName();
         doctorDto.setFullName(fullName);
     }

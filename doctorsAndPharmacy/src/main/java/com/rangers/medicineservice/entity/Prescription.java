@@ -23,9 +23,6 @@ public class Prescription {
     @Column(name = "prescription_id")
     private UUID prescriptionId;
 
-//    @Column(name = "quantity")
-//    private Integer quantity;
-
     @Column(name = "exp_date")
     private LocalDate expDate;
 
@@ -39,11 +36,9 @@ public class Prescription {
     @JoinColumn(name = "doctor_id", referencedColumnName = "doctor_id")
     private Doctor doctor;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "medicines_prescriptions",
-            joinColumns = @JoinColumn(name = "medicine_id"),
-            inverseJoinColumns = @JoinColumn(name = "prescription_id"))
-    private List<Medicine> medicines;
+    @OneToMany(mappedBy = "prescription", fetch = FetchType.EAGER)
+    private List<PrescriptionDetail> prescriptionDetails;
+
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
@@ -70,7 +65,6 @@ public class Prescription {
                 ", createdAt=" + createdAt +
                 ", isActive=" + isActive +
                 ", doctor=" + doctor +
-                ", madicine=" + medicines +
                 ", user=" + user +
                 '}';
     }

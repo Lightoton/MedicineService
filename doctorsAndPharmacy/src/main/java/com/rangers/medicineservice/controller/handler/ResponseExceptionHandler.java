@@ -23,7 +23,7 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorExtension> handleObjectDoesNotExistException(ObjectDoesNotExistException ex) {
         ErrorExtension body = new ErrorExtension(
                 ex.getMessage(),
-                HttpStatus.NOT_FOUND.value());
+                HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
@@ -31,14 +31,14 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorExtension> handleBadRequestException(BadRequestException ex) {
         ErrorExtension body = new ErrorExtension(
                 ex.getMessage(),
-                HttpStatus.BAD_REQUEST.value());
+                HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorExtension> handleIllegalArgumentException(IllegalArgumentException ex) {
         ErrorExtension body = new ErrorExtension(ex.getMessage(),
-                HttpStatus.BAD_REQUEST.value());
+                HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 

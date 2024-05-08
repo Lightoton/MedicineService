@@ -19,13 +19,16 @@ import java.util.UUID;
 
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, UUID> {
+
+    Schedule findByScheduleId(UUID id);
+
     @Query("SELECT s FROM Schedule s WHERE s.doctor.doctorId = :doctorId AND s.status = 'FREE'")
     List<Schedule> findByDoctor(@Param("doctorId") UUID doctorId);
 
-    @Query("SELECT s FROM Schedule s WHERE s.doctor.doctorId = :doctorId AND DATE(s.dateAndTime) = :date")
+    @Query("SELECT s FROM Schedule s WHERE s.doctor.doctorId = :doctorId AND DATE(s.dateTime) = :date")
     List<Schedule> findByDoctorIdAndDate(@Param("doctorId") UUID doctorId, @Param("date") LocalDate date);
 
-    @Query("SELECT s FROM Schedule s WHERE s.doctor.doctorId = :doctorId AND s.dateAndTime = :time")
+    @Query("SELECT s FROM Schedule s WHERE s.doctor.doctorId = :doctorId AND s.dateTime = :time")
     Schedule findByDoctorIdAndDateAndTime(@Param("doctorId") UUID doctorId,@Param("time") LocalDateTime time);
-    Schedule findByScheduleId(UUID id);
+
 }

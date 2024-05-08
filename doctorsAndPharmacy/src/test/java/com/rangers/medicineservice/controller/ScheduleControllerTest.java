@@ -5,13 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rangers.medicineservice.dto.ScheduleDateTimeDto;
 import com.rangers.medicineservice.dto.ScheduleFullDto;
 import com.rangers.medicineservice.entity.Schedule;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rangers.medicineservice.entity.Schedule;
 import com.rangers.medicineservice.service.impl.ScheduleServiceImpl;
-import lombok.RequiredArgsConstructor;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -28,9 +23,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
 import java.util.UUID;
 
 import static org.hamcrest.Matchers.containsString;
@@ -52,7 +44,7 @@ class ScheduleControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
   
-  @Autowired
+    @Autowired
     private ScheduleServiceImpl scheduleService;
 
     private final String json1 = """
@@ -179,9 +171,7 @@ class ScheduleControllerTest {
                           "errorCode": "NOT_FOUND"
                         }"""));
 
-   
-    
-
+    }
 
     @Test
     void createVisitPositiveTest() throws Exception {
