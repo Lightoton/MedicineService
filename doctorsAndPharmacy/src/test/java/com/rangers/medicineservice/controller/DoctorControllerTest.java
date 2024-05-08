@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Sql("/db/drop-tables.sql")
 @Sql("/db/create-tables.sql")
-@Sql("/db/insert_test_data.sql")
+@Sql("/db/insert-tables.sql")
 
 class DoctorControllerTest {
     @Autowired

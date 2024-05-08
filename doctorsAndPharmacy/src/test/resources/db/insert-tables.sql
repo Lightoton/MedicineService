@@ -1,4 +1,5 @@
 --liquibase formatted sql
+
 --changeset liquibase:10
 
 INSERT INTO doctors (doctor_id, first_name, last_name, specialization, rating)
@@ -9,7 +10,7 @@ VALUES
     (UNHEX('5c51a0874b5f4d038ab12d2bc4fc2f14'), 'Emily', 'Brown', 'TRAUMATOLOGIST', '4.2'),
     (UNHEX('8bda13952ee34aee80c1842bedd9f4c1'), 'David', 'Martinez', 'OCULIST', '4.8');
 
-INSERT INTO medicines (medicine_id, medicine_name, description, price, available_quantity, category, pharmacy_id)
+INSERT INTO medicines (medicine_id, medicine_name, description, price, quantity, category, pharmacy_id)
 VALUES
     (UNHEX('ac5c8867676f4737931f052cbb9b4a84'), 'SleepEase', 'Gentle sleep aid with natural ingredients for restful sleep.', 19.99, 50, 'SEDATIVES', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
     (UNHEX('b585b9c08b7f493fb3c39018d3f8773d'), 'Amoxicillin', 'Commonly used antibiotic for bacterial infections.', 12.49, 0, 'ANTIBIOTICS', UNHEX('ac5c8867676f4737931f052cbb9b4a94')),
@@ -38,8 +39,8 @@ VALUES
 
 INSERT INTO prescriptions (prescription_id, doctor_id,user_id,exp_date,created_at,is_active )
 VALUES
-    (UNHEX('ac5c9927676f47142357f52cbb9b4a95'),UNHEX('d1fd8b7990aa4f4aae0c8ae2069443e3'), UNHEX('ac5c9927676f47379357f52cbb9b4a95'),'2024-11-25 17:00:00','2023-11-25 17:00:00' ,true),
-    (UNHEX('ac5c8867676f47541357f74cbb9b4a96'),UNHEX('d1fd8b7990aa4f4aae0c8ae2069443e3'), UNHEX('ac5c9927676f47379357f52cbb9b4a95'),'2024-11-25 17:00:00','2023-11-25 17:00:00', true);
+    (UNHEX('ac5c9927676f47142357f52cbb9b4a95'),UNHEX('d1fd8b7990aa4f4aae0c8ae2069443e3'), UNHEX('ac5c8867676f4737931f052cbb9b4a59'),'2024-11-25 17:00:00','2023-11-25 17:00:00' ,true),
+    (UNHEX('ac5c8867676f47541357f74cbb9b4a96'),UNHEX('d1fd8b7990aa4f4aae0c8ae2069443e3'), UNHEX('ac5c8867676f4737931f052cbb9b4a59'),'2024-11-25 17:00:00','2023-11-25 17:00:00', true);
 
 
 INSERT INTO prescription_details(prescription_details_id,prescription_id,medicine_id,quantity)

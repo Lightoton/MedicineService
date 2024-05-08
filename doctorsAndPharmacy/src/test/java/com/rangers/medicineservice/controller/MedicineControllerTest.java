@@ -41,7 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RequiredArgsConstructor
 @Sql("/db/drop-tables.sql")
 @Sql("/db/create-tables.sql")
-@Sql("/db/insert_test_data.sql")
+@Sql("/db/insert-tables.sql")
 class MedicineControllerTest {
 
     @Autowired
