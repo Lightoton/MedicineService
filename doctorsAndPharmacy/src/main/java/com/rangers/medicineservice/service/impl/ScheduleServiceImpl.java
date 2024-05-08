@@ -96,24 +96,26 @@ public class ScheduleServiceImpl implements ScheduleService {
         }
         return dateAndTime;
     }
-        public CancelVisitResponseDto cancelVisit (String scheduleId, CancelVisitRequestDto cancelVisitRequestDto){
-            Optional<User> user = userRepository.findById(UUID.fromString(cancelVisitRequestDto.getUserId()));
-            if (user.isEmpty()) {
-                throw new UserDoesNotExistException("Please login");
-            }
-            CancelVisitResponseDto cancelVisitResponseDto = new CancelVisitResponseDto();
-            Schedule schedule = scheduleRepository.findByScheduleId(UUID.fromString(scheduleId));
-            if (schedule.getUser() == null || !schedule.getUser().getUserId().equals(UUID.fromString(cancelVisitRequestDto.getUserId()))) {
-                throw new YouDoNotHaveAnAppointmentWithThisDoctorException(ErrorMessage
-                        .YOU_DO_NOT_HAVE_AN_APPOINTMENT_WITH_THIS_DOCTOR);
-            } else {
-                cancelVisitResponseDto.setUserFullName(schedule.getUser().getFirstname() + " " + schedule.getUser().getLastname());
-                schedule.setUser(null);
-            }
-            cancelVisitResponseDto.setDoctorFullName(schedule.getDoctor().getFirstName() + " " + schedule.getDoctor().getLastName());
-            cancelVisitResponseDto.setDateTime(DateTimeFormat.formatLocalDateTime(schedule.getDateTime()));
-            return cancelVisitResponseDto;
+    @Override
+    @Transactional
+    public CancelVisitResponseDto cancelVisit(String scheduleId, CancelVisitRequestDto cancelVisitRequestDto) {
+        Optional<User> user = userRepository.findById(UUID.fromString(cancelVisitRequestDto.getUserId()));
+        if (user.isEmpty()){
+            throw new UserDoesNotExistException("Please login");
         }
+        CancelVisitResponseDto cancelVisitResponseDto = new CancelVisitResponseDto();
+        Schedule schedule = scheduleRepository.findByScheduleId(UUID.fromString(scheduleId));
+        if (schedule.getUser() == null || !schedule.getUser().getUserId().equals(UUID.fromString(cancelVisitRequestDto.getUserId()))){
+            throw new YouDoNotHaveAnAppointmentWithThisDoctorException(ErrorMessage
+                    .YOU_DO_NOT_HAVE_AN_APPOINTMENT_WITH_THIS_DOCTOR);
+        } else {
+            cancelVisitResponseDto.setUserFullName(schedule.getUser().getFirstname() + " " + schedule.getUser().getLastname());
+            schedule.setUser(null);
+        }
+        cancelVisitResponseDto.setDoctorFullName(schedule.getDoctor().getFirstName() + " " + schedule.getDoctor().getLastName());
+        cancelVisitResponseDto.setDateTime(DateTimeFormat.formatLocalDateTime(schedule.getDateTime()));
+        return cancelVisitResponseDto;
+    }
 
         @Override
         @Transactional

@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS medicines (
     price DECIMAL(8,2),
     category VARCHAR(255),
     pharmacy_id BINARY(16),
-    quantity INT
+    available_quantity INT
     );
 
 CREATE TABLE IF NOT EXISTS users (
