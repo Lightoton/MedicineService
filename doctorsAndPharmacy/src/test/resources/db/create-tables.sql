@@ -1,6 +1,6 @@
---liquibase formatted sql
-
---changeset liquibase:1
+# --liquibase formatted sql
+#
+# --changeset liquibase:1
 
 CREATE TABLE IF NOT EXISTS doctors (
                                        doctor_id BINARY(16) PRIMARY KEY,
