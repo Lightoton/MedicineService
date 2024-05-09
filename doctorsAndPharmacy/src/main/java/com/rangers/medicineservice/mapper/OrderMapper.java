@@ -22,6 +22,5 @@ public interface OrderMapper {
                                  Order order) {
         userHistoryOrdersDto.setOrderId(order.getOrderId());
         userHistoryOrdersDto.setOrderDate(order.getOrderDate());
-        userHistoryOrdersDto.setOrderDetails(order.getOrderDetails());
     }
 }
