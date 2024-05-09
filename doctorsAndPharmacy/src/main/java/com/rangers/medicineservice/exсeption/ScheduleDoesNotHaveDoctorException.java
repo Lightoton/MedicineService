@@ -1,4 +1,4 @@
-package com.rangers.medicineservice.exeption;
+package com.rangers.medicineservice.exсeption;
 
 public class ScheduleDoesNotHaveDoctorException extends BadRequestException {
     public ScheduleDoesNotHaveDoctorException(String message) {

@@ -1,4 +1,4 @@
-package com.rangers.medicineservice.exeption;
+package com.rangers.medicineservice.exсeption;
 
 public class ScheduleDoesNotExistException  extends ObjectDoesNotExistException {
     public ScheduleDoesNotExistException(String message) {
