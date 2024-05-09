@@ -4,6 +4,7 @@ import com.rangers.medicineservice.dto.PrescriptionDto;
 
 import com.rangers.medicineservice.dto.*;
 import java.util.List;
+import java.util.UUID;
 
 public interface UserService {
     List<PrescriptionDto> getUserPrescriptions(UUID id);

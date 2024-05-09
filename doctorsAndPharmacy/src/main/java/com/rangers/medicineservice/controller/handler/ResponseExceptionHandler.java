@@ -7,6 +7,8 @@ import com.rangers.medicineservice.exception.NotEnoughBalanceExp;
 import com.rangers.medicineservice.exception.ScheduleNotFoundException;
 import com.rangers.medicineservice.exception.BadRequestException;
 import com.rangers.medicineservice.exception.ObjectDoesNotExistException;
+import com.rangers.medicineservice.exeption.ErrorCode;
+import com.rangers.medicineservice.exeption.QuantityCantBeLowerThenOneException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -80,5 +82,13 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
           ErrorExtension body = new ErrorExtension(e.getMessage(), HttpStatus.BAD_REQUEST);
           return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
       }
+
+    @ExceptionHandler(QuantityCantBeLowerThenOneException.class)
+    public ResponseEntity<com.rangers.medicineservice.dto.ErrorExtension> handleInvalidValueException(Exception e) {
+        return new ResponseEntity<>(new com.rangers.medicineservice.dto.ErrorExtension(
+                e.getMessage(),
+                ErrorCode.INVALID_VALUE
+        ), HttpStatus.BAD_REQUEST);
+    }
 
 }

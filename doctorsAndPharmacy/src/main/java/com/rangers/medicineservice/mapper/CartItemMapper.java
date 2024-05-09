@@ -4,12 +4,14 @@ import com.rangers.medicineservice.dto.CartItemBeforeCreationDto;
 import com.rangers.medicineservice.dto.CartItemToOrderDetailDto;
 import com.rangers.medicineservice.dto.CreatedCartItemDto;
 import com.rangers.medicineservice.entity.CartItem;
+import com.rangers.medicineservice.mapper.util.MedicineMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 
 
-@Mapper(componentModel = "spring", uses = MedicineMapper.class,
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = MedicineMapper.class,
 unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CartItemMapper {
 

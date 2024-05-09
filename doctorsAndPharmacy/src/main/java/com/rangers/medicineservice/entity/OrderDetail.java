@@ -1,5 +1,6 @@
 package com.rangers.medicineservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -25,12 +26,13 @@ public class OrderDetail {
     private Integer quantity;
 
     @Fetch(FetchMode.JOIN)
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "medicine_id", referencedColumnName = "medicine_id")
     private Medicine medicine;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinColumn(name = "order_id", referencedColumnName = "order_id")
+    @JsonBackReference
     private Order order;
 
     @Override

@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Mapper(componentModel = "spring", imports = {GetNameFromUserUtil.class}
-        , unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring", imports = {GetNameFromUserUtil.class},
+        unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface OrderFromPrescriptionMapper {
     @Mappings({
             @Mapping(target = "user", expression = "java(GetNameFromUserUtil.getName(order))"),

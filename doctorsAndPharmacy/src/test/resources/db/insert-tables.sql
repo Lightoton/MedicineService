@@ -23,9 +23,7 @@ INSERT INTO users (user_id, first_name, last_name, email, phone_number, address,
 VALUES
     (UNHEX('ddb7ccab9f3d409da7ab9573061c6e29'), 'Hans', 'Anderson', 'test@email.com', '0151-333-44-55', 'Test address', 'Berlin', 'Germany', '11222', '001', '1234567890'),
     (UNHEX('ac5c8867676f4737931f052cbb9b4a59'), 'Mikle', 'Ivanov', 'wqw@kkk.com','0151','Oak Street 1','Berlin','Germany','10000','002','123321'),
-    (UNHEX('ac5c8867676f4737931f052cbb9b4a11'), 'Dmitryi', 'Petrov', 'wqw@kkk.com','0152','Oak Street 2','Berlin','Germany','10000','003','12344321'),
-    (UNHEX('ac5c8867676f4737931f052cbb9b4a59'), 'Mikle', 'Ivanov', 'wqw@kkk.com', null, null, null, null, null, '004', null),
-    (UNHEX('ac5c8867676f4737931f052cbb9b4a11'), 'Dmitryi', 'Petrov', 'wqw@kkk.com', null, null, null, null, null, '005', null);
+    (UNHEX('ac5c8867676f4737931f052cbb9b4a11'), 'Dmitryi', 'Petrov', 'wqw@kkk.com','0152','Oak Street 2','Berlin','Germany','10000','003','12344321');
 
 INSERT INTO schedules (schedule_id, doctor_id, user_id, date_time, status)
 VALUES
@@ -38,7 +36,7 @@ VALUES
 
 INSERT INTO prescriptions (prescription_id, doctor_id, user_id, exp_date, created_at, is_active)
 VALUES
-    (UNHEX('ac5c9927676f47142357f52cbb9b4a95'),UNHEX('d1fd8b7990aa4f4aae0c8ae2069443e3'), UNHEX('ac5c8867676f4737931f052cbb9b4a59'),'2024-11-25 17:00:00','2023-11-25 17:00:00' ,true),
+    (UNHEX('ac5c9927676f47142357f52cbb9b4a95'),UNHEX('d1fd8b7990aa4f4aae0c8ae2069443e3'), UNHEX('ac5c8867676f4737931f052cbb9b4a11'),'2024-11-25 17:00:00','2023-11-25 17:00:00' ,true),
     (UNHEX('ac5c8867676f47541357f74cbb9b4a96'),UNHEX('d1fd8b7990aa4f4aae0c8ae2069443e3'), UNHEX('ac5c8867676f4737931f052cbb9b4a59'),'2024-11-25 17:00:00','2023-11-25 17:00:00', true);
 
 INSERT INTO prescription_details(prescription_details_id,prescription_id,medicine_id,quantity)
@@ -46,7 +44,7 @@ VALUES (UNHEX('c5f4e7d8a1c3b6e2f7d9b3a5c6f4a2e7'),UNHEX('ac5c9927676f47142357f52
        (UNHEX('b7d8a29f5e6f4874b3c2d1f4a9b6c7e5'),UNHEX('ac5c9927676f47142357f52cbb9b4a95'),UNHEX('b585b9c08b7f493fb3c39018d3f8773d'),1),
        (UNHEX('e7f3c6a9d5c4b2a1f8e5c6a3f7b2d9c4'),UNHEX('ac5c9927676f47142357f52cbb9b4a95'),UNHEX('01f558a1736b4916b7e802a06c63ac8a'),1),
        (UNHEX('d4e5f7b3c6a8f2c1a3e7f6b5c4d9e8a7'),UNHEX('ac5c9927676f47142357f52cbb9b4a95'),UNHEX('5c51a0874b5f4d038ab12d2bc4fc2f15'),1),
-       (UNHEX('a3c7e6f5b4a9b1f2e3f6c4d5a2b3c9f7'),UNHEX('ac5c9927676f47142357f52cbb9b4a95'),UNHEX('8bda13952ee34aee80c1842bedd9f4c2'),1);
+       (UNHEX('a3c7e6f5b4a9b1f2e3f6c4d5a2b3c9f7'),UNHEX('ac5c8867676f47541357f74cbb9b4a96'),UNHEX('8bda13952ee34aee80c1842bedd9f4c2'),1);
 
 INSERT INTO orders (order_id, prescription_id, user_id, pharmacy_id, order_date, status, order_cost, delivery_address)
 VALUES

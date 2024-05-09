@@ -14,9 +14,8 @@ import org.mapstruct.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@Mapper(componentModel = "spring", imports = {LocalDate.class, OrderStatus.class, Order.class},
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, imports = {LocalDate.class, OrderStatus.class, Order.class},
         unmappedTargetPolicy = ReportingPolicy.IGNORE)
-
 public interface OrderMapper {
 
 

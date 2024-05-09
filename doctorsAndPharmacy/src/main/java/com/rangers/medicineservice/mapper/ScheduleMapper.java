@@ -3,14 +3,11 @@ package com.rangers.medicineservice.mapper;
 import com.rangers.medicineservice.dto.ScheduleDateTimeDto;
 import com.rangers.medicineservice.dto.ScheduleFullDto;
 import com.rangers.medicineservice.entity.Schedule;
-import org.mapstruct.AfterMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 import org.springframework.stereotype.Component;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-@Component
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
+        unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ScheduleMapper {
 
     ScheduleDateTimeDto toDto(Schedule schedule);

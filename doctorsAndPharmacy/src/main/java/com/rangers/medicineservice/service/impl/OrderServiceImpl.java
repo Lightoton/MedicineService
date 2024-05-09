@@ -1,17 +1,14 @@
 package com.rangers.medicineservice.service.impl;
 
-import com.rangers.medicineservice.dto.CartItemToOrderDetailDto;
-import com.rangers.medicineservice.dto.CreatedOrderDto;
-import com.rangers.medicineservice.dto.OrderBeforeCreation;
-import com.rangers.medicineservice.dto.PrescriptionDto;
+import com.rangers.medicineservice.dto.*;
 import com.rangers.medicineservice.entity.*;
-import com.rangers.medicineservice.mapper.CartItemMapper;
-import com.rangers.medicineservice.mapper.MedicineMapper;
-import com.rangers.medicineservice.mapper.OrderMapper;
-import com.rangers.medicineservice.mapper.UserMapper;
-import com.rangers.medicineservice.repository.CartItemRepository;
-import com.rangers.medicineservice.repository.OrderDetailRepository;
-import com.rangers.medicineservice.repository.OrderRepository;
+import com.rangers.medicineservice.exception.DataNotExistExp;
+import com.rangers.medicineservice.exception.InActivePrescriptionExp;
+import com.rangers.medicineservice.exception.NotEnoughBalanceExp;
+import com.rangers.medicineservice.exception.errorMessage.ErrorMessage;
+import com.rangers.medicineservice.mapper.*;
+import com.rangers.medicineservice.mapper.util.MedicineMapper;
+import com.rangers.medicineservice.repository.*;
 import com.rangers.medicineservice.service.interf.OrderService;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +29,9 @@ public class OrderServiceImpl implements OrderService {
     private final OrderDetailRepository orderDetailRepository;
     private final CartItemRepository cartItemRepository;
     private final PrescriptionDetailRepository prescriptionDetailRepository;
+    private final UserRepository userRepository;
+    private final MedicineRepository medicineRepository;
+    private final PrescriptionRepository prescriptionRepository;
     private final UserMapper userMapper;
     private final MedicineMapper medicineMapper;
     private final OrderMapper orderMapper;
@@ -79,7 +79,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @org.springframework.transaction.annotation.Transactional
+    @Transactional
     public OrderFromPrescriptionDto addOrder(PrescriptionDto prescriptionDto) {
 
         Prescription prescription = new Prescription();
