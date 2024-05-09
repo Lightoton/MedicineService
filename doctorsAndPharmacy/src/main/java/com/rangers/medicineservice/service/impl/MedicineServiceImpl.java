@@ -2,8 +2,8 @@ package com.rangers.medicineservice.service.impl;
 
 import com.rangers.medicineservice.dto.MedicineDto;
 import com.rangers.medicineservice.entity.Medicine;
-import com.rangers.medicineservice.exсeption.ListIsEmptyException;
-import com.rangers.medicineservice.exсeption.errorMessage.ErrorMessage;
+import com.rangers.medicineservice.exception.ListIsEmptyException;
+import com.rangers.medicineservice.exception.errorMessage.ErrorMessage;
 import com.rangers.medicineservice.mapper.util.MedicineMapper;
 import com.rangers.medicineservice.repository.MedicineRepository;
 import com.rangers.medicineservice.service.interf.MedicineService;

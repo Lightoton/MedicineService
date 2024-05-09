@@ -1,4 +1,4 @@
-package com.rangers.medicineservice.exсeption;
+package com.rangers.medicineservice.exception;
 
 public class TimeIsBusyException extends BadRequestException {
     public TimeIsBusyException(String message) {

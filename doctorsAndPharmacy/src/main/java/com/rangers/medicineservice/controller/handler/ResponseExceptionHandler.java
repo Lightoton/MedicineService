@@ -1,8 +1,8 @@
 package com.rangers.medicineservice.controller.handler;
 
-import com.rangers.medicineservice.exсeption.ScheduleNotFoundException;
-import com.rangers.medicineservice.exсeption.BadRequestException;
-import com.rangers.medicineservice.exсeption.ObjectDoesNotExistException;
+import com.rangers.medicineservice.exception.ScheduleNotFoundException;
+import com.rangers.medicineservice.exception.BadRequestException;
+import com.rangers.medicineservice.exception.ObjectDoesNotExistException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

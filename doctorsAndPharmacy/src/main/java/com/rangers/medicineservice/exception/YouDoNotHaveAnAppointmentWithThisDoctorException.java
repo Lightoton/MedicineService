@@ -1,4 +1,4 @@
-package com.rangers.medicineservice.exсeption;
+package com.rangers.medicineservice.exception;
 
 public class YouDoNotHaveAnAppointmentWithThisDoctorException extends BadRequestException {
     public YouDoNotHaveAnAppointmentWithThisDoctorException(String message) {

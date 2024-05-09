@@ -1,4 +1,4 @@
-package com.rangers.medicineservice.exсeption;
+package com.rangers.medicineservice.exception;
 
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException (String message) {

@@ -1,4 +1,4 @@
-package com.rangers.medicineservice.exсeption.errorMessage;
+package com.rangers.medicineservice.exception.errorMessage;
 
 public class ErrorMessage {
     public static final String SCHEDULE_NOT_FOUND = "Schedule Not Found";
