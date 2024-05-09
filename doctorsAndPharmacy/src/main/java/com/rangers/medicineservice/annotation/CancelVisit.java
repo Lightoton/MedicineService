@@ -29,7 +29,9 @@ import java.lang.annotation.Target;
         summary = "Cancel a schedule entry",
         description = "Cancel your doctor's visit. The controller takes the schedule_id in the path variable " +
                 "and the user_id in the request body. In the database schedule table, the user_id field changes " +
-                "to null. The output gives the date and time, the name of the doctor and the name of the user.",
+                "to null. The output gives the date and time, the name of the doctor and the name of the user. " +
+                "In addition, in case of successful cancellation of the appointment, " +
+                "a message is sent to the user's mailbox",
         tags = {"SCHEDULE_DTO"},
         parameters = {
                 @Parameter(

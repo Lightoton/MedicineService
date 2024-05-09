@@ -29,7 +29,8 @@ import java.lang.annotation.Target;
         description = "Create an appointment with the selected doctor at the selected time. The controller accepts" +
                 " schedule_id in path variable, user_id and type of appointment in request body, returns " +
                 "date and time, doctor fullName, user fullName, link (if the visit will be online) or address " +
-                "(if the visit will be offline)",
+                "(if the visit will be offline). In addition, if the appointment is successful, " +
+                "a message is sent to the user's mailbox",
         tags = {"SCHEDULE_DTO"},
         parameters = {
                 @Parameter(

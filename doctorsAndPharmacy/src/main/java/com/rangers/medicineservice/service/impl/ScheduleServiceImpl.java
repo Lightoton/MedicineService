@@ -6,9 +6,11 @@ import com.rangers.medicineservice.exception.errorMessage.ErrorMessage;
 import com.rangers.medicineservice.mapper.ScheduleMapper;
 import com.rangers.medicineservice.repository.ScheduleRepository;
 import com.rangers.medicineservice.service.interf.ScheduleService;
+import com.rangers.medicineservice.util.MailSender;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +43,8 @@ public class ScheduleServiceImpl implements ScheduleService {
     private final UserRepository userRepository;
     private final CreateAppointmentMapper createAppointmentMapper;
     private final DoctorRepository doctorRepository;
+    @Autowired
+    private MailSender mailSender;
 
 
     @Override
@@ -74,7 +78,16 @@ public class ScheduleServiceImpl implements ScheduleService {
             }
             schedule.setStatus(ScheduleStatus.IN_PROGRESS);
         }
-        return createAppointmentMapper.generateResponse(scheduleRepository.saveAndFlush(schedule));
+        CreateVisitResponseDto createVisitResponseDto =  createAppointmentMapper
+                .generateResponse(scheduleRepository.saveAndFlush(schedule));
+        if (user.getEmail()!=null){
+            String message = "Hello, " + user.getFirstname() + "! You have an appointment with Dr. "
+                    + createVisitResponseDto.getDoctorName() + ". Time of visit: "
+                    + createVisitResponseDto.getDateTime() + ". We are waiting for you here: "
+                    + createVisitResponseDto.getLinkOrAddress();
+            mailSender.send(user.getEmail(), "Confirmation of appointment", message);
+        }
+        return createVisitResponseDto;
     }
 
     @Override
@@ -99,10 +112,11 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     @Transactional
     public CancelVisitResponseDto cancelVisit(String scheduleId, CancelVisitRequestDto cancelVisitRequestDto) {
-        Optional<User> user = userRepository.findById(UUID.fromString(cancelVisitRequestDto.getUserId()));
-        if (user.isEmpty()){
+        Optional<User> optionalUser = userRepository.findById(UUID.fromString(cancelVisitRequestDto.getUserId()));
+        if (optionalUser.isEmpty()){
             throw new UserDoesNotExistException("Please login");
         }
+        User user = optionalUser.get();
         CancelVisitResponseDto cancelVisitResponseDto = new CancelVisitResponseDto();
         Schedule schedule = scheduleRepository.findByScheduleId(UUID.fromString(scheduleId));
         if (schedule.getUser() == null || !schedule.getUser().getUserId().equals(UUID.fromString(cancelVisitRequestDto.getUserId()))){
@@ -114,6 +128,14 @@ public class ScheduleServiceImpl implements ScheduleService {
         }
         cancelVisitResponseDto.setDoctorFullName(schedule.getDoctor().getFirstName() + " " + schedule.getDoctor().getLastName());
         cancelVisitResponseDto.setDateTime(DateTimeFormat.formatLocalDateTime(schedule.getDateTime()));
+
+        if (user.getEmail()!=null){
+            String message = "Hello, " + user.getFirstname() + "! Your appointment with Dr. "
+                    + cancelVisitResponseDto.getDoctorFullName() + " was canceled. Time of visit: "
+                    + cancelVisitResponseDto.getDateTime();
+            mailSender.send(user.getEmail(), "Cancellation of appointment", message);
+        }
+
         return cancelVisitResponseDto;
     }
 
