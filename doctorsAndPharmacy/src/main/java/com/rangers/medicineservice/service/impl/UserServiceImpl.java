@@ -1,16 +1,16 @@
-package com.rangers.medicineservice.service;
+package com.rangers.medicineservice.service.impl;
 
 import com.rangers.medicineservice.dto.*;
-import com.rangers.medicineservice.entity.Order;
 import com.rangers.medicineservice.entity.User;
+import com.rangers.medicineservice.entity.Order;
 import com.rangers.medicineservice.exception.UserExistException;
 import com.rangers.medicineservice.exception.UserNotFoundException;
-import com.rangers.medicineservice.exception.errormessage.ErrorMessage;
+import com.rangers.medicineservice.exception.errorMessage.ErrorMessage;
 import com.rangers.medicineservice.mapper.OrderMapper;
 import com.rangers.medicineservice.mapper.UserMapper;
 import com.rangers.medicineservice.repository.OrderRepository;
 import com.rangers.medicineservice.repository.UserRepository;
-import com.rangers.medicineservice.service.interfaces.UserService;
+import com.rangers.medicineservice.service.interf.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -78,7 +78,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserHistoryOrdersDto> getUserHistoryOrders(String id) {
         List<Order> orders  = orderRepository.getOrdersByUserId(UUID.fromString(id));
+        for (Order ord : orders){
+            System.out.println(ord);
+        }
         return orderMapper.toUserHistoryOrdersDto(orders);
+        //return null;
     }
 
     @Override

@@ -1,9 +1,12 @@
 package com.rangers.medicineservice.dto;
 
+import com.rangers.medicineservice.entity.Medicine;
+import com.rangers.medicineservice.entity.OrderDetail;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -22,10 +25,13 @@ public class UserHistoryOrdersDto {
     /*
     OrderDetail.class
     */
-    private Integer quantity;
+    //private List<Integer> quantities;
+    private List<OrderDetail> orderDetails;
+    //private  List<UserHistoryOrderDetailsDto> userHistoryOrderDetailsDtos;
     /*
     Medicine.class
     */
-    private String name;
-    private BigDecimal price;
+//    private String name;
+//    private BigDecimal price;
+
 }

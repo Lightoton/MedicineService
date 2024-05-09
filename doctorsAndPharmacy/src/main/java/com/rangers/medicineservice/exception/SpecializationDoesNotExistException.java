@@ -1,4 +1,4 @@
-package com.rangers.medicineservice.exeption;
+package com.rangers.medicineservice.exception;
 
 public class SpecializationDoesNotExistException extends IllegalArgumentException {
     public SpecializationDoesNotExistException(String message) {

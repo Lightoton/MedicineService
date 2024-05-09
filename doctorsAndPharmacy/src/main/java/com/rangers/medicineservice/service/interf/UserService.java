@@ -1,4 +1,4 @@
-package com.rangers.medicineservice.service.interfaces;
+package com.rangers.medicineservice.service.interf;
 
 import com.rangers.medicineservice.dto.*;
 import java.util.List;

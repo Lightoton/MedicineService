@@ -1,43 +1,36 @@
 package com.rangers.medicineservice.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rangers.medicineservice.entity.User;
-import com.rangers.medicineservice.exception.UserNotFoundException;
 import com.rangers.medicineservice.repository.UserRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.apache.logging.log4j.ThreadContext.isEmpty;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.AdditionalMatchers.not;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//@SpringBootTest(classes= User.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 @DisplayName("Test class for UserController")
+@Sql("/db/drop-tables.sql")
+@Sql("/db/create-tables.sql")
+@Sql("/db/insert-tables.sql")
 class UserControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Autowired
     private UserRepository userRepository;
@@ -53,22 +46,22 @@ class UserControllerTest {
                                 {
                                   "firstname": "Test firstname of user",
                                   "lastname": "Test lastname of user",
-                                  "email": "email",
-                                  "phoneNumber": "phoneNumber",
-                                  "address": "address",
-                                  "city": "city",
-                                  "country": "country",
-                                  "postalCode": "postalCode",
-                                  "policyNumber": "12344321",
-                                  "chatId": "011"
+                                  "email": "test email",
+                                  "phoneNumber": "test phoneNumber",
+                                  "address": "test address",
+                                  "city": "test city",
+                                  "country": "test country",
+                                  "postalCode": "51000",
+                                  "policyNumber": "25449599043",
+                                  "chatId": "099"
                                 }
                                 """))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstname", is("Test firstname of user")))
                 .andExpect(jsonPath("$.lastname", is("Test lastname of user")))
-                .andExpect(jsonPath("$.policyNumber", is("12344321")));
-        UUID userId = userRepository.getUserByPolicyNumber("12344321").getUserId();
+                .andExpect(jsonPath("$.policyNumber", is("25449599043")));
+        UUID userId = userRepository.getUserByPolicyNumber("25449599043").getUserId();
         userRepository.deleteById(userId);
         Optional<User> findUser = userRepository.findById(userId);
         assertFalse(findUser.isPresent());
@@ -128,13 +121,10 @@ class UserControllerTest {
     }
 
     @Test
-    void getUserHistoryOrdersTest() throws Exception {
+    void getUserHistoryOrdersTest() {
 //        mockMvc
 //                .perform(MockMvcRequestBuilders.get("/user/history/orders/userId/"+userTestId))
 //                .andExpect(status().isOk())
-//                .andExpect((ResultMatcher) jsonPath("$.orderId", not(isEmpty())))
-//                .andExpect((ResultMatcher) jsonPath("$.quantity", not(isEmpty())))
-//                .andExpect((ResultMatcher) jsonPath("$.name", not(isEmpty())));
     }
 
     @Test

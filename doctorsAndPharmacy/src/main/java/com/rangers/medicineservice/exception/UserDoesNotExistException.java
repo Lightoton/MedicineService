@@ -1,4 +1,4 @@
-package com.rangers.medicineservice.exeption;
+package com.rangers.medicineservice.exception;
 
 public class UserDoesNotExistException extends ObjectDoesNotExistException {
     public UserDoesNotExistException(String message) {
