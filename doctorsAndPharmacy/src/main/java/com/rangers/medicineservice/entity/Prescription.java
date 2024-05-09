@@ -49,7 +49,7 @@ public class Prescription {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Prescription prescription = (Prescription) o;
-        return isActive == prescription.isActive && Objects.equals(prescriptionId, prescription.prescriptionId)  && Objects.equals(expDate, prescription.expDate) && Objects.equals(createdAt, prescription.createdAt);
+        return isActive == prescription.isActive && Objects.equals(prescriptionId, prescription.prescriptionId) && Objects.equals(expDate, prescription.expDate) && Objects.equals(createdAt, prescription.createdAt);
     }
 
     @Override

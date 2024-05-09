@@ -9,7 +9,6 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.Objects;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -60,7 +59,7 @@ public class Medicine {
     @Override
     public String toString() {
         return "Medicine{" +
-                "doctorId=" + medicineId +
+                "medicineId=" + medicineId +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +

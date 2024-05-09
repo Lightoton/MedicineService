@@ -13,4 +13,10 @@ public class ErrorMessage {
     public static final String USER_WITH_CHAT_ID_NOT_FOUND = "User with this ChatId was not found.";
     public static final String USER_WITH_CHAT_ID_EXIST = "The user with this ChatId is already present.";
     public static final String CHAT_ID_MUST_BE_PRESENT = "The ChatId must be present.";
+    public static final String N0_DATA_FOUND= "The prescription is empty";
+    public static final String ORDERS_IS_EMPTY= "You don't have any orders yet!";
+    public static final String INACTIVE_PRESCRIPTION= "The prescription has already been cashed.";
+    public static final String EXPIRED_PRESCRIPTION= "The prescription has expired.";
+    public static final String NOT_ENOUGH_BALANCE= "Not enough balance";
+    public static final String WRONG_PRESCRIPTION= "The prescription belongs to another user";
 }

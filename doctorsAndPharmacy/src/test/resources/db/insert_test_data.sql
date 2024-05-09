@@ -1,6 +1,3 @@
--- liquibase formatted sql
-
--- changeset liquibase:10
 
 INSERT INTO doctors (doctor_id, first_name, last_name, specialization, rating)
 VALUES
@@ -47,6 +44,7 @@ VALUES
     (UNHEX('ac5c7777952f47541357f52cbb9b4a95'),UNHEX('d1fd8b7990aa4f4aae0c8ae2069443e3'), UNHEX('ddb7ccab9f3d409da7ab9573061c6e29'), '2025-11-26 17:00:00','2023-11-25 17:00:00', false),
     (UNHEX('ac5c5555176f47541357f52cbb9b4a95'),UNHEX('d1fd8b7990aa4f4aae0c8ae2069443e3'), UNHEX('ddb7ccab9f3d409da7ab9573061c6e29'), '2025-11-26 17:00:00','2023-11-25 17:00:00', true),
     (UNHEX('ac4c4444176f47541357f52cbb9b4a95'),UNHEX('d1fd8b7990aa4f4aae0c8ae2069443e3'), UNHEX('ddb7ccab9f3d409da7ab9573061c6e29'), '2025-11-26 17:00:00','2023-11-25 17:00:00', true);
+
 
 
 INSERT INTO prescription_details(prescription_details_id,prescription_id,medicine_id,quantity)

@@ -1,6 +1,6 @@
---liquibase formatted sql
+-- liquibase formatted sql
 
---changeset liquibase:1
+-- changeset liquibase:1
 
 CREATE TABLE IF NOT EXISTS doctors (
                                        doctor_id BINARY(16) PRIMARY KEY,
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS pharmacies (
     );
 
 CREATE TABLE IF NOT EXISTS medicines (
-    medicine_id BINARY(16) PRIMARY KEY,
+                                         medicine_id BINARY(16) PRIMARY KEY,
     medicine_name VARCHAR(255),
     description TEXT,
     price DECIMAL(8,2),
@@ -28,7 +28,6 @@ CREATE TABLE IF NOT EXISTS medicines (
     pharmacy_id BINARY(16),
     available_quantity INT
     );
-
 
 CREATE TABLE IF NOT EXISTS users (
                                      user_id BINARY(16) PRIMARY KEY,
@@ -74,34 +73,32 @@ CREATE TABLE IF NOT EXISTS order_details (
     );
 
 CREATE TABLE IF NOT EXISTS prescriptions (
-
-                               prescription_id BINARY(16) PRIMARY KEY,
-                               doctor_id BINARY(16),
-                               user_id BINARY(16),
-                               exp_date DATETIME,
-                               created_at DATETIME,
-                               is_active BOOLEAN,
-                               FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id),
-                               FOREIGN KEY (user_id) REFERENCES users(user_id)
-);
+                                             prescription_id BINARY(16) PRIMARY KEY,
+    doctor_id BINARY(16),
+    user_id BINARY(16),
+    exp_date DATETIME,
+    created_at DATETIME,
+    is_active BOOLEAN,
+    FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    );
 
 CREATE TABLE IF NOT EXISTS orders (
-                        order_id BINARY(16) PRIMARY KEY,
-                        prescription_id BINARY(16),
-                        user_id BINARY(16),
-                        pharmacy_id BINARY(16),
-                        order_date DATETIME,
-                        status VARCHAR(50),
-                        order_cost DECIMAL(10,2),
-                        delivery_address VARCHAR(255),
-                        FOREIGN KEY (prescription_id) REFERENCES prescriptions(prescription_id),
-                        FOREIGN KEY (user_id) REFERENCES users(user_id),
-                        FOREIGN KEY (pharmacy_id) REFERENCES pharmacies(pharmacy_id)
-);
+                                      order_id BINARY(16) PRIMARY KEY,
+    prescription_id BINARY(16),
+    user_id BINARY(16),
+    pharmacy_id BINARY(16),
+    order_date DATETIME,
+    status VARCHAR(50),
+    order_cost DECIMAL(10,2),
+    delivery_address VARCHAR(255),
+    FOREIGN KEY (prescription_id) REFERENCES prescriptions(prescription_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (pharmacy_id) REFERENCES pharmacies(pharmacy_id)
+    );
 
 CREATE TABLE IF NOT EXISTS prescription_details (
-    prescription_details_id BINARY(16) PRIMARY KEY,
-
+                                                    prescription_details_id BINARY(16) PRIMARY KEY,
     prescription_id BINARY(16),
     medicine_id BINARY(16),
     quantity int,

@@ -9,4 +9,5 @@ class MedicineServiceApplicationTest {
     @Test
     void contextLoads() {
     }
+
 }

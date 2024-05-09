@@ -37,6 +37,7 @@ public class Order {
     @Column(name = "delivery_address")
     private String deliveryAddress;
 
+
     @Column(name = "order_date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate orderDate;
@@ -70,6 +71,7 @@ public class Order {
     @Override
     public int hashCode() {
         return Objects.hash(orderId, status, orderCost, deliveryAddress);
+
     }
 
     @Override
