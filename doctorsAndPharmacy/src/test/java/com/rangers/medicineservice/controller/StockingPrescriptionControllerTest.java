@@ -43,7 +43,7 @@ class StockingPrescriptionControllerTest {
         List<Order> orderListAfter = objectMapper.readValue(orderAfterResultJSON, new TypeReference<>() {
         });
 
-        Assertions.assertEquals(0, orderListAfter.size());
+        Assertions.assertEquals(1, orderListAfter.size());
     }
 
     @Test
@@ -90,7 +90,13 @@ class StockingPrescriptionControllerTest {
         String prescription = Generator.getExpiredPrescription();
 
         mockMvc.perform(MockMvcRequestBuilders.post("/orders/add").contentType(MediaType.APPLICATION_JSON)
-                .content(prescription)).andExpect(status().isBadRequest());
+                .content(prescription)).andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json("""
+                        {
+                          "message": "The prescription has expired.",
+                          "statusCode": 400
+                        }"""));
 
     }
 
@@ -100,7 +106,12 @@ class StockingPrescriptionControllerTest {
         String prescription = Generator.getInactivePrescription();
 
         mockMvc.perform(MockMvcRequestBuilders.post("/orders/add").contentType(MediaType.APPLICATION_JSON)
-                .content(prescription)).andExpect(status().isBadRequest());
+                .content(prescription)).andExpect(status().isBadRequest())
+                .andExpect(content().json("""
+                        {
+                          "message": "The prescription has already been cashed.",
+                          "statusCode": 400
+                        }"""));
 
     }
 
@@ -110,7 +121,12 @@ class StockingPrescriptionControllerTest {
         String prescription = Generator.getEmptyPrescription();
 
         mockMvc.perform(MockMvcRequestBuilders.post("/orders/add").contentType(MediaType.APPLICATION_JSON)
-                .content(prescription)).andExpect(status().isBadRequest());
+                .content(prescription)).andExpect(status().isBadRequest())
+                .andExpect(content().json("""
+                        {
+                          "message": "The prescription is empty",
+                          "statusCode": 400
+                        }"""));
     }
 
     @Test
@@ -119,7 +135,12 @@ class StockingPrescriptionControllerTest {
         String prescription = Generator.getNegativeBalancePrescription();
 
         mockMvc.perform(MockMvcRequestBuilders.post("/orders/add").contentType(MediaType.APPLICATION_JSON)
-                .content(prescription)).andExpect(status().isBadRequest());
+                .content(prescription)).andExpect(status().isBadRequest())
+                .andExpect(content().json("""
+                        {
+                          "message": "Not enough balance, maximum quantity for Amoxicillin is 0",
+                          "statusCode": 400
+                        }"""));
     }
 
 

@@ -25,8 +25,8 @@ public class Schedule {
     @Column(name = "schedule_id")
     private UUID scheduleId;
 
-    @Column(name = "date_and_time")
-    private LocalDateTime dateAndTime;
+    @Column(name = "date_time")
+    private LocalDateTime dateTime;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
@@ -52,19 +52,19 @@ public class Schedule {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Schedule schedule = (Schedule) o;
-        return Objects.equals(scheduleId, schedule.scheduleId) && Objects.equals(dateAndTime, schedule.dateAndTime) && status == schedule.status && type == schedule.type;
+        return Objects.equals(scheduleId, schedule.scheduleId) && Objects.equals(dateTime, schedule.dateTime) && status == schedule.status && type == schedule.type;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(scheduleId, dateAndTime, status, type);
+        return Objects.hash(scheduleId, dateTime, status, type);
     }
 
     @Override
     public String toString() {
         return "Schedule{" +
                 "scheduleId=" + scheduleId +
-                ", dateAndTime=" + dateAndTime +
+                ", dateAndTime=" + dateTime +
                 ", status=" + status +
                 ", type=" + type +
                 ", link='" + link + '\'' +
