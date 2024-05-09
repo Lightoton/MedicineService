@@ -53,8 +53,10 @@ VALUES (UNHEX('c5f4e7d8a1c3b6e2f7d9b3a5c6f4a2e7'),UNHEX('ac5c9927676f47142357f52
 
 INSERT INTO orders (order_id, prescription_id, user_id, pharmacy_id, order_date, status, order_cost, delivery_address)
 VALUES
-    (UNHEX('12d721446d6b4e8a9e8755680fd56c0a'), UNHEX('ac5c9927676f47142357f52cbb9b4a95'), UNHEX('ddb7ccab9f3d409da7ab9573061c6e29'), UNHEX('ac5c8867676f4737931f052cbb9b4a94'), '2024-11-20 11:00:00', 'CREATED', 200.00, 'Street');
+    (UNHEX('12d721446d6b4e8a9e8755680fd56c0a'), UNHEX('ac5c9927676f47142357f52cbb9b4a95'), UNHEX('ddb7ccab9f3d409da7ab9573061c6e29'), UNHEX('ac5c8867676f4737931f052cbb9b4a94'), '2024-11-20 11:00:00', 'CREATED', 200.00, 'Street'),
+    (UNHEX('0e98b6da9cce4ca3a79d58c2c63f8406'), UNHEX('ac5c9927676f47142357f52cbb9b4a95'), UNHEX('ddb7ccab9f3d409da7ab9573061c6e29'), UNHEX('ac5c8867676f4737931f052cbb9b4a94'), '2024-11-18 11:00:00', 'CREATED', 300.00, 'Street');
 
 INSERT INTO order_details (order_detail_id, medicine_id, quantity, order_id)
 VALUES
-    (UNHEX('47b680523de9466c8aad07be43efe66c'), UNHEX('ac5c8867676f4737931f052cbb9b4a84'), 2, UNHEX('12d721446d6b4e8a9e8755680fd56c0a'));
+    (UNHEX('47b680523de9466c8aad07be43efe66c'), UNHEX('ac5c8867676f4737931f052cbb9b4a84'), 2, UNHEX('12d721446d6b4e8a9e8755680fd56c0a')),
+    (UNHEX('2d1221cd398540b6b0404341b7ec56bd'), UNHEX('ac5c8867676f4737931f052cbb9b4a84'), 3, UNHEX('0e98b6da9cce4ca3a79d58c2c63f8406'));

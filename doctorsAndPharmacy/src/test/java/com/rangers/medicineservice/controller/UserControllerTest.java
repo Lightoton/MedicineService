@@ -121,13 +121,10 @@ class UserControllerTest {
     }
 
     @Test
-    void getUserHistoryOrdersTest() throws Exception {
+    void getUserHistoryOrdersTest() {
 //        mockMvc
 //                .perform(MockMvcRequestBuilders.get("/user/history/orders/userId/"+userTestId))
 //                .andExpect(status().isOk())
-//                .andExpect((ResultMatcher) jsonPath("$.orderId", not(isEmpty())))
-//                .andExpect((ResultMatcher) jsonPath("$.quantity", not(isEmpty())))
-//                .andExpect((ResultMatcher) jsonPath("$.name", not(isEmpty())));
     }
 
     @Test

@@ -10,6 +10,7 @@
     <include file="/db/changelog/changes/v0.0.1-SNAPSHOT/insert_test_data_into_pharmacies.sql"/>
     <include file="/db/changelog/changes/v0.0.1-SNAPSHOT/insert_test_data_into_schedules.sql"/>
     <include file="/db/changelog/changes/v0.0.1-SNAPSHOT/insert_test_data_into_users.sql"/>
+<!--    <include file="/db/changelog/changes/v0.0.1-SNAPSHOT/insert_test_data_into_order_details.sql"/>-->
 <!--    <include file="/db/changelog/changes/v0.0.1-SNAPSHOT/insert_test_data_into_orders.sql"/>-->
     
 

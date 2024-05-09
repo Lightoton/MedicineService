@@ -38,6 +38,7 @@ public class UserController {
     }
 
     @GetUserHistoryOrdersDocumentation(path = "/history/orders/userId/{id}")
+    //http://localhost:8080/user/history/orders/userId/ddb7ccab-9f3d-409d-a7ab-9573061c6e29
     public List<UserHistoryOrdersDto> getUserHistoryOrders(@PathVariable("id") String id){
         return userService.getUserHistoryOrders(id);
     }

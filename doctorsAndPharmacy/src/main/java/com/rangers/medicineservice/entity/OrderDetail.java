@@ -1,5 +1,6 @@
 package com.rangers.medicineservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -23,12 +24,13 @@ public class OrderDetail {
     @Column(name = "quantity")
     private Integer quantity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "medicine_id", referencedColumnName = "medicine_id")
     private Medicine medicine;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id", referencedColumnName = "order_id")
+    @JsonIgnore
     private Order order;
 
     @Override
@@ -46,11 +48,10 @@ public class OrderDetail {
 
     @Override
     public String toString() {
-        return "OrderDetails{" +
+        return "OrderDetail{" +
                 "orderDetailId=" + orderDetailId +
-                ", medicine=" + medicine +
                 ", quantity=" + quantity +
-                ", order=" + order +
+                ", medicine=" + medicine +
                 '}';
     }
 }
