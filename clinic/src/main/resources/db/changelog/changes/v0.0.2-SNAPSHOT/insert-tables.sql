@@ -49,7 +49,6 @@ VALUES
     (UNHEX('ac4c4444176f47541357f52cbb9b4a95'),UNHEX('d1fd8b7990aa4f4aae0c8ae2069443e3'), UNHEX('ddb7ccab9f3d409da7ab9573061c6e29'), '2025-11-26 17:00:00','2023-11-25 17:00:00', true);
 
 
-
 INSERT INTO prescription_details(prescription_details_id,prescription_id,medicine_id,quantity)
 VALUES (UNHEX('c5f4e7d8a1c3b6e2f7d9b3a5c6f4a2e7'),UNHEX('ac5c9927676f47142357f52cbb9b4a95'),UNHEX('ac5c8867676f4737931f052cbb9b4a84'),2),
        (UNHEX('b7d8a29f5e6f4874b3c2d1f4a9b6c7e5'),UNHEX('ac5c9927676f47142357f52cbb9b4a95'),UNHEX('b585b9c08b7f493fb3c39018d3f8773d'),1),

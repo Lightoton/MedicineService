@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 class MedicineServiceApplicationTest {
+
     @Test
     void contextLoads() {
-
     }
 
 }

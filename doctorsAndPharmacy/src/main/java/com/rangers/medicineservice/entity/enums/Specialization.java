@@ -4,5 +4,6 @@ public enum Specialization {
     FAMILY_DOCTOR,
     THERAPIST,
     TRAUMATOLOGIST,
-    OCULIST
+    OCULIST,
+    PEDIATRIC
 }

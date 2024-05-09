@@ -1,5 +1,6 @@
 package com.rangers.medicineservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rangers.medicineservice.entity.enums.AppointmentType;
 import com.rangers.medicineservice.entity.enums.ScheduleStatus;
 import jakarta.persistence.*;
