@@ -2,7 +2,7 @@ package com.rangers.medicineservice.mapper;
 
 
 import com.rangers.medicineservice.dto.OrderDetailDto;
-import com.rangers.medicineservice.dto.OrderDto;
+import com.rangers.medicineservice.dto.OrderFromPrescriptionDto;
 import com.rangers.medicineservice.dto.PrescriptionDto;
 import com.rangers.medicineservice.entity.*;
 import com.rangers.medicineservice.entity.enums.OrderStatus;
@@ -14,13 +14,13 @@ import java.util.List;
 import java.util.UUID;
 
 @Mapper(componentModel = "spring", imports = {GetNameFromUserUtil.class}
-        ,unmappedTargetPolicy = ReportingPolicy.IGNORE)
+        , unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface OrderFromPrescriptionMapper {
     @Mappings({
             @Mapping(target = "user", expression = "java(GetNameFromUserUtil.getName(order))"),
             @Mapping(target = "address", source = "deliveryAddress")
     })
-OrderDto toDto(Order order);
+    OrderFromPrescriptionDto toDto(Order order);
 
     @AfterMapping
     default void getInfo(@MappingTarget OrderDetailDto orderDetailDto, OrderDetail orderDetail) {

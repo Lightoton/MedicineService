@@ -80,7 +80,7 @@ class StockingPrescriptionControllerTest {
                 .andExpect(content().json("""
                         {
                           "message": "The prescription belongs to another user",
-                          "statusCode": 400
+                          "errorCode": "BAD_REQUEST"
                         }"""));
     }
 
@@ -95,7 +95,7 @@ class StockingPrescriptionControllerTest {
                 .andExpect(content().json("""
                         {
                           "message": "The prescription has expired.",
-                          "statusCode": 400
+                          "errorCode": "BAD_REQUEST"
                         }"""));
 
     }
@@ -110,7 +110,7 @@ class StockingPrescriptionControllerTest {
                 .andExpect(content().json("""
                         {
                           "message": "The prescription has already been cashed.",
-                          "statusCode": 400
+                          "errorCode": "BAD_REQUEST"
                         }"""));
 
     }
@@ -125,7 +125,7 @@ class StockingPrescriptionControllerTest {
                 .andExpect(content().json("""
                         {
                           "message": "The prescription is empty",
-                          "statusCode": 400
+                          "errorCode": "BAD_REQUEST"
                         }"""));
     }
 
@@ -139,7 +139,7 @@ class StockingPrescriptionControllerTest {
                 .andExpect(content().json("""
                         {
                           "message": "Not enough balance, maximum quantity for Amoxicillin is 0",
-                          "statusCode": 400
+                          "errorCode": "BAD_REQUEST"
                         }"""));
     }
 

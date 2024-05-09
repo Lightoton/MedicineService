@@ -1,6 +1,6 @@
 package com.rangers.medicineservice.service.impl;
 
-import com.rangers.medicineservice.dto.OrderDto;
+import com.rangers.medicineservice.dto.OrderFromPrescriptionDto;
 import com.rangers.medicineservice.dto.PrescriptionDto;
 import com.rangers.medicineservice.entity.*;
 import com.rangers.medicineservice.exception.DataNotExistExp;
@@ -32,15 +32,15 @@ public class OrderServiceImpl implements OrdersService {
 
     @Override
     @Transactional
-    public OrderDto addOrder(PrescriptionDto prescriptionDto) {
+    public OrderFromPrescriptionDto addOrder(PrescriptionDto prescriptionDto) {
 
         Prescription prescription = new Prescription();
         prescription.setPrescriptionId(UUID.fromString(prescriptionDto.getPrescriptionId()));
         List<PrescriptionDetail> details = prescriptionDetailRepository
                 .findPrescriptionDetailsByPrescription(prescription);
-if(details.isEmpty()) {
-    throw new DataNotExistExp(ErrorMessage.N0_DATA_FOUND);
-}
+        if (details.isEmpty()) {
+            throw new DataNotExistExp(ErrorMessage.N0_DATA_FOUND);
+        }
         if (prescriptionDto.getUserId().equals(details.getFirst().getPrescription().getUser().getUserId().toString())) {
 
             Order order = orderFromPrescriptionMapper.toEntity(details, prescriptionDto);

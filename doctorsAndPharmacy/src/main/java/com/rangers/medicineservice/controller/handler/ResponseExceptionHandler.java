@@ -11,6 +11,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import jakarta.validation.ConstraintViolationException;
+import org.springframework.context.annotation.Description;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.ArrayList;
 
@@ -52,7 +59,7 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
   
     @ExceptionHandler(DataNotExistExp.class)
       public ResponseEntity<?> handleNoDataFoundException(DataNotExistExp e) {
-          ErrorExtension body = new ErrorExtension(e.getMessage(), HttpStatus.BAD_REQUEST.value());
+          ErrorExtension body = new ErrorExtension(e.getMessage(), HttpStatus.BAD_REQUEST);
           if (e.getMessage().equals("The prescription is empty")) {
               return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
           }
@@ -64,13 +71,13 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
 
       @ExceptionHandler(InActivePrescriptionExp.class)
       public ResponseEntity<?> handleInactivePrescriptionException(InActivePrescriptionExp e) {
-          ErrorExtension body = new ErrorExtension(e.getMessage(), HttpStatus.BAD_REQUEST.value());
+          ErrorExtension body = new ErrorExtension(e.getMessage(), HttpStatus.BAD_REQUEST);
           return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
       }
 
       @ExceptionHandler(NotEnoughBalanceExp.class)
       public ResponseEntity<?> handleNegativeBalancePrescriptionException(NotEnoughBalanceExp e) {
-          ErrorExtension body = new ErrorExtension(e.getMessage(), HttpStatus.BAD_REQUEST.value());
+          ErrorExtension body = new ErrorExtension(e.getMessage(), HttpStatus.BAD_REQUEST);
           return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
       }
 
