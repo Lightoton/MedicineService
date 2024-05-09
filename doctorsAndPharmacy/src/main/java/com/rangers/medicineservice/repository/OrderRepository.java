@@ -11,12 +11,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.UUID;
 
-  @Repository
+@Repository
 public interface OrderRepository extends JpaRepository<Order, UUID> {
-  
-      @NotNull
+
+    @NotNull
     Order saveAndFlush(@NotNull Order order);
-  
+
     @Query("select o from Order o join o.user u where u.userId = :userId")
     List<Order> getOrdersByUserId(UUID userId);
 

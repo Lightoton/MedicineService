@@ -21,17 +21,18 @@ public class CartItem {
     private UUID cartItemId;
 
     @Column(name = "quantity")
-    private int quantity;
+    private Integer quantity;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH},
-            fetch = FetchType.LAZY)
+            fetch = FetchType.EAGER)
     @JoinColumn(name = "medicine_id", referencedColumnName = "medicine_id")
     @JsonIgnore
     private Medicine medicine;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH},
-            fetch = FetchType.LAZY)
+            fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JsonIgnore
     private User user;
 
     @Override
@@ -39,7 +40,7 @@ public class CartItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CartItem cartItem = (CartItem) o;
-        return quantity == cartItem.quantity && Objects.equals(cartItemId, cartItem.cartItemId);
+        return Objects.equals(quantity, cartItem.quantity) && Objects.equals(cartItemId, cartItem.cartItemId);
     }
 
     @Override

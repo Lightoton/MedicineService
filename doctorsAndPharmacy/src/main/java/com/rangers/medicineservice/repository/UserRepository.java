@@ -13,7 +13,7 @@ import java.util.UUID;
 public interface UserRepository extends JpaRepository<User, UUID> {
     User getUserByChatId(String chatId);
     User getUserByPolicyNumber(String policyNumber);
- 
+
     @NotNull
     Optional<User> findById(@NotNull UUID uuid);
 

@@ -58,5 +58,4 @@ public class PrescriptionDetail {
                 ", quantity=" + quantity +
                 '}';
     }
-
 }

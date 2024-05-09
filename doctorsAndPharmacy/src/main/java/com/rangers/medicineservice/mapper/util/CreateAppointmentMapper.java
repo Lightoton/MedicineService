@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE)
-@Component
 public interface CreateAppointmentMapper {
 
     default CreateVisitResponseDto generateResponse(Schedule schedule) {
