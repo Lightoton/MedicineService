@@ -8,6 +8,19 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
+  mail:
+    host: smtp-mail.outlook.com
+    username: medicine.service@outlook.com
+    password: medicineservice1
+    port: 587
+    protocol: STARTTLS
+    properties:
+      mail:
+        debug: true
+      smtp:
+        starttls:
+          enable: true
+          required: true
 
   datasource:
     url: jdbc:mysql://localhost:3306/medicine_service

@@ -6,6 +6,7 @@ import com.rangers.medicineservice.dto.ScheduleDateTimeDto;
 import com.rangers.medicineservice.dto.ScheduleFullDto;
 import com.rangers.medicineservice.entity.Schedule;
 import com.rangers.medicineservice.service.impl.ScheduleServiceImpl;
+import com.rangers.medicineservice.util.MailSender;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -14,6 +15,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
@@ -28,6 +30,9 @@ import java.util.UUID;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -58,6 +63,9 @@ class ScheduleControllerTest {
               "user_id" : "ac5c8867-676f-4737-931f-052cbb9b4a51",
               "appointmentType" : "OFFLINE"
             }""";
+
+    @MockBean
+    private MailSender mailSender;
 
     private final UUID doctorId = UUID.fromString("01f558a1-736b-4916-b7e8-02a06c63ac7a");
     private final List<String> dateAndTimes = List.of("2024-11-23T15:00", "2024-11-23T10:00");
@@ -199,6 +207,10 @@ class ScheduleControllerTest {
         Schedule scheduleAfter = scheduleService
                 .findById(UUID.fromString("f4a7bf08-de17-4195-ac57-fe251d9e15c2"));
 
+        if (scheduleAfter.getUser().getEmail() != null){
+            verify(mailSender).send(anyString(), eq("Confirmation of appointment"), anyString());
+        }
+
         assertNull(scheduleBefore.getUser());
         assertEquals(scheduleAfter.getUser().getUserId(), UUID.fromString("ac5c8867-676f-4737-931f-052cbb9b4a59"));
     }
@@ -269,6 +281,10 @@ class ScheduleControllerTest {
 
         Schedule scheduleAfter = scheduleService
                 .findById(UUID.fromString("ac5c8867-676f-4737-931f-052cbb9b4a95"));
+
+        if (scheduleBefore.getUser().getEmail() != null){
+            verify(mailSender).send(anyString(), eq("Cancellation of appointment"), anyString());
+        }
 
         assertEquals(scheduleBefore.getUser().getUserId(), UUID.fromString("ac5c8867-676f-4737-931f-052cbb9b4a59"));
         assertNull(scheduleAfter.getUser());
