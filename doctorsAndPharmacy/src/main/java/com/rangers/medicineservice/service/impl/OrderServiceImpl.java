@@ -13,7 +13,6 @@ import com.rangers.medicineservice.mapper.util.UserMapper;
 import com.rangers.medicineservice.repository.CartItemRepository;
 import com.rangers.medicineservice.repository.OrderDetailRepository;
 import com.rangers.medicineservice.repository.OrderRepository;
-import com.rangers.medicineservice.repository.UserRepository;
 import com.rangers.medicineservice.service.interf.OrderService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 

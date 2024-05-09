@@ -1,7 +1,7 @@
 package com.rangers.medicineservice.controller;
 
 import com.rangers.medicineservice.dto.CreatedCartItemDto;
-import com.rangers.medicineservice.entity.Prescription;
+import com.rangers.medicineservice.dto.PrescriptionDto;
 import com.rangers.medicineservice.service.interf.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -22,7 +22,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/prescriptions/{id}")
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(HttpStatus.OK)
     @Operation(summary = "Get user prescriptions", description = "Get list of user prescriptions by userId")
     @ApiResponse(
             responseCode = "200",
@@ -32,7 +32,7 @@ public class UserController {
                             mediaType = "application/json",
                             schema = @Schema(implementation = CreatedCartItemDto.class))
             })
-    public List<Prescription> getUserPrescription(@PathVariable UUID id) {
+    public List<PrescriptionDto> getUserPrescription(@PathVariable UUID id) {
         return userService.getUserPrescriptions(id);
     }
 }

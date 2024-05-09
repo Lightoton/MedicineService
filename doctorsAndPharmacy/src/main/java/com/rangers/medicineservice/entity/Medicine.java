@@ -1,6 +1,5 @@
 package com.rangers.medicineservice.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rangers.medicineservice.entity.enums.MedicineCategory;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,7 +8,6 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.Objects;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -23,7 +21,7 @@ public class Medicine {
     @Column(name = "medicine_id")
     private UUID medicineId;
 
-    @Column(name = "name")
+    @Column(name = "medicine_name")
     private String name;
 
     @Column(name = "description")
@@ -32,17 +30,16 @@ public class Medicine {
     @Column(name = "price")
     private BigDecimal price;
 
+    @Column(name = "available_quantity")
+    private int availableQuantity;
+
     @Column(name = "category")
     @Enumerated(EnumType.STRING)
     private MedicineCategory category;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "pharmacy_id", referencedColumnName = "pharmacy_id")
-    @JsonIgnore
     private Pharmacy pharmacy;
-
-    @ManyToMany(mappedBy = "medicines", fetch = FetchType.EAGER)
-    Set<Prescription> prescriptions;
 
     @Override
     public boolean equals(Object o) {
@@ -60,9 +57,9 @@ public class Medicine {
     @Override
     public String toString() {
         return "Medicine{" +
-                "doctorId=" + medicineId +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
+                "medicineId=" + medicineId +
+                ", name=" + name +
+                ", description='" + description +
                 ", price=" + price +
                 ", category=" + category +
                 '}';

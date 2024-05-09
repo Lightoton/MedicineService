@@ -32,7 +32,7 @@ public class CartItemController {
                             mediaType = "application/json",
                             schema = @Schema(implementation = CreatedCartItemDto.class))
             })
-    public CreatedCartItemDto createCartItem(@RequestBody CartItemBeforeCreationDto cartItemBeforeCreationDto){
+    public CreatedCartItemDto createCartItem(@RequestBody CartItemBeforeCreationDto cartItemBeforeCreationDto) {
         return cartItemService.createCartItem(cartItemBeforeCreationDto);
     }
 
@@ -47,7 +47,7 @@ public class CartItemController {
                             mediaType = "application/json",
                             schema = @Schema(implementation = CreatedCartItemDto.class))
             })
-    public ResponseEntity<String> deleteCartItem(@PathVariable(name = "id") UUID id){
+    public ResponseEntity<String> deleteCartItem(@PathVariable(name = "id") UUID id) {
         cartItemService.deleteCartItem(id);
         return ResponseEntity.ok("***Deleted successfully!***");
     }

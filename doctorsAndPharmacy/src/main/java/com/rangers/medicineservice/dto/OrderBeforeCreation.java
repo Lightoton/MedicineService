@@ -1,8 +1,6 @@
 package com.rangers.medicineservice.dto;
 
 import com.rangers.medicineservice.entity.OrderDetail;
-import com.rangers.medicineservice.entity.Pharmacy;
-import com.rangers.medicineservice.entity.User;
 import lombok.Data;
 
 import java.math.BigDecimal;

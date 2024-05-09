@@ -2,7 +2,7 @@
 
 --changeset liquibase:6
 
-INSERT INTO schedules (schedule_id, doctor_id, date_and_time, status, type, link)
+INSERT INTO schedules (schedule_id, doctor_id, date_time, status, type, link)
 VALUES
     (UNHEX('ac5c8867676f4737931f052cbb9b4a95'), UNHEX('d1fd8b7990aa4f4aae0c8ae2069443e3'), '2023-11-25 17:00:00', 'FREE', 'ONLINE', 'zoom_link_1'),
     (UNHEX('f4a7bf08de174195ac57fe251d9e15c2'), UNHEX('b585b9c08b7f493fb3c39018d3f8772d'), '2023-11-24 18:00:00', 'IN_PROGRESS', 'OFFLINE', NULL),

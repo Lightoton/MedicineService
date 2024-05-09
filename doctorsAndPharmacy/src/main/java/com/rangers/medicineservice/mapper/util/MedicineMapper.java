@@ -9,5 +9,6 @@ import org.mapstruct.Named;
 public interface MedicineMapper {
     @Named("toDto")
     MedicineDto toDto(Medicine medicine);
+
     Medicine toEntity(MedicineDto medicineDto);
 }

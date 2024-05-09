@@ -40,7 +40,7 @@ public class CartItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CartItem cartItem = (CartItem) o;
-        return quantity == cartItem.quantity && Objects.equals(cartItemId, cartItem.cartItemId);
+        return Objects.equals(quantity, cartItem.quantity) && Objects.equals(cartItemId, cartItem.cartItemId);
     }
 
     @Override

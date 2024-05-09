@@ -31,7 +31,7 @@ public class OrderController {
                             mediaType = "application/json",
                             schema = @Schema(implementation = CreatedOrderDto.class))
             })
-    public CreatedOrderDto createOrder(@RequestBody Set<CartItem> cartItems){
+    public CreatedOrderDto createOrder(@RequestBody Set<CartItem> cartItems) {
         return service.createOrder(cartItems);
     }
 }

@@ -34,11 +34,6 @@ public class Doctor {
     @Column(name = "rating")
     private String rating;
 
-    //    Relationships
-//    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH},
-//            fetch = FetchType.LAZY)
-//    @JoinColumn(name = "schedule_id", referencedColumnName = "schedule_id")
-//    @JsonIgnore
     @OneToMany(mappedBy = "doctor", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Schedule> schedules;
 

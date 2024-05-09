@@ -25,7 +25,7 @@ public class Schedule {
     @Column(name = "schedule_id")
     private UUID scheduleId;
 
-    @Column(name = "date_and_time")
+    @Column(name = "date_time")
     private LocalDateTime dateAndTime;
 
     @Enumerated(EnumType.STRING)
