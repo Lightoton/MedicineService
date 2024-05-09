@@ -1,6 +1,6 @@
---liquibase formatted sql
+-- liquibase formatted sql
 
---changeset liquibase:07
+-- changeset liquibase:07
 
 
 
