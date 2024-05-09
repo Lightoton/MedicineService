@@ -1,5 +1,6 @@
 package com.rangers.medicineservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rangers.medicineservice.entity.enums.Specialization;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -34,9 +35,11 @@ public class Doctor {
     @Column(name = "rating")
     private String rating;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "doctor", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Schedule> schedules;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "doctor", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Prescription> prescriptions;
 
@@ -45,12 +48,12 @@ public class Doctor {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Doctor doctor = (Doctor) o;
-        return Objects.equals(doctorId, doctor.doctorId) && Objects.equals(firstName, doctor.firstName) && Objects.equals(lastName, doctor.lastName) && Objects.equals(specialization, doctor.specialization) && Objects.equals(rating, doctor.rating);
+        return Objects.equals(doctorId, doctor.doctorId) && Objects.equals(firstName, doctor.firstName) && Objects.equals(lastName, doctor.lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(doctorId, firstName, lastName, specialization, rating);
+        return Objects.hash(doctorId, firstName, lastName);
     }
 
     @Override

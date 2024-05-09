@@ -59,13 +59,11 @@ public class Prescription {
 
     @Override
     public String toString() {
-        return "Recept{" +
-                "receptId=" + prescriptionId +
+        return "Prescription{" +
+                "prescriptionId=" + prescriptionId +
                 ", expDate=" + expDate +
                 ", createdAt=" + createdAt +
                 ", isActive=" + isActive +
-                ", doctor=" + doctor +
-                ", user=" + user +
                 '}';
     }
 }

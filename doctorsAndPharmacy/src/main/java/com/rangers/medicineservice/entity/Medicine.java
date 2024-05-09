@@ -1,5 +1,6 @@
 package com.rangers.medicineservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rangers.medicineservice.entity.enums.MedicineCategory;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -39,6 +40,7 @@ public class Medicine {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "pharmacy_id", referencedColumnName = "pharmacy_id")
+    @JsonIgnore
     private Pharmacy pharmacy;
 
     @Override
@@ -58,8 +60,8 @@ public class Medicine {
     public String toString() {
         return "Medicine{" +
                 "medicineId=" + medicineId +
-                ", name=" + name +
-                ", description='" + description +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
                 ", price=" + price +
                 ", category=" + category +
                 '}';

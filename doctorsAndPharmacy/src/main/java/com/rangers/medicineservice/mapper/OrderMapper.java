@@ -1,16 +1,18 @@
 package com.rangers.medicineservice.mapper;
 
+import com.rangers.medicineservice.dto.OrderDto;
+import com.rangers.medicineservice.dto.UserHistoryOrderDetailsDto;
+import com.rangers.medicineservice.dto.UserHistoryOrdersDto;
 import com.rangers.medicineservice.dto.CartItemToOrderDetailDto;
 import com.rangers.medicineservice.dto.CreatedOrderDto;
 import com.rangers.medicineservice.dto.OrderBeforeCreation;
 import com.rangers.medicineservice.entity.Order;
 import com.rangers.medicineservice.entity.OrderDetail;
 import com.rangers.medicineservice.entity.enums.OrderStatus;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Mapper(componentModel = "spring", imports = {LocalDate.class, OrderStatus.class, Order.class},
         unmappedTargetPolicy = ReportingPolicy.IGNORE)
@@ -47,4 +49,14 @@ public interface OrderMapper {
     @Mapping(target = "deliveryAddress", source = "deliveryAddress")
     @Mapping(target = "pharmacy", source = "pharmacy")
     Order toEntity(CreatedOrderDto createdOrderDto);
+
+    OrderDto toDto(Order order);
+
+    List<UserHistoryOrdersDto> toUserHistoryOrdersDto(List<Order> orders);
+    @AfterMapping
+    default void getOrderDetails(@MappingTarget UserHistoryOrdersDto userHistoryOrdersDto,
+                                 Order order) {
+        userHistoryOrdersDto.setOrderId(order.getOrderId());
+        userHistoryOrdersDto.setOrderDate(order.getOrderDate());
+    }
 }

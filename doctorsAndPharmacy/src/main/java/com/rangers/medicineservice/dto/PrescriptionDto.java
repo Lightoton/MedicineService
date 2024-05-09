@@ -2,11 +2,13 @@ package com.rangers.medicineservice.dto;
 
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 public class PrescriptionDto {
     String prescriptionId;
-    String expDate;
-    String createdAt;
-    boolean isActive;
-    String doctorName;
+    String userId;
+    LocalDate expiryDate;
+    String deliveryAddress;
+
 }

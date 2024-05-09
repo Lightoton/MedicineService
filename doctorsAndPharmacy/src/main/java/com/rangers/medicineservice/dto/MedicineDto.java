@@ -4,7 +4,9 @@ import lombok.Data;
 
 @Data
 public class MedicineDto {
-    String medicineId;
     String name;
+    String description;
     String price;
+    String category;
+
 }

@@ -1,3 +1,6 @@
+-- liquibase formatted sql
+
+-- changeset liquibase:07
 
 
 

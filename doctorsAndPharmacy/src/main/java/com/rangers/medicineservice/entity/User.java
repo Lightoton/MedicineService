@@ -47,7 +47,7 @@ public class User {
     @Column(name = "postal_code")
     private String postalCode;
 
-    @Column(name = "chatId")
+    @Column(name = "chat_id")
     private String chatId;
 
     @Column(name = "policy_number")
