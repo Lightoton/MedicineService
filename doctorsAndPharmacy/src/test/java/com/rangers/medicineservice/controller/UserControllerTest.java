@@ -122,9 +122,6 @@ class UserControllerTest {
 
     @Test
     void getUserHistoryOrdersTest() {
-//        mockMvc
-//                .perform(MockMvcRequestBuilders.get("/user/history/orders/userId/"+userTestId))
-//                .andExpect(status().isOk())
     }
 
     @Test

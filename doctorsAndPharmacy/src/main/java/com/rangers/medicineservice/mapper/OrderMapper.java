@@ -11,16 +11,25 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
-        unmappedTargetPolicy = ReportingPolicy.IGNORE) //unmappedTargetPolicy = ReportingPolicy.IGNORE
+        unmappedTargetPolicy = ReportingPolicy.IGNORE) //, uses = {OrderDetailsMapper.class}
 @Component
 public interface OrderMapper {
     OrderDto toDto(Order order);
-
     List<UserHistoryOrdersDto> toUserHistoryOrdersDto(List<Order> orders);
+
+    @Mappings({
+            @Mapping(target = "name", source = "orderDetail.medicine.name"),
+            @Mapping(target = "price", source = "orderDetail.medicine.price")
+    })
+    UserHistoryOrderDetailsDto mapToUserHistoryOrderDetailsDto(OrderDetail orderDetail);
+
     @AfterMapping
     default void getOrderDetails(@MappingTarget UserHistoryOrdersDto userHistoryOrdersDto,
                                  Order order) {
-        userHistoryOrdersDto.setOrderId(order.getOrderId());
-        userHistoryOrdersDto.setOrderDate(order.getOrderDate());
+
+        List<UserHistoryOrderDetailsDto> userHistoryOrderDetailsDtoList = order.getOrderDetails().stream()
+                .map(this::mapToUserHistoryOrderDetailsDto)
+                .toList();
+        userHistoryOrdersDto.setUserHistoryOrderDetailsDtoList(userHistoryOrderDetailsDtoList);
     }
 }
