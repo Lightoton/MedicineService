@@ -4,7 +4,7 @@ import com.rangers.medicineservice.dto.CartItemBeforeCreationDto;
 import com.rangers.medicineservice.dto.CreatedCartItemDto;
 import com.rangers.medicineservice.entity.CartItem;
 import com.rangers.medicineservice.exeption.QuantityCantBeLowerThenOneException;
-import com.rangers.medicineservice.mapper.util.CartItemMapper;
+import com.rangers.medicineservice.mapper.CartItemMapper;
 import com.rangers.medicineservice.repository.CartItemRepository;
 import com.rangers.medicineservice.repository.MedicineRepository;
 import com.rangers.medicineservice.repository.UserRepository;

@@ -1,4 +1,4 @@
-package com.rangers.medicineservice.mapper.util;
+package com.rangers.medicineservice.mapper;
 
 import com.rangers.medicineservice.dto.PrescriptionDto;
 import com.rangers.medicineservice.entity.Doctor;
@@ -6,8 +6,10 @@ import com.rangers.medicineservice.entity.Prescription;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "spring")
+
+@Mapper(componentModel = "spring",unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface PrescriptionMapper {
 
     @Mapping(target = "prescriptionId", source = "prescriptionId")

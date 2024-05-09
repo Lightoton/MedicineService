@@ -1,4 +1,4 @@
-package com.rangers.medicineservice.mapper.util;
+package com.rangers.medicineservice.mapper;
 
 import com.rangers.medicineservice.dto.CartItemToOrderDetailDto;
 import com.rangers.medicineservice.dto.CreatedOrderDto;
@@ -8,10 +8,13 @@ import com.rangers.medicineservice.entity.OrderDetail;
 import com.rangers.medicineservice.entity.enums.OrderStatus;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
 import java.time.LocalDate;
 
-@Mapper(componentModel = "spring", imports = {LocalDate.class, OrderStatus.class, Order.class})
+@Mapper(componentModel = "spring", imports = {LocalDate.class, OrderStatus.class, Order.class},
+        unmappedTargetPolicy = ReportingPolicy.IGNORE)
+
 public interface OrderMapper {
 
 
