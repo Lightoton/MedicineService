@@ -13,4 +13,7 @@ public class ErrorMessage {
     public static final String USER_WITH_CHAT_ID_NOT_FOUND = "User with this ChatId was not found.";
     public static final String USER_WITH_CHAT_ID_EXIST = "The user with this ChatId is already present.";
     public static final String CHAT_ID_MUST_BE_PRESENT = "The ChatId must be present.";
+    public static final String ORDERS_NOT_FOUND = "The orders were not found.";
+    public static final String SCHEDULES_NOT_FOUND = "The schedules were not found.";
+    public static final String PRESCRIPTIONS_NOT_FOUND = "The prescriptions were not found.";
 }

@@ -1,6 +1,6 @@
 package com.rangers.medicineservice.annotation.user;
 
-import com.rangers.medicineservice.dto.OrderDto;
+import com.rangers.medicineservice.entity.Order;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -39,7 +39,7 @@ import java.lang.annotation.Target;
                         description = "Successfully returned user orders.",
                         content = @Content(
                                 mediaType = "application/json",
-                                array = @ArraySchema(schema = @Schema(implementation = OrderDto.class))
+                                array = @ArraySchema(schema = @Schema(implementation = Order.class))
                         )
                 )
         },

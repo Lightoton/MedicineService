@@ -44,12 +44,12 @@ public class UserController {
     }
 
     @GetMapping("/history/schedules/userId/{id}")
-    public UserHistorySchedulesDto getUserHistorySchedules(@PathVariable("id") String id){
+    public List<ScheduleFullDto> getUserHistorySchedules(@PathVariable("id") String id){
         return userService.getUserHistorySchedules(id);
     }
 
     @GetMapping("/history/prescriptions/userId/{id}")
-    public UserHistoryPrescriptionsDto getUserHistoryPrescriptions(@PathVariable("id") String id){
+    public List<UserHistoryPrescriptionsDto> getUserHistoryPrescriptions(@PathVariable("id") String id){
         return userService.getUserHistoryPrescriptions(id);
     }
 }

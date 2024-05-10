@@ -9,6 +9,8 @@ import org.mapstruct.MappingConstants;
 import org.mapstruct.MappingTarget;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 @Component
 public interface ScheduleMapper {
@@ -28,4 +30,7 @@ public interface ScheduleMapper {
         scheduleFullDto.setDoctorName(schedule.getDoctor().getFirstName()+" "+schedule.getDoctor().getLastName());
         scheduleFullDto.setDoctorSpecialization(schedule.getDoctor().getSpecialization().toString());
     }
+
+    List<ScheduleFullDto> toFullDtoList(List<Schedule> schedules);
+
 }
