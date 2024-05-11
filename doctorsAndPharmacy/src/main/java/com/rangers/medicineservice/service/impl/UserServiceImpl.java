@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserHistoryOrdersDto> getUserHistoryOrders(String id) {
         List<Order> orders  = orderRepository.getOrdersByUserId(UUID.fromString(id));
-        if (orders==null) {
+        if (orders.isEmpty()) {
             throw new OrderNotFoundException(ErrorMessage.ORDERS_NOT_FOUND);
         }
         return orderMapper.toUserHistoryOrdersDto(orders);
@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<ScheduleFullDto> getUserHistorySchedules(String id) {
         List<Schedule> schedules  = scheduleRepository.findByUserId(UUID.fromString(id));
-        if (schedules==null) {
+        if (schedules.isEmpty()) {
             throw new ScheduleNotFoundException(ErrorMessage.SCHEDULES_NOT_FOUND);
         }
         return scheduleMapper.toFullDtoList(schedules);
@@ -105,7 +105,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserHistoryPrescriptionsDto> getUserHistoryPrescriptions(String id) {
         List<Prescription> prescriptions  = prescriptionRepository.findByUserId(UUID.fromString(id));
-        if (prescriptions==null) {
+        if (prescriptions.isEmpty()) {
             throw new PrescriptionNotFoundException(ErrorMessage.PRESCRIPTIONS_NOT_FOUND);
         }
         return prescriptionMapper.toUserHistoryPrescriptionsDtoList(prescriptions);
