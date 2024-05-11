@@ -22,4 +22,10 @@ public class RestTemplateConfig {
                 }));
         return restTemplate;
     }
+
+    @Bean(name = "zoomRestTemplate")
+    public RestTemplate zoomRestTemplate() {
+        return new RestTemplate();
+    }
+
 }
