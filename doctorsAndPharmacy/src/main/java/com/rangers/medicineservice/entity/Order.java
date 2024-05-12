@@ -37,21 +37,22 @@ public class Order {
     @Column(name = "delivery_address")
     private String deliveryAddress;
 
+
     @Column(name = "order_date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate orderDate;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "pharmacy_id", referencedColumnName = "pharmacy_id")
     @JsonIgnore
     private Pharmacy pharmacy;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     @JsonIgnore
     private User user;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "prescription_id", referencedColumnName = "prescription_id")
     @JsonIgnore
     private Prescription prescription;
@@ -70,6 +71,7 @@ public class Order {
     @Override
     public int hashCode() {
         return Objects.hash(orderId, status, orderCost, deliveryAddress);
+
     }
 
     @Override

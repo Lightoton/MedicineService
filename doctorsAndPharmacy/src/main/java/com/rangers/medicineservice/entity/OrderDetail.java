@@ -1,10 +1,12 @@
 package com.rangers.medicineservice.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -15,7 +17,6 @@ import java.util.UUID;
 @Setter
 @RequiredArgsConstructor
 public class OrderDetail {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "order_detail_id")
@@ -24,13 +25,14 @@ public class OrderDetail {
     @Column(name = "quantity")
     private Integer quantity;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.JOIN)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "medicine_id", referencedColumnName = "medicine_id")
     private Medicine medicine;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinColumn(name = "order_id", referencedColumnName = "order_id")
-    @JsonIgnore
+    @JsonBackReference
     private Order order;
 
     @Override
@@ -48,10 +50,11 @@ public class OrderDetail {
 
     @Override
     public String toString() {
-        return "OrderDetail{" +
+        return "OrderDetails{" +
                 "orderDetailId=" + orderDetailId +
-                ", quantity=" + quantity +
                 ", medicine=" + medicine +
+                ", quantity=" + quantity +
+                ", order=" + order +
                 '}';
     }
 }

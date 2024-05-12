@@ -1,5 +1,7 @@
 package com.rangers.medicineservice.config;
 
+import com.rangers.medicineservice.service.ZoomMeetingService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -10,11 +12,16 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class ChatBot extends TelegramLongPollingBot {
+
+    @Autowired
+    private ZoomMeetingService zoomMeetingService;
 
     private final BotConfig config;
 
@@ -34,6 +41,10 @@ public class ChatBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
+
+        LocalDateTime dateTime = LocalDateTime.now();
+        String startTime = dateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + "Z";
+
         if (update.hasMessage() && update.getMessage().hasText()) {
             String chatId = String.valueOf(update.getMessage().getChatId());
             String messageText = update.getMessage().getText();
@@ -55,7 +66,7 @@ public class ChatBot extends TelegramLongPollingBot {
                     sendMsg(chatId, "Будет выполняться алгоритм для поиска и возможной покупки лекарств в аптеке");
                     break;
                 case "command3":
-                    sendMsg(chatId, "Появятся 3 кнопки и одна из них активирует работу с AI чатом");
+                    sendMsg(chatId, zoomMeetingService.createZoomMeeting(startTime));
                     break;
                 default:
                     break;
@@ -100,7 +111,7 @@ public class ChatBot extends TelegramLongPollingBot {
         List<InlineKeyboardButton> rowInline = new ArrayList<>();
         InlineKeyboardButton button1 = new InlineKeyboardButton("Make an appointment with a doctor");
         InlineKeyboardButton button2 = new InlineKeyboardButton("Pharmacy");
-        InlineKeyboardButton button3 = new InlineKeyboardButton("Chat");
+        InlineKeyboardButton button3 = new InlineKeyboardButton("Get ZoomLink");
         button1.setCallbackData("command1");
         button2.setCallbackData("command2");
         button3.setCallbackData("command3");

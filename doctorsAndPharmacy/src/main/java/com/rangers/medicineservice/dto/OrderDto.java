@@ -1,5 +1,6 @@
 package com.rangers.medicineservice.dto;
 
+
 import com.rangers.medicineservice.entity.OrderDetail;
 import com.rangers.medicineservice.entity.Pharmacy;
 import com.rangers.medicineservice.entity.Prescription;
@@ -20,4 +21,5 @@ public class OrderDto {
     private BigDecimal orderCost;
     private String deliveryAddress;
     private Pharmacy pharmacy;
+
 }
