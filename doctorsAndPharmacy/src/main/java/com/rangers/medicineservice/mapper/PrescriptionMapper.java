@@ -27,20 +27,19 @@ public interface PrescriptionMapper {
 
     @AfterMapping
     default void updatePrescriptionsDto(Prescription prescription, @MappingTarget UserHistoryPrescriptionsDto userHistoryPrescriptionsDto) {
-        userHistoryPrescriptionsDto.setDoctorName(prescription.getDoctor().getFirstName()+" "+prescription.getDoctor().getLastName());
+        userHistoryPrescriptionsDto.setDoctorName(prescription.getDoctor().getFirstName() + " " + prescription.getDoctor().getLastName());
 
         List<UserHistoryPrescriptionDetailsDto> userHistoryPrescriptionDetailsDtoList = prescription.getPrescriptionDetails().stream()
                 .map(this::mapToUserHistoryPrescriptionsDto)
                 .toList();
         userHistoryPrescriptionsDto.setUserHistoryPrescriptionDetailsDtoList(userHistoryPrescriptionDetailsDtoList);
+    }
+        @Mapping(target = "prescriptionId", source = "prescriptionId")
+        @Mapping(target = "expiryDate", expression = "java(prescription.getExpDate())")
+        @Mapping(target = "userId", source = "user", qualifiedByName = "getUserId")
+        PrescriptionDto toDto (Prescription prescription);
 
-    @Mapping(target = "prescriptionId", source = "prescriptionId")
-    @Mapping(target = "expiryDate", expression = "java(prescription.getExpDate())")
-    @Mapping(target = "userId", source = "user", qualifiedByName = "getUserId")
-    PrescriptionDto toDto(Prescription prescription);
-
-    Prescription toEntity(PrescriptionDto prescriptionDto);
-
+        Prescription toEntity (PrescriptionDto prescriptionDto);
 
     @Named("getUserId")
     default String getUserId(User user) {

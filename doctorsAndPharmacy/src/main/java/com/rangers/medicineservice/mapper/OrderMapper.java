@@ -10,6 +10,7 @@ import com.rangers.medicineservice.entity.Order;
 import com.rangers.medicineservice.entity.OrderDetail;
 import com.rangers.medicineservice.entity.enums.OrderStatus;
 import org.mapstruct.*;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.List;

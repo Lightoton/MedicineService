@@ -1,7 +1,13 @@
 package com.rangers.medicineservice.config;
 
+//import com.rangers.medicineservice.service.ZoomMeetingService;
+//import org.springframework.beans.factory.annotation.Autowired;
+
+import com.rangers.medicineservice.dto.UserRegistrationDto;
 import com.rangers.medicineservice.service.ZoomMeetingService;
+import com.rangers.medicineservice.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -15,17 +21,26 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 @Component
 public class ChatBot extends TelegramLongPollingBot {
 
-    @Autowired
+        @Autowired
     private ZoomMeetingService zoomMeetingService;
+    private final UserServiceImpl userService;
+    private Map<String, UserRegistrationDto> users = new HashMap<>();
+    private Map<String, Integer> registrationStep = new HashMap<>();
+    private Map<String, Boolean> isRegistrationInProgress = new HashMap<>();
 
     private final BotConfig config;
 
-    public ChatBot(BotConfig config) {
+    public ChatBot(@Value("${bot.token}") String botToken, UserServiceImpl userService, BotConfig config) {
+        super(botToken);
+        this.userService = userService;
         this.config = config;
     }
 
@@ -34,10 +49,6 @@ public class ChatBot extends TelegramLongPollingBot {
         return config.getBotName();
     }
 
-    @Override
-    public String getBotToken() {
-        return config.getToken();
-    }
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -54,13 +65,21 @@ public class ChatBot extends TelegramLongPollingBot {
             } else if (update.hasMessage() && update.getMessage().hasLocation()) {
                 // if we get users location
                 processLocation(update);
+            } else if (isRegistrationInProgress.get(chatId)) {
+                handleRegistration(messageText, chatId);
             }
         } else if (update.hasCallbackQuery()) {
             String callbackData = update.getCallbackQuery().getData();
             String chatId = String.valueOf(update.getCallbackQuery().getMessage().getChatId());
             switch (callbackData) {
                 case "command1":
-                    sendMsg(chatId, "Будет выполняться алгоритм записи к врачу");
+                    if (isHaveUser(chatId)) {
+                        sendMsg(chatId, "Будет выполняться алгоритм записи к врачу");
+                    } else {
+                        users.put(chatId, new UserRegistrationDto());
+                        registrationStep.put(chatId, 0);
+                        startRegistration(chatId);
+                    }
                     break;
                 case "command2":
                     sendMsg(chatId, "Будет выполняться алгоритм для поиска и возможной покупки лекарств в аптеке");
@@ -70,6 +89,7 @@ public class ChatBot extends TelegramLongPollingBot {
                     break;
                 default:
                     break;
+
             }
         }
     }
@@ -146,4 +166,72 @@ public class ChatBot extends TelegramLongPollingBot {
         String chatId = String.valueOf(message.getChatId());
 
     }
+
+    private boolean isHaveUser(String chatId) {
+        try {
+            return userService.getUserIdByChatId(chatId) != null;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private void handleRegistration(String messageText, String chatId) {
+        switch (registrationStep.get(chatId)) {
+            case 0:
+                users.get(chatId).setFirstname(messageText);
+                sendMsg(chatId, "Отлично! Теперь введи свою фамилию:");
+                registrationStep.put(chatId, registrationStep.get(chatId) + 1);
+                break;
+            case 1:
+                users.get(chatId).setLastname(messageText);
+                sendMsg(chatId, "Отлично! Теперь введи свою электронную почту:");
+                registrationStep.put(chatId, registrationStep.get(chatId) + 1);
+                break;
+            case 2:
+                users.get(chatId).setEmail(messageText);
+                sendMsg(chatId, "Отлично! Теперь введи свой номер телефона:");
+                registrationStep.put(chatId, registrationStep.get(chatId) + 1);
+                break;
+            case 3:
+                users.get(chatId).setPhoneNumber(messageText);
+                sendMsg(chatId, "Отлично! Теперь введи свой адресс:");
+                registrationStep.put(chatId, registrationStep.get(chatId) + 1);
+                break;
+            case 4:
+                users.get(chatId).setAddress(messageText);
+                sendMsg(chatId, "Отлично! Теперь введи город проживания:");
+                registrationStep.put(chatId, registrationStep.get(chatId) + 1);
+                break;
+            case 5:
+                users.get(chatId).setCity(messageText);
+                sendMsg(chatId, "Отлично! Теперь введи страну проживания:");
+                registrationStep.put(chatId, registrationStep.get(chatId) + 1);
+                break;
+            case 6:
+                users.get(chatId).setCountry(messageText);
+                sendMsg(chatId, "Отлично! Теперь введи почтовый индекс:");
+                registrationStep.put(chatId, registrationStep.get(chatId) + 1);
+                break;
+            case 7:
+                users.get(chatId).setPostalCode(messageText);
+                sendMsg(chatId, "Отлично! Теперь введи номер страховки:");
+                registrationStep.put(chatId, registrationStep.get(chatId) + 1);
+                break;
+            case 8:
+                users.get(chatId).setPolicyNumber(messageText);
+                users.get(chatId).setChatId(chatId);
+                sendMsg(chatId, "Отлично! Регестрация завершена!!!");
+                userService.createUser(users.get(chatId));
+                isRegistrationInProgress.put(chatId,false);
+                break;
+            // обработка остальных шагов регистрации
+        }
+
+    }
+
+    private void startRegistration(String chatId) {
+        sendMsg(chatId, "Привет! Давай начнем регистрацию. Введи свое имя:");
+        isRegistrationInProgress.put(chatId, true);
+    }
+
 }

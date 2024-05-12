@@ -40,7 +40,6 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final OrderMapper orderMapper;
     private final ScheduleMapper scheduleMapper;
-    private final PrescriptionMapper prescriptionMapper;
 
     @Override
     public List<PrescriptionDto> getUserPrescriptions(UUID id) {
