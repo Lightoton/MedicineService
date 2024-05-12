@@ -2,6 +2,7 @@ package com.rangers.medicineservice.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rangers.medicineservice.TestConfig;
 import com.rangers.medicineservice.dto.PrescriptionDto;
 import com.rangers.medicineservice.entity.Prescription;
 import com.rangers.medicineservice.entity.User;
@@ -30,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
+@SpringBootTest(classes = TestConfig.class)
 @AutoConfigureMockMvc
 @DisplayName("Test class for UserController")
 @Sql("/db/drop-tables.sql")

@@ -2,6 +2,7 @@ package com.rangers.medicineservice.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rangers.medicineservice.TestConfig;
 import com.rangers.medicineservice.controller.util.Generator;
 import com.rangers.medicineservice.entity.Order;
 import org.junit.jupiter.api.Assertions;
@@ -25,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Sql("/db/insert_test_data.sql")
 
 
-@SpringBootTest
+@SpringBootTest(classes = TestConfig.class)
 @AutoConfigureMockMvc
 class StockingPrescriptionControllerTest {
 

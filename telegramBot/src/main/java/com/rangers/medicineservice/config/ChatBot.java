@@ -4,7 +4,9 @@ package com.rangers.medicineservice.config;
 //import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rangers.medicineservice.dto.UserRegistrationDto;
+import com.rangers.medicineservice.service.ZoomMeetingService;
 import com.rangers.medicineservice.service.impl.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -27,8 +29,8 @@ import java.util.Map;
 @Component
 public class ChatBot extends TelegramLongPollingBot {
 
-    //    @Autowired
-//    private ZoomMeetingService zoomMeetingService;
+        @Autowired
+    private ZoomMeetingService zoomMeetingService;
     private final UserServiceImpl userService;
     private Map<String, UserRegistrationDto> users = new HashMap<>();
     private Map<String, Integer> registrationStep = new HashMap<>();
@@ -83,7 +85,7 @@ public class ChatBot extends TelegramLongPollingBot {
                     sendMsg(chatId, "Будет выполняться алгоритм для поиска и возможной покупки лекарств в аптеке");
                     break;
                 case "command3":
-//                    sendMsg(chatId, zoomMeetingService.createZoomMeeting(startTime));
+                    sendMsg(chatId, zoomMeetingService.createZoomMeeting(startTime));
                     break;
                 default:
                     break;

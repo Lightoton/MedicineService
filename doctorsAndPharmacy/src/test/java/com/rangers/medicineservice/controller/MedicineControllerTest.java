@@ -2,6 +2,7 @@ package com.rangers.medicineservice.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rangers.medicineservice.TestConfig;
 import com.rangers.medicineservice.dto.DoctorDto;
 import com.rangers.medicineservice.dto.MedicineDto;
 import com.rangers.medicineservice.entity.Medicine;
@@ -36,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
+@SpringBootTest(classes = TestConfig.class)
 @AutoConfigureMockMvc
 @RequiredArgsConstructor
 @Sql("/db/drop-tables.sql")
