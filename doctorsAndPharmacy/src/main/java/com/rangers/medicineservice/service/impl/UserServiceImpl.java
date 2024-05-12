@@ -3,15 +3,20 @@ package com.rangers.medicineservice.service.impl;
 import com.rangers.medicineservice.dto.PrescriptionDto;
 import com.rangers.medicineservice.entity.Prescription;
 import com.rangers.medicineservice.dto.*;
+import com.rangers.medicineservice.entity.Prescription;
+import com.rangers.medicineservice.entity.Schedule;
 import com.rangers.medicineservice.entity.User;
 import com.rangers.medicineservice.mapper.PrescriptionMapper;
 import com.rangers.medicineservice.entity.Order;
-import com.rangers.medicineservice.exception.UserExistException;
-import com.rangers.medicineservice.exception.UserNotFoundException;
+import com.rangers.medicineservice.exception.*;
 import com.rangers.medicineservice.exception.errorMessage.ErrorMessage;
 import com.rangers.medicineservice.mapper.OrderMapper;
+import com.rangers.medicineservice.mapper.PrescriptionMapper;
+import com.rangers.medicineservice.mapper.ScheduleMapper;
 import com.rangers.medicineservice.mapper.UserMapper;
 import com.rangers.medicineservice.repository.OrderRepository;
+import com.rangers.medicineservice.repository.PrescriptionRepository;
+import com.rangers.medicineservice.repository.ScheduleRepository;
 import com.rangers.medicineservice.repository.UserRepository;
 import com.rangers.medicineservice.service.interf.UserService;
 import lombok.RequiredArgsConstructor;
@@ -30,8 +35,12 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PrescriptionMapper prescriptionMapper;
     private final OrderRepository orderRepository;
+    private final ScheduleRepository scheduleRepository;
+    private final PrescriptionRepository prescriptionRepository;
     private final UserMapper userMapper;
     private final OrderMapper orderMapper;
+    private final ScheduleMapper scheduleMapper;
+    private final PrescriptionMapper prescriptionMapper;
 
     @Override
     public List<PrescriptionDto> getUserPrescriptions(UUID id) {
@@ -99,19 +108,27 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserHistoryOrdersDto> getUserHistoryOrders(String id) {
         List<Order> orders  = orderRepository.getOrdersByUserId(UUID.fromString(id));
-        for (Order ord : orders){
-            System.out.println(ord);
+        if (orders.isEmpty()) {
+            throw new OrderNotFoundException(ErrorMessage.ORDERS_NOT_FOUND);
         }
         return orderMapper.toUserHistoryOrdersDto(orders);
     }
 
     @Override
-    public UserHistorySchedulesDto getUserHistorySchedules(String id) {
-        return null;
+    public List<ScheduleFullDto> getUserHistorySchedules(String id) {
+        List<Schedule> schedules  = scheduleRepository.findByUserId(UUID.fromString(id));
+        if (schedules.isEmpty()) {
+            throw new ScheduleNotFoundException(ErrorMessage.SCHEDULES_NOT_FOUND);
+        }
+        return scheduleMapper.toFullDtoList(schedules);
     }
 
     @Override
-    public UserHistoryPrescriptionsDto getUserHistoryPrescriptions(String id) {
-        return null;
+    public List<UserHistoryPrescriptionsDto> getUserHistoryPrescriptions(String id) {
+        List<Prescription> prescriptions  = prescriptionRepository.findByUserId(UUID.fromString(id));
+        if (prescriptions.isEmpty()) {
+            throw new PrescriptionNotFoundException(ErrorMessage.PRESCRIPTIONS_NOT_FOUND);
+        }
+        return prescriptionMapper.toUserHistoryPrescriptionsDtoList(prescriptions);
     }
 }

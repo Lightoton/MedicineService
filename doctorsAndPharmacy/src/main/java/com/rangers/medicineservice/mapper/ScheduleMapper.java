@@ -5,9 +5,11 @@ import com.rangers.medicineservice.dto.ScheduleFullDto;
 import com.rangers.medicineservice.entity.Schedule;
 import org.mapstruct.*;
 import org.springframework.stereotype.Component;
+import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Component
 public interface ScheduleMapper {
 
     ScheduleDateTimeDto toDto(Schedule schedule);
@@ -25,4 +27,7 @@ public interface ScheduleMapper {
         scheduleFullDto.setDoctorName(schedule.getDoctor().getFirstName()+" "+schedule.getDoctor().getLastName());
         scheduleFullDto.setDoctorSpecialization(schedule.getDoctor().getSpecialization().toString());
     }
+
+    List<ScheduleFullDto> toFullDtoList(List<Schedule> schedules);
+
 }
