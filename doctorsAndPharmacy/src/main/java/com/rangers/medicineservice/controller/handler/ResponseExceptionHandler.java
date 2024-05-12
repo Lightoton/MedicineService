@@ -7,6 +7,10 @@ import com.rangers.medicineservice.exception.NotEnoughBalanceExp;
 import com.rangers.medicineservice.exception.ScheduleNotFoundException;
 import com.rangers.medicineservice.exception.BadRequestException;
 import com.rangers.medicineservice.exception.ObjectDoesNotExistException;
+import com.rangers.medicineservice.exception.UserNotFoundException;
+import com.rangers.medicineservice.exception.UserExistException;
+import com.rangers.medicineservice.exception.OrderNotFoundException;
+import com.rangers.medicineservice.exception.PrescriptionNotFoundException;
 import com.rangers.medicineservice.exeption.ErrorCode;
 import com.rangers.medicineservice.exeption.QuantityCantBeLowerThenOneException;
 import org.springframework.http.HttpStatus;
@@ -28,7 +32,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(ScheduleNotFoundException.class)
+    @ExceptionHandler({ScheduleNotFoundException.class, UserNotFoundException.class, OrderNotFoundException.class,
+            ScheduleNotFoundException.class,PrescriptionNotFoundException.class})
     public ResponseEntity<ErrorExtension> handleScheduleNotFound(Exception ex){
 
         return new ResponseEntity<>(new ErrorExtension(
@@ -44,7 +49,7 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(BadRequestException.class)
+    @ExceptionHandler({BadRequestException.class, UserExistException.class})
     public ResponseEntity<ErrorExtension> handleBadRequestException(BadRequestException ex) {
         ErrorExtension body = new ErrorExtension(
                 ex.getMessage(),

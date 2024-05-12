@@ -32,5 +32,9 @@ spring:
 bot:
   name: ${bot.name}
   token: ${bot.token}
+zoom:
+  client-id: ${zoom.client-id}
+  client-secret: ${zoom.client-secret}
+  account-id: ${zoom.account-id}
 server:
   port: 8080

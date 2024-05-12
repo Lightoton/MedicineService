@@ -268,7 +268,7 @@ class ScheduleControllerTest {
 
         String jsonBody = """
                 {
-                    "userId" : "ac5c8867-676f-4737-931f-052cbb9b4a59"
+                    "userId" : "ddb7ccab-9f3d-409d-a7ab-9573061c6e29"
                 }""";
 
         mockMvc.perform(MockMvcRequestBuilders
@@ -278,7 +278,7 @@ class ScheduleControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().string(containsString("Your visit was canceled")))
-                .andExpect(content().string(containsString("Mikle Ivanov")))
+                .andExpect(content().string(containsString("Hans Anderson")))
                 .andExpect(content().string(containsString("25.11.2024 17:00")))
                 .andExpect(content().string(containsString("John Doe")));
 
@@ -289,7 +289,7 @@ class ScheduleControllerTest {
             verify(mailSender).send(anyString(), eq("Cancellation of appointment"), anyString());
         }
 
-        assertEquals(scheduleBefore.getUser().getUserId(), UUID.fromString("ac5c8867-676f-4737-931f-052cbb9b4a59"));
+        assertEquals(scheduleBefore.getUser().getUserId(), UUID.fromString("ddb7ccab-9f3d-409d-a7ab-9573061c6e29"));
         assertNull(scheduleAfter.getUser());
     }
 
