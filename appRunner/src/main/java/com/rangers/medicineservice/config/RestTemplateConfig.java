@@ -8,7 +8,7 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class RestTemplateConfig {
 
-    @Value("${openai.key}")
+    @Value("sk-proj-oIXb5ZgVmYh09dtnoGcET3BlbkFJAPgtNFcUhHK5akBiS3H1")
     private String openaiApiKey;
 
     @Bean
@@ -23,9 +23,9 @@ public class RestTemplateConfig {
         return restTemplate;
     }
 
-    @Bean(name = "zoomRestTemplate")
-    public RestTemplate zoomRestTemplate() {
-        return new RestTemplate();
-    }
+//    @Bean(name = "zoomRestTemplate")
+//    public RestTemplate zoomRestTemplate() {
+//        return new RestTemplate();
+//    }
 
 }

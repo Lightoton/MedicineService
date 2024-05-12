@@ -29,6 +29,8 @@ spring:
 
   liquibase:
     change-log: classpath:db/changelog/changelog-master.xml
-
+bot:
+  name: ${bot.name}
+  token: ${bot.token}
 server:
   port: 8080
