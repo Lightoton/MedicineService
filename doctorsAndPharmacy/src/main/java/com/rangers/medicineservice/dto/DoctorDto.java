@@ -3,9 +3,11 @@ package com.rangers.medicineservice.dto;
 import lombok.Data;
 
 import java.util.Objects;
+import java.util.UUID;
 
 @Data
 public class DoctorDto {
+    UUID uuid;
     String fullName;
     String rating;
     String specialization;
