@@ -15,7 +15,7 @@ import java.util.List;
 @Configuration
 public class TrainingDataConfig {
 
-    @Value("${C:/Users/masya/Documents/MedicineService/openai-chatbot/src/main/resources/training_file.json}") // Путь к training_file
+    @Value("${training.openai.data.path}") // Путь к training_file
     private String trainingFilePath;
 
     @Bean

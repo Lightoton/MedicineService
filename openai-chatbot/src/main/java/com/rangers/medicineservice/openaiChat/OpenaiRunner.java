@@ -5,6 +5,7 @@ import com.rangers.medicineservice.model.ChatMassage;
 import com.rangers.medicineservice.model.CompletionRequest;
 import com.rangers.medicineservice.model.CompletionResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,8 +16,12 @@ import java.util.List;
 @Component
 public class OpenaiRunner {
 
+    @Value("${openai.key}")
+    private String openaiApiKey;
 
+    @Autowired
     private final RestTemplate restTemplate;
+
     private final List<QuestionAnswer> trainingData;
 
     @Autowired
@@ -27,6 +32,14 @@ public class OpenaiRunner {
 
 
     public String sendMessage(String prompt) {
+
+            restTemplate.getInterceptors().add(
+                    ((request, body, execution) -> {
+                        request.getHeaders()
+                                .add("Authorization", "Bearer " + openaiApiKey);
+                        return execution.execute(request, body);
+                    }));
+
         double temperature = 0.5;
         double topP = 0.3;
 
