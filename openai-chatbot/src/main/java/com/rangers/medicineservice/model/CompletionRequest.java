@@ -21,5 +21,4 @@ public class CompletionRequest {
         this.temperature = temperature;
         this.topP = topP;
     }
-
 }
