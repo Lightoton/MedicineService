@@ -6,7 +6,6 @@ import com.rangers.medicineservice.exception.errorMessage.ErrorMessage;
 import com.rangers.medicineservice.mapper.ScheduleMapper;
 import com.rangers.medicineservice.repository.ScheduleRepository;
 import com.rangers.medicineservice.service.interf.ScheduleService;
-//import com.rangers.medicineservice.util.MailSender;
 import com.rangers.medicineservice.util.MailSender;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

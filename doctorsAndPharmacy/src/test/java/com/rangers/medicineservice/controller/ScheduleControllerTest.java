@@ -143,6 +143,7 @@ class ScheduleControllerTest {
     @Test
     void getScheduleByDoctorAndDateTimePositiveTest() throws Exception {
         ScheduleFullDto scheduleFullDto = new ScheduleFullDto();
+        scheduleFullDto.setScheduleId(UUID.fromString("1391e7df-bdf9-4faa-a95f-c6ea3cef7594"));
         scheduleFullDto.setDoctorSpecialization("THERAPIST");
         scheduleFullDto.setDoctorName("Michael Johnson");
         scheduleFullDto.setStatus("FREE");

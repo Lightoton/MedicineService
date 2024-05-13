@@ -1,8 +1,11 @@
 package com.rangers.medicineservice.config;
 
 
+import com.rangers.medicineservice.dto.CreateVisitRequestDto;
+import com.rangers.medicineservice.dto.ScheduleFullDto;
 import com.rangers.medicineservice.dto.UserRegistrationDto;
 import com.rangers.medicineservice.service.ZoomMeetingService;
+import com.rangers.medicineservice.service.impl.ScheduleServiceImpl;
 import com.rangers.medicineservice.service.impl.UserServiceImpl;
 import com.rangers.medicineservice.utils.GetButtons;
 import com.rangers.medicineservice.utils.RegistrationUser;
@@ -23,6 +26,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 
 @Component
@@ -32,19 +36,26 @@ public class ChatBot extends TelegramLongPollingBot {
     private final RegistrationUser registrationUser;
     private final ZoomMeetingService zoomMeetingService;
     private final UserServiceImpl userService;
+    private final ScheduleServiceImpl scheduleService;
     private final Map<String, UserRegistrationDto> users = new HashMap<>();
     private final Map<String, Integer> registrationStep = new HashMap<>();
     public Map<String, Boolean> isRegistrationInProgress = new HashMap<>();
+    public Map<String, String> doctorId = new HashMap<>();
+    public Map<String, String> dateSchedule = new HashMap<>();
+    public Map<String, String> timeSchedule = new HashMap<>();
 
     private final BotConfig config;
 
-    public ChatBot(@Value("${bot.token}") String botToken, GetButtons getButtons, RegistrationUser registrationUser, UserServiceImpl userService, BotConfig config, ZoomMeetingService zoomMeetingService) {
+    public ChatBot(@Value("${bot.token}") String botToken, GetButtons getButtons, RegistrationUser registrationUser,
+                   UserServiceImpl userService, BotConfig config, ZoomMeetingService zoomMeetingService,
+                   ScheduleServiceImpl scheduleService) {
         super(botToken);
         this.getButtons = getButtons;
         this.registrationUser = registrationUser;
         this.userService = userService;
         this.config = config;
         this.zoomMeetingService = zoomMeetingService;
+        this.scheduleService = scheduleService;
     }
 
     @Override
@@ -74,6 +85,31 @@ public class ChatBot extends TelegramLongPollingBot {
         } else if (update.hasCallbackQuery()) {
             String callbackData = update.getCallbackQuery().getData();
             String chatId = String.valueOf(update.getCallbackQuery().getMessage().getChatId());
+            if (callbackData.startsWith("specialization:")) {
+                String specializationName = callbackData.substring("specialization:".length());
+                sendMenu(chatId, GetButtons.getListsDoctors(specializationName));
+            } else if (callbackData.startsWith("Doctor:")) {
+                doctorId.put(chatId, callbackData.substring("Doctor:".length()));
+                sendMenu(chatId, GetButtons.getListsDatesByDoctor(doctorId.get(chatId)));
+            } else if (callbackData.startsWith("Date:")) {
+                dateSchedule.put(chatId, callbackData.substring("Date:".length()));
+                sendMenu(chatId, GetButtons.getListsTimesByDoctorAndDate(doctorId.get(chatId), dateSchedule.get(chatId)));
+            } else if (callbackData.startsWith("Time:")) {
+                timeSchedule.put(chatId, callbackData.substring("Time:".length()));
+                sendMenu(chatId, getButtons.getListsScheduleType);
+            } else if (callbackData.startsWith("type:")) {
+                ScheduleFullDto scheduleFullDto = scheduleService.getSchedule(UUID.fromString(doctorId.get(chatId)),
+                        dateSchedule.get(chatId) + " " + timeSchedule.get(chatId) + ":00");
+                CreateVisitRequestDto createVisitRequestDto = new CreateVisitRequestDto();
+                createVisitRequestDto.setUser_id(userService.getUserIdByChatId(chatId));
+                createVisitRequestDto.setAppointmentType(callbackData.substring("type:".length()));
+                scheduleService.createVisit(String.valueOf(scheduleFullDto.getScheduleId()), createVisitRequestDto);
+                sendMsg(chatId, "Вы записались к: " + scheduleFullDto.getDoctorName() + "\n"
+                        + "Дата и время: " + scheduleFullDto.getDateAndTime() + "\n"
+                        + createVisitRequestDto.getAppointmentType());
+                sendMenu(chatId,getButtons.getListsStartMenu);
+
+            }
             switch (callbackData) {
                 case "start1":
                     if (registrationUser.isHaveUser(chatId)) {

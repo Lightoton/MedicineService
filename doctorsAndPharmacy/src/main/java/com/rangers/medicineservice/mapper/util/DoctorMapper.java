@@ -18,6 +18,7 @@ public interface DoctorMapper {
 
     @AfterMapping
     default void generateDoctorDto(@MappingTarget DoctorDto doctorDto, Doctor doctor){
+        doctorDto.setUuid(doctor.getDoctorId());
         doctorDto.setRating(doctor.getRating());
         doctorDto.setSpecialization(String.valueOf(doctor.getSpecialization()));
         String fullName = doctor.getFirstName() + " " + doctor.getLastName();
