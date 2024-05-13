@@ -1,7 +1,6 @@
 package com.rangers.medicineservice.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rangers.medicineservice.TestConfig;
 import com.rangers.medicineservice.dto.CreatedOrderDto;
 import com.rangers.medicineservice.entity.CartItem;
 import org.junit.jupiter.api.Test;
@@ -20,7 +19,7 @@ import java.util.UUID;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(classes = TestConfig.class)
+@SpringBootTest
 @AutoConfigureMockMvc
 @Sql("/db/drop-tables.sql")
 @Sql("/db/create-tables.sql")

@@ -2,7 +2,6 @@ package com.rangers.medicineservice.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rangers.medicineservice.TestConfig;
 import com.rangers.medicineservice.dto.PrescriptionDto;
 import com.rangers.medicineservice.entity.Prescription;
 import com.rangers.medicineservice.entity.User;
@@ -31,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
-@SpringBootTest(classes = TestConfig.class)
+@SpringBootTest
 @AutoConfigureMockMvc
 @DisplayName("Test class for UserController")
 @Sql("/db/drop-tables.sql")
@@ -69,7 +68,7 @@ class UserControllerTest {
         expected.setPrescriptions(prescriptions);
 
         PrescriptionDto prescriptionDto = new PrescriptionDto();
-        prescriptionDto.setPrescriptionId("ac5c8867-676f-4754-1357-f74cbb9b4a96");
+        prescriptionDto.setPrescriptionId("ac5c9927-676f-4714-2357-f52cbb9b4a95");
         prescriptionDto.setExpiryDate(LocalDate.parse("2024-11-25"));
         prescriptionDto.setUserId("ac5c8867-676f-4737-931f-052cbb9b4a59");
         List<PrescriptionDto> expectedList = new ArrayList<>();
