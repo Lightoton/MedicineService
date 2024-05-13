@@ -1,8 +1,6 @@
 package com.rangers.medicineservice.service;
 
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -15,8 +13,7 @@ import java.util.Objects;
 public class ZoomMeetingService {
 
 
-    @Qualifier("zoomRestTemplate")
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     private final ZoomAuthService zoomAuthService;
 
@@ -28,7 +25,6 @@ public class ZoomMeetingService {
     public String createZoomMeeting(String startTime) {
 
         String accessToken = zoomAuthService.getAccessToken();
-
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + accessToken);
         headers.set("Content-Type", "application/json");
@@ -51,7 +47,7 @@ public class ZoomMeetingService {
 
     private static @NotNull HttpEntity<String> getStringHttpEntity(String startTime, HttpHeaders headers) {
         String requestBody = "{\n" +
-                "    \"topic\":\"You have an appointment with a doctor\",\n" +
+                "    \"topic\":\"You have an appointment with a doctor ______\",\n" +
                 "    \"type\":\"2\",\n" +
                 "    \"start_time\":\"" + startTime + "\",\n" +
                 "    \"duration\":\"60\",\n" +

@@ -1,12 +1,11 @@
 package com.rangers.medicineservice.config;
 
-//import com.rangers.medicineservice.service.ZoomMeetingService;
+//import com.rangers.medicineservice.config.service.ZoomMeetingService;
 //import org.springframework.beans.factory.annotation.Autowired;
 
 import com.rangers.medicineservice.dto.UserRegistrationDto;
 import com.rangers.medicineservice.service.ZoomMeetingService;
 import com.rangers.medicineservice.service.impl.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -29,8 +28,7 @@ import java.util.Map;
 @Component
 public class ChatBot extends TelegramLongPollingBot {
 
-        @Autowired
-    private ZoomMeetingService zoomMeetingService;
+    private final ZoomMeetingService zoomMeetingService;
     private final UserServiceImpl userService;
     private Map<String, UserRegistrationDto> users = new HashMap<>();
     private Map<String, Integer> registrationStep = new HashMap<>();
@@ -38,10 +36,11 @@ public class ChatBot extends TelegramLongPollingBot {
 
     private final BotConfig config;
 
-    public ChatBot(@Value("${bot.token}") String botToken, UserServiceImpl userService, BotConfig config) {
+    public ChatBot(@Value("${bot.token}") String botToken, UserServiceImpl userService, BotConfig config, ZoomMeetingService zoomMeetingService) {
         super(botToken);
         this.userService = userService;
         this.config = config;
+        this.zoomMeetingService = zoomMeetingService;
     }
 
     @Override
@@ -222,7 +221,7 @@ public class ChatBot extends TelegramLongPollingBot {
                 users.get(chatId).setChatId(chatId);
                 sendMsg(chatId, "Отлично! Регестрация завершена!!!");
                 userService.createUser(users.get(chatId));
-                isRegistrationInProgress.put(chatId,false);
+                isRegistrationInProgress.put(chatId, false);
                 break;
             // обработка остальных шагов регистрации
         }
