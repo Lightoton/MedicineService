@@ -35,7 +35,6 @@ import java.util.UUID;
 public class ChatBot extends TelegramLongPollingBot {
     private final GetButtons getButtons;
     private final RegistrationUser registrationUser;
-    private final ZoomMeetingService zoomMeetingService;
     private final UserServiceImpl userService;
     private final ScheduleServiceImpl scheduleService;
     private final Map<String, UserRegistrationDto> users = new HashMap<>();
@@ -49,14 +48,13 @@ public class ChatBot extends TelegramLongPollingBot {
     private final BotConfig config;
 
     public ChatBot(@Value("${bot.token}") String botToken, GetButtons getButtons, RegistrationUser registrationUser,
-                   UserServiceImpl userService, BotConfig config, ZoomMeetingService zoomMeetingService,
+                   UserServiceImpl userService, BotConfig config,
                    ScheduleServiceImpl scheduleService) {
         super(botToken);
         this.getButtons = getButtons;
         this.registrationUser = registrationUser;
         this.userService = userService;
         this.config = config;
-        this.zoomMeetingService = zoomMeetingService;
         this.scheduleService = scheduleService;
     }
 
@@ -64,75 +62,107 @@ public class ChatBot extends TelegramLongPollingBot {
     public String getBotUsername() {
         return config.getBotName();
     }
-
-
     @Override
     public void onUpdateReceived(Update update) {
-
-        LocalDateTime dateTime = LocalDateTime.now();
-        String startTime = dateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) + "Z";
-
         if (update.hasMessage() && update.getMessage().hasText()) {
-            String chatId = String.valueOf(update.getMessage().getChatId());
-            String messageText = update.getMessage().getText();
-
-            if (messageText.equals("/start")) {
-                sendMenu(chatId, getButtons.getListsStartMenu, MenuHeader.CHOOSE_ACTION); // Send menu for User
-            } else if (update.hasMessage() && update.getMessage().hasLocation()) {
-                // if we get users location
-                processLocation(update);
-            } else if (isRegistrationInProgress.get(chatId)) {
-                handleRegistration(messageText, chatId);
-            }
+            handleIncomingMessage(update);
         } else if (update.hasCallbackQuery()) {
-            String callbackData = update.getCallbackQuery().getData();
-            String chatId = String.valueOf(update.getCallbackQuery().getMessage().getChatId());
+            handleCallbackQuery(update);
+        }
+    }
+    private void handleIncomingMessage(Update update) {
+        String chatId = String.valueOf(update.getMessage().getChatId());
+        String messageText = update.getMessage().getText();
 
-            if (callbackData.startsWith("specialization:")) {
-                String specializationName = callbackData.substring("specialization:".length());
-                sendMenu(chatId, GetButtons.getListsDoctors(specializationName), MenuHeader.CHOOSE_DOCTOR);
-            } else if (callbackData.startsWith("Doctor:")) {
-                doctorId.put(chatId, callbackData.substring("Doctor:".length()));
-                sendMenu(chatId, GetButtons.getListsDatesByDoctor(doctorId.get(chatId)), MenuHeader.CHOOSE_DATE);
-            } else if (callbackData.startsWith("Date:")) {
-                dateSchedule.put(chatId, callbackData.substring("Date:".length()));
-                sendMenu(chatId, GetButtons.getListsTimesByDoctorAndDate(doctorId.get(chatId),
-                        dateSchedule.get(chatId)), MenuHeader.CHOOSE_TIME);
-            } else if (callbackData.startsWith("Time:")) {
-                timeSchedule.put(chatId, callbackData.substring("Time:".length()));
-                sendMenu(chatId, getButtons.getListsScheduleType, MenuHeader.CHOOSE_APPOINTMENT_TYPE);
-            } else if (callbackData.startsWith("type:")) {
-                ScheduleFullDto scheduleFullDto = scheduleService.getSchedule(UUID.fromString(doctorId.get(chatId)),
-                        dateSchedule.get(chatId) + " " + timeSchedule.get(chatId) + ":00");
-                CreateVisitRequestDto createVisitRequestDto = new CreateVisitRequestDto();
-                createVisitRequestDto.setUser_id(userService.getUserIdByChatId(chatId));
-                createVisitRequestDto.setAppointmentType(callbackData.substring("type:".length()));
-                CreateVisitResponseDto responseDto = scheduleService.createVisit(String.valueOf(scheduleFullDto.getScheduleId()), createVisitRequestDto);
-                sendMsg(chatId, "You have signed up for: " + responseDto.getDoctorName() + "\n"
-                        + "Date and time: " + responseDto.getDateTime() + "\n"
-                        + responseDto.getLinkOrAddress());
-                sendMenu(chatId, getButtons.getListsStartMenu, MenuHeader.CHOOSE_ACTION);
-            }
-            switch (callbackData) {
-                case "start1":
-                    if (registrationUser.isHaveUser(chatId)) {
-                        sendMenu(chatId, getButtons.getListsSchedule, MenuHeader.CHOOSE_SPECIALIZATION);
-                    } else {
-                        users.put(chatId, new UserRegistrationDto());
-                        registrationStep.put(chatId, 0);
-                        startRegistration(chatId);
-                    }
-                    break;
-                case "start2":
-                    sendMsg(chatId, "Будет выполняться алгоритм для поиска и возможной покупки лекарств в аптеке");
-                    break;
-                case "start3":
-                    sendMsg(chatId, "Общение с AI");
-                    break;
-                default:
-                    break;
+        switch (messageText) {
+            case "/start":
+                sendMenu(chatId, GetButtons.getListsStartMenu(), MenuHeader.CHOOSE_ACTION);
+                break;
+            default:
+                if (isRegistrationInProgress.getOrDefault(chatId, false)) {
+                    handleRegistration(messageText, chatId);
+                } else if (update.getMessage().hasLocation()) {
+                    processLocation(update);
+                }
+                break;
+        }
+    }
 
-            }
+    private void handleCallbackQuery(Update update) {
+        String chatId = String.valueOf(update.getCallbackQuery().getMessage().getChatId());
+        String callbackData = update.getCallbackQuery().getData();
+
+        if (callbackData.startsWith("specialization:")) {
+            handleSpecializationCallback(chatId, callbackData);
+        } else if (callbackData.startsWith("Doctor:")) {
+            handleDoctorCallback(chatId, callbackData);
+        } else if (callbackData.startsWith("Date:")) {
+            handleDateCallback(chatId, callbackData);
+        } else if (callbackData.startsWith("Time:")) {
+            handleTimeCallback(chatId, callbackData);
+        } else if (callbackData.startsWith("type:")) {
+            handleTypeCallback(chatId, callbackData);
+        } else {
+            handleDefaultCallback(chatId, callbackData);
+        }
+    }
+
+    private void handleSpecializationCallback(String chatId, String callbackData) {
+        String specializationName = callbackData.substring("specialization:".length());
+        sendMenu(chatId, GetButtons.getListsDoctors(specializationName), MenuHeader.CHOOSE_DOCTOR);
+    }
+
+    private void handleDoctorCallback(String chatId, String callbackData) {
+        doctorId.put(chatId, callbackData.substring("Doctor:".length()));
+        sendMenu(chatId, GetButtons.getListsDatesByDoctor(doctorId.get(chatId)), MenuHeader.CHOOSE_DATE);
+    }
+
+    private void handleDateCallback(String chatId, String callbackData) {
+        dateSchedule.put(chatId, callbackData.substring("Date:".length()));
+        sendMenu(chatId, GetButtons.getListsTimesByDoctorAndDate(doctorId.get(chatId), dateSchedule.get(chatId)), MenuHeader.CHOOSE_TIME);
+    }
+
+    private void handleTimeCallback(String chatId, String callbackData) {
+        timeSchedule.put(chatId, callbackData.substring("Time:".length()));
+        sendMenu(chatId, getButtons.getListsScheduleType(), MenuHeader.CHOOSE_APPOINTMENT_TYPE);
+    }
+
+    private void handleTypeCallback(String chatId, String callbackData) {
+        ScheduleFullDto scheduleFullDto = scheduleService.getSchedule(UUID.fromString(doctorId.get(chatId)),
+                dateSchedule.get(chatId) + " " + timeSchedule.get(chatId) + ":00");
+        CreateVisitRequestDto createVisitRequestDto = new CreateVisitRequestDto();
+        createVisitRequestDto.setUser_id(userService.getUserIdByChatId(chatId));
+        createVisitRequestDto.setAppointmentType(callbackData.substring("type:".length()));
+        CreateVisitResponseDto responseDto = scheduleService.createVisit(String.valueOf(scheduleFullDto.getScheduleId()), createVisitRequestDto);
+        sendMsg(chatId, "You have signed up for: " + responseDto.getDoctorName() + "\n"
+                + "Date and time: " + responseDto.getDateTime() + "\n"
+                + responseDto.getLinkOrAddress());
+        sendMenu(chatId, GetButtons.getListsStartMenu(), MenuHeader.CHOOSE_ACTION);
+    }
+
+    private void handleDefaultCallback(String chatId, String callbackData) {
+        switch (callbackData) {
+            case "start1":
+                handleStart1(chatId);
+                break;
+            case "start2":
+                sendMsg(chatId, "Будет выполняться алгоритм для поиска и возможной покупки лекарств в аптеке");
+                break;
+            case "start3":
+                sendMsg(chatId, "Общение с AI");
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void handleStart1(String chatId) {
+        if (registrationUser.isHaveUser(chatId)) {
+            sendMenu(chatId, GetButtons.getListsSchedule(), MenuHeader.CHOOSE_SPECIALIZATION);
+        } else {
+            users.put(chatId, new UserRegistrationDto());
+            registrationStep.put(chatId, 0);
+            startRegistration(chatId);
         }
     }
 
