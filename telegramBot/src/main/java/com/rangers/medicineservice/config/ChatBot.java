@@ -10,6 +10,7 @@ import com.rangers.medicineservice.service.impl.ScheduleServiceImpl;
 import com.rangers.medicineservice.service.impl.UserServiceImpl;
 import com.rangers.medicineservice.utils.GetButtons;
 import com.rangers.medicineservice.utils.RegistrationUser;
+import com.rangers.medicineservice.utils.headers.MenuHeader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -76,7 +77,7 @@ public class ChatBot extends TelegramLongPollingBot {
             String messageText = update.getMessage().getText();
 
             if (messageText.equals("/start")) {
-                sendMenu(chatId, getButtons.getListsStartMenu); // Send menu for User
+                sendMenu(chatId, getButtons.getListsStartMenu, MenuHeader.CHOOSE_ACTION); // Send menu for User
             } else if (update.hasMessage() && update.getMessage().hasLocation()) {
                 // if we get users location
                 processLocation(update);
@@ -89,16 +90,17 @@ public class ChatBot extends TelegramLongPollingBot {
 
             if (callbackData.startsWith("specialization:")) {
                 String specializationName = callbackData.substring("specialization:".length());
-                sendMenu(chatId, GetButtons.getListsDoctors(specializationName));
+                sendMenu(chatId, GetButtons.getListsDoctors(specializationName),MenuHeader.CHOOSE_DOCTOR);
             } else if (callbackData.startsWith("Doctor:")) {
                 doctorId.put(chatId, callbackData.substring("Doctor:".length()));
-                sendMenu(chatId, GetButtons.getListsDatesByDoctor(doctorId.get(chatId)));
+                sendMenu(chatId, GetButtons.getListsDatesByDoctor(doctorId.get(chatId)),MenuHeader.CHOOSE_DATE);
             } else if (callbackData.startsWith("Date:")) {
                 dateSchedule.put(chatId, callbackData.substring("Date:".length()));
-                sendMenu(chatId, GetButtons.getListsTimesByDoctorAndDate(doctorId.get(chatId), dateSchedule.get(chatId)));
+                sendMenu(chatId, GetButtons.getListsTimesByDoctorAndDate(doctorId.get(chatId),
+                        dateSchedule.get(chatId)),MenuHeader.CHOOSE_TIME);
             } else if (callbackData.startsWith("Time:")) {
                 timeSchedule.put(chatId, callbackData.substring("Time:".length()));
-                sendMenu(chatId, getButtons.getListsScheduleType);
+                sendMenu(chatId, getButtons.getListsScheduleType,MenuHeader.CHOOSE_APPOINTMENT_TYPE);
             } else if (callbackData.startsWith("type:")) {
                 ScheduleFullDto scheduleFullDto = scheduleService.getSchedule(UUID.fromString(doctorId.get(chatId)),
                         dateSchedule.get(chatId) + " " + timeSchedule.get(chatId) + ":00");
@@ -109,12 +111,12 @@ public class ChatBot extends TelegramLongPollingBot {
                 sendMsg(chatId, "You have signed up for: " + responseDto.getDoctorName() + "\n"
                         + "Date and time: " + responseDto.getDateTime() + "\n"
                         + responseDto.getLinkOrAddress());
-                sendMenu(chatId,getButtons.getListsStartMenu);
+                sendMenu(chatId,getButtons.getListsStartMenu,MenuHeader.CHOOSE_ACTION);
             }
             switch (callbackData) {
                 case "start1":
                     if (registrationUser.isHaveUser(chatId)) {
-                        sendMenu(chatId, getButtons.getListsSchedule);
+                        sendMenu(chatId, getButtons.getListsSchedule,MenuHeader.CHOOSE_SPECIALIZATION);
                     } else {
                         users.put(chatId, new UserRegistrationDto());
                         registrationStep.put(chatId, 0);
@@ -146,10 +148,10 @@ public class ChatBot extends TelegramLongPollingBot {
         }
     }
 
-    public void sendMenu(String chatId, List<List<InlineKeyboardButton>> rowsInline) {
+    public void sendMenu(String chatId, List<List<InlineKeyboardButton>> rowsInline,String header) {
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
-        message.setText("Choose an action:");
+        message.setText(header);
 
         InlineKeyboardMarkup markupKeyboard = new InlineKeyboardMarkup();
 
@@ -244,7 +246,7 @@ public class ChatBot extends TelegramLongPollingBot {
                 sendMsg(chatId, "Great! Registration is completed!!!");
                 userService.createUser(users.get(chatId));
                 isRegistrationInProgress.put(chatId, false);
-                sendMenu(chatId, getButtons.getListsStartMenu);
+                sendMenu(chatId, getButtons.getListsStartMenu,MenuHeader.CHOOSE_ACTION);
                 break;
         }
 
