@@ -5,7 +5,6 @@ import com.rangers.medicineservice.dto.CreateVisitRequestDto;
 import com.rangers.medicineservice.dto.CreateVisitResponseDto;
 import com.rangers.medicineservice.dto.ScheduleFullDto;
 import com.rangers.medicineservice.dto.UserRegistrationDto;
-import com.rangers.medicineservice.service.ZoomMeetingService;
 import com.rangers.medicineservice.service.impl.ScheduleServiceImpl;
 import com.rangers.medicineservice.service.impl.UserServiceImpl;
 import com.rangers.medicineservice.utils.GetButtons;
@@ -23,8 +22,6 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,6 +75,8 @@ public class ChatBot extends TelegramLongPollingBot {
             case "/start":
                 sendMenu(chatId, GetButtons.getListsStartMenu(), MenuHeader.CHOOSE_ACTION);
                 break;
+            case "/menu":
+                sendMsg(chatId,"отправка меню с доп функциями(например: мои рецепты, мои заказы)");
             default:
                 if (isRegistrationInProgress.getOrDefault(chatId, false)) {
                     handleRegistration(messageText, chatId);
@@ -119,7 +118,8 @@ public class ChatBot extends TelegramLongPollingBot {
 
     private void handleDateCallback(String chatId, String callbackData) {
         dateSchedule.put(chatId, callbackData.substring("Date:".length()));
-        sendMenu(chatId, GetButtons.getListsTimesByDoctorAndDate(doctorId.get(chatId), dateSchedule.get(chatId)), MenuHeader.CHOOSE_TIME);
+        sendMenu(chatId, GetButtons.getListsTimesByDoctorAndDate(doctorId.get(chatId), dateSchedule.get(chatId)),
+                MenuHeader.CHOOSE_TIME);
     }
 
     private void handleTimeCallback(String chatId, String callbackData) {
@@ -133,7 +133,8 @@ public class ChatBot extends TelegramLongPollingBot {
         CreateVisitRequestDto createVisitRequestDto = new CreateVisitRequestDto();
         createVisitRequestDto.setUser_id(userService.getUserIdByChatId(chatId));
         createVisitRequestDto.setAppointmentType(callbackData.substring("type:".length()));
-        CreateVisitResponseDto responseDto = scheduleService.createVisit(String.valueOf(scheduleFullDto.getScheduleId()), createVisitRequestDto);
+        CreateVisitResponseDto responseDto = scheduleService.createVisit(
+                String.valueOf(scheduleFullDto.getScheduleId()), createVisitRequestDto);
         sendMsg(chatId, "You have signed up for: " + responseDto.getDoctorName() + "\n"
                 + "Date and time: " + responseDto.getDateTime() + "\n"
                 + responseDto.getLinkOrAddress());
