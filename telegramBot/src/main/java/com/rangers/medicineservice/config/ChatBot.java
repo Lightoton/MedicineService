@@ -127,7 +127,7 @@ public class ChatBot extends TelegramLongPollingBot {
                     sendMsg(chatId, "Будет выполняться алгоритм для поиска и возможной покупки лекарств в аптеке");
                     break;
                 case "start3":
-                    sendMsg(chatId, zoomMeetingService.createZoomMeeting(startTime));
+                    sendMsg(chatId, "Общение с AI");
                     break;
                 default:
                     break;

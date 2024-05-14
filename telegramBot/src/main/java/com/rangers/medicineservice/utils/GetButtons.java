@@ -32,7 +32,7 @@ public class GetButtons {
         List<InlineKeyboardButton> rowInline1 = new ArrayList<>();
         InlineKeyboardButton button1 = new InlineKeyboardButton("Make an appointment with a doctor");
         InlineKeyboardButton button2 = new InlineKeyboardButton("Pharmacy");
-        InlineKeyboardButton button3 = new InlineKeyboardButton("Get ZoomLink");
+        InlineKeyboardButton button3 = new InlineKeyboardButton("Virtual assistant");
         button1.setCallbackData("start1");
         button2.setCallbackData("start2");
         button3.setCallbackData("start3");
