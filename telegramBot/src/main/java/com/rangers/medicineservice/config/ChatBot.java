@@ -33,7 +33,6 @@ import java.util.UUID;
 
 @Component
 public class ChatBot extends TelegramLongPollingBot {
-    private static int lastMessageId;
     private final GetButtons getButtons;
     private final RegistrationUser registrationUser;
     private final ZoomMeetingService zoomMeetingService;
@@ -45,6 +44,7 @@ public class ChatBot extends TelegramLongPollingBot {
     public Map<String, String> doctorId = new HashMap<>();
     public Map<String, String> dateSchedule = new HashMap<>();
     public Map<String, String> timeSchedule = new HashMap<>();
+    public Map<String, Integer> lastMessageId = new HashMap<>();
 
     private final BotConfig config;
 
@@ -90,33 +90,33 @@ public class ChatBot extends TelegramLongPollingBot {
 
             if (callbackData.startsWith("specialization:")) {
                 String specializationName = callbackData.substring("specialization:".length());
-                sendMenu(chatId, GetButtons.getListsDoctors(specializationName),MenuHeader.CHOOSE_DOCTOR);
+                sendMenu(chatId, GetButtons.getListsDoctors(specializationName), MenuHeader.CHOOSE_DOCTOR);
             } else if (callbackData.startsWith("Doctor:")) {
                 doctorId.put(chatId, callbackData.substring("Doctor:".length()));
-                sendMenu(chatId, GetButtons.getListsDatesByDoctor(doctorId.get(chatId)),MenuHeader.CHOOSE_DATE);
+                sendMenu(chatId, GetButtons.getListsDatesByDoctor(doctorId.get(chatId)), MenuHeader.CHOOSE_DATE);
             } else if (callbackData.startsWith("Date:")) {
                 dateSchedule.put(chatId, callbackData.substring("Date:".length()));
                 sendMenu(chatId, GetButtons.getListsTimesByDoctorAndDate(doctorId.get(chatId),
-                        dateSchedule.get(chatId)),MenuHeader.CHOOSE_TIME);
+                        dateSchedule.get(chatId)), MenuHeader.CHOOSE_TIME);
             } else if (callbackData.startsWith("Time:")) {
                 timeSchedule.put(chatId, callbackData.substring("Time:".length()));
-                sendMenu(chatId, getButtons.getListsScheduleType,MenuHeader.CHOOSE_APPOINTMENT_TYPE);
+                sendMenu(chatId, getButtons.getListsScheduleType, MenuHeader.CHOOSE_APPOINTMENT_TYPE);
             } else if (callbackData.startsWith("type:")) {
                 ScheduleFullDto scheduleFullDto = scheduleService.getSchedule(UUID.fromString(doctorId.get(chatId)),
                         dateSchedule.get(chatId) + " " + timeSchedule.get(chatId) + ":00");
                 CreateVisitRequestDto createVisitRequestDto = new CreateVisitRequestDto();
                 createVisitRequestDto.setUser_id(userService.getUserIdByChatId(chatId));
                 createVisitRequestDto.setAppointmentType(callbackData.substring("type:".length()));
-                CreateVisitResponseDto responseDto =  scheduleService.createVisit(String.valueOf(scheduleFullDto.getScheduleId()), createVisitRequestDto);
+                CreateVisitResponseDto responseDto = scheduleService.createVisit(String.valueOf(scheduleFullDto.getScheduleId()), createVisitRequestDto);
                 sendMsg(chatId, "You have signed up for: " + responseDto.getDoctorName() + "\n"
                         + "Date and time: " + responseDto.getDateTime() + "\n"
                         + responseDto.getLinkOrAddress());
-                sendMenu(chatId,getButtons.getListsStartMenu,MenuHeader.CHOOSE_ACTION);
+                sendMenu(chatId, getButtons.getListsStartMenu, MenuHeader.CHOOSE_ACTION);
             }
             switch (callbackData) {
                 case "start1":
                     if (registrationUser.isHaveUser(chatId)) {
-                        sendMenu(chatId, getButtons.getListsSchedule,MenuHeader.CHOOSE_SPECIALIZATION);
+                        sendMenu(chatId, getButtons.getListsSchedule, MenuHeader.CHOOSE_SPECIALIZATION);
                     } else {
                         users.put(chatId, new UserRegistrationDto());
                         registrationStep.put(chatId, 0);
@@ -148,7 +148,7 @@ public class ChatBot extends TelegramLongPollingBot {
         }
     }
 
-    public void sendMenu(String chatId, List<List<InlineKeyboardButton>> rowsInline,String header) {
+    public void sendMenu(String chatId, List<List<InlineKeyboardButton>> rowsInline, String header) {
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
         message.setText(header);
@@ -161,10 +161,10 @@ public class ChatBot extends TelegramLongPollingBot {
         try {
             Message sentMessage = execute(message);
             int messageId = sentMessage.getMessageId();
-            if (lastMessageId != 0) {
-                deleteMessage(chatId, lastMessageId);
+            if (lastMessageId.get(chatId) != 0) {
+                deleteMessage(chatId, lastMessageId.get(chatId));
             }
-            lastMessageId = messageId;
+            lastMessageId.put(chatId,messageId);
         } catch (TelegramApiException ignored) {
 
         }
@@ -201,9 +201,6 @@ public class ChatBot extends TelegramLongPollingBot {
                 users.get(chatId).setFirstname(messageText);
                 sendMsg(chatId, "Great! Now enter your last name:");
                 registrationStep.put(chatId, registrationStep.get(chatId) + 1);
-                if (lastMessageId != 0) {
-                    deleteMessage(chatId, lastMessageId);
-                }
                 break;
             case 1:
                 users.get(chatId).setLastname(messageText);
@@ -246,7 +243,7 @@ public class ChatBot extends TelegramLongPollingBot {
                 sendMsg(chatId, "Great! Registration is completed!!!");
                 userService.createUser(users.get(chatId));
                 isRegistrationInProgress.put(chatId, false);
-                sendMenu(chatId, getButtons.getListsStartMenu,MenuHeader.CHOOSE_ACTION);
+                sendMenu(chatId, getButtons.getListsStartMenu, MenuHeader.CHOOSE_ACTION);
                 break;
         }
 
@@ -264,7 +261,7 @@ public class ChatBot extends TelegramLongPollingBot {
 
         try {
             execute(deleteMessage);
-        } catch (TelegramApiException ignored){
+        } catch (TelegramApiException ignored) {
 
         }
     }
