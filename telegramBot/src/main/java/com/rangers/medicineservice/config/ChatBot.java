@@ -161,7 +161,7 @@ public class ChatBot extends TelegramLongPollingBot {
         try {
             Message sentMessage = execute(message);
             int messageId = sentMessage.getMessageId();
-            if (lastMessageId.get(chatId) != 0) {
+            if (lastMessageId.get(chatId) != null) {
                 deleteMessage(chatId, lastMessageId.get(chatId));
             }
             lastMessageId.put(chatId,messageId);
