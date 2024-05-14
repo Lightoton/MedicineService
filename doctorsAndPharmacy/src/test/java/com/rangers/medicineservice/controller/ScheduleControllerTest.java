@@ -2,6 +2,7 @@ package com.rangers.medicineservice.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rangers.medicineservice.TestConfig;
 import com.rangers.medicineservice.dto.ScheduleDateTimeDto;
 import com.rangers.medicineservice.dto.ScheduleFullDto;
 import com.rangers.medicineservice.entity.Schedule;
@@ -36,7 +37,7 @@ import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
+@SpringBootTest(classes = TestConfig.class)
 @AutoConfigureMockMvc
 @Sql("/db/drop-tables.sql")
 @Sql("/db/create-tables.sql")
