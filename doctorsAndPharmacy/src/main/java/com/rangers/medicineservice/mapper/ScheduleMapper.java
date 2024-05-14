@@ -9,7 +9,6 @@ import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE)
-@Component
 public interface ScheduleMapper {
 
     ScheduleDateTimeDto toDto(Schedule schedule);

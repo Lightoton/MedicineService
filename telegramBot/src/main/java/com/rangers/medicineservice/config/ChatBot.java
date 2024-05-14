@@ -2,6 +2,7 @@ package com.rangers.medicineservice.config;
 
 
 import com.rangers.medicineservice.dto.CreateVisitRequestDto;
+import com.rangers.medicineservice.dto.CreateVisitResponseDto;
 import com.rangers.medicineservice.dto.ScheduleFullDto;
 import com.rangers.medicineservice.dto.UserRegistrationDto;
 import com.rangers.medicineservice.service.ZoomMeetingService;
@@ -85,6 +86,7 @@ public class ChatBot extends TelegramLongPollingBot {
         } else if (update.hasCallbackQuery()) {
             String callbackData = update.getCallbackQuery().getData();
             String chatId = String.valueOf(update.getCallbackQuery().getMessage().getChatId());
+
             if (callbackData.startsWith("specialization:")) {
                 String specializationName = callbackData.substring("specialization:".length());
                 sendMenu(chatId, GetButtons.getListsDoctors(specializationName));
@@ -103,12 +105,11 @@ public class ChatBot extends TelegramLongPollingBot {
                 CreateVisitRequestDto createVisitRequestDto = new CreateVisitRequestDto();
                 createVisitRequestDto.setUser_id(userService.getUserIdByChatId(chatId));
                 createVisitRequestDto.setAppointmentType(callbackData.substring("type:".length()));
-                scheduleService.createVisit(String.valueOf(scheduleFullDto.getScheduleId()), createVisitRequestDto);
-                sendMsg(chatId, "Вы записались к: " + scheduleFullDto.getDoctorName() + "\n"
-                        + "Дата и время: " + scheduleFullDto.getDateAndTime() + "\n"
-                        + createVisitRequestDto.getAppointmentType());
+                CreateVisitResponseDto responseDto =  scheduleService.createVisit(String.valueOf(scheduleFullDto.getScheduleId()), createVisitRequestDto);
+                sendMsg(chatId, "You have signed up for: " + responseDto.getDoctorName() + "\n"
+                        + "Date and time: " + responseDto.getDateTime() + "\n"
+                        + responseDto.getLinkOrAddress());
                 sendMenu(chatId,getButtons.getListsStartMenu);
-
             }
             switch (callbackData) {
                 case "start1":
@@ -162,8 +163,8 @@ public class ChatBot extends TelegramLongPollingBot {
                 deleteMessage(chatId, lastMessageId);
             }
             lastMessageId = messageId;
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
+        } catch (TelegramApiException ignored) {
+
         }
     }
 
