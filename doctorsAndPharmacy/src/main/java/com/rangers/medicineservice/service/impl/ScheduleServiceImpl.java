@@ -6,7 +6,6 @@ import com.rangers.medicineservice.exception.errorMessage.ErrorMessage;
 import com.rangers.medicineservice.mapper.ScheduleMapper;
 import com.rangers.medicineservice.repository.ScheduleRepository;
 import com.rangers.medicineservice.service.interf.ScheduleService;
-//import com.rangers.medicineservice.util.MailSender;
 import com.rangers.medicineservice.util.MailSender;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -35,8 +34,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 public class ScheduleServiceImpl implements ScheduleService {
+
     private final ScheduleRepository scheduleRepository;
     @Qualifier("scheduleMapper")
     private final ScheduleMapper mapper;
@@ -48,6 +47,16 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Autowired
     private MailSender mailSender;
 
+    private final ZoomUtil zoomUtil;
+
+    public ScheduleServiceImpl(ScheduleRepository scheduleRepository, ScheduleMapper mapper, UserRepository userRepository, CreateAppointmentMapper createAppointmentMapper, DoctorRepository doctorRepository, ZoomUtil zoomUtil) {
+        this.scheduleRepository = scheduleRepository;
+        this.mapper = mapper;
+        this.userRepository = userRepository;
+        this.createAppointmentMapper = createAppointmentMapper;
+        this.doctorRepository = doctorRepository;
+        this.zoomUtil = zoomUtil;
+    }
 
     @Override
     @Transactional
@@ -76,7 +85,7 @@ public class ScheduleServiceImpl implements ScheduleService {
             schedule.setUser(user);
             schedule.setType(AppointmentType.valueOf(createVisitRequestDto.getAppointmentType()));
             if (schedule.getType() == AppointmentType.ONLINE) {
-                schedule.setLink(ZoomUtil.generateZoomLink());
+                schedule.setLink(zoomUtil.generateZoomLink());
             }
             schedule.setStatus(ScheduleStatus.IN_PROGRESS);
         }
