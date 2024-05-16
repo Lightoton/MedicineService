@@ -1,6 +1,7 @@
 package com.rangers.medicineservice.repository;
 
 import com.rangers.medicineservice.entity.Medicine;
+import com.rangers.medicineservice.entity.enums.MedicineCategory;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -21,5 +22,7 @@ public interface MedicineRepository extends JpaRepository<Medicine, UUID> {
     @Modifying
     @Query("UPDATE Medicine m SET m.availableQuantity = 0")
     void resetAvailableQuantity();
+
+    List<Medicine> findByCategoryAndAvailableQuantityGreaterThan(MedicineCategory category, int quantity);
 
 }
