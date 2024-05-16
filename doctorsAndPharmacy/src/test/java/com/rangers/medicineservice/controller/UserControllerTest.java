@@ -6,6 +6,9 @@ import com.rangers.medicineservice.TestConfig;
 import com.rangers.medicineservice.dto.PrescriptionDto;
 import com.rangers.medicineservice.entity.Prescription;
 import com.rangers.medicineservice.entity.User;
+import com.rangers.medicineservice.service.ZoomAuthService;
+import com.rangers.medicineservice.service.ZoomMeetingService;
+import com.rangers.medicineservice.util.ZoomUtil;
 import org.junit.jupiter.api.Assertions;
 import com.rangers.medicineservice.repository.UserRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -13,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
@@ -69,7 +73,7 @@ class UserControllerTest {
         expected.setPrescriptions(prescriptions);
 
         PrescriptionDto prescriptionDto = new PrescriptionDto();
-        prescriptionDto.setPrescriptionId("ac5c8867-676f-4754-1357-f74cbb9b4a96");
+        prescriptionDto.setPrescriptionId("ac5c9927-676f-4714-2357-f52cbb9b4a95");
         prescriptionDto.setExpiryDate(LocalDate.parse("2024-11-25"));
         prescriptionDto.setUserId("ac5c8867-676f-4737-931f-052cbb9b4a59");
         List<PrescriptionDto> expectedList = new ArrayList<>();

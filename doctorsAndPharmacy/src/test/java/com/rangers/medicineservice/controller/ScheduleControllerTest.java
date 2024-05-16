@@ -7,14 +7,12 @@ import com.rangers.medicineservice.dto.ScheduleDateTimeDto;
 import com.rangers.medicineservice.dto.ScheduleFullDto;
 import com.rangers.medicineservice.entity.Schedule;
 import com.rangers.medicineservice.service.impl.ScheduleServiceImpl;
-//import com.rangers.medicineservice.util.MailSender;
 import com.rangers.medicineservice.util.MailSender;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -51,7 +49,7 @@ class ScheduleControllerTest {
     private MockMvc mockMvc;
     @Autowired
     private ObjectMapper objectMapper;
-  
+
     @Autowired
     private ScheduleServiceImpl scheduleService;
 
@@ -146,6 +144,7 @@ class ScheduleControllerTest {
     @Test
     void getScheduleByDoctorAndDateTimePositiveTest() throws Exception {
         ScheduleFullDto scheduleFullDto = new ScheduleFullDto();
+        scheduleFullDto.setScheduleId(UUID.fromString("1391e7df-bdf9-4faa-a95f-c6ea3cef7594"));
         scheduleFullDto.setDoctorSpecialization("THERAPIST");
         scheduleFullDto.setDoctorName("Michael Johnson");
         scheduleFullDto.setStatus("FREE");
@@ -197,8 +196,8 @@ class ScheduleControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders
                         .put("/schedule/create/f4a7bf08-de17-4195-ac57-fe251d9e15c2")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonBody))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonBody))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().string(containsString("Your visit was created")))
@@ -210,7 +209,7 @@ class ScheduleControllerTest {
         Schedule scheduleAfter = scheduleService
                 .findById(UUID.fromString("f4a7bf08-de17-4195-ac57-fe251d9e15c2"));
 
-        if (scheduleAfter.getUser().getEmail() != null){
+        if (scheduleAfter.getUser().getEmail() != null) {
             verify(mailSender).send(anyString(), eq("Confirmation of appointment"), anyString());
         }
 
@@ -223,7 +222,7 @@ class ScheduleControllerTest {
             "/schedule/create/18d62c9d-d863-4bb2-b7f4-c1dcf6921161, json1",
             "/schedule/create/18d62c9d-d863-4bb2-b7f4-c1dcf692116e, json2"
     })
-    void createVisitTestExc404(String path, String jsonBodyVariable) throws Exception{
+    void createVisitTestExc404(String path, String jsonBodyVariable) throws Exception {
 
         String jsonBody = null;
 
@@ -246,7 +245,7 @@ class ScheduleControllerTest {
             "/schedule/create/ac5c8867-676f-4737-931f-052cbb9b4a94",
             "/schedule/create/18d62c9d-d863-4bb2-b7f4-c1dcf692116e"
     })
-    void createVisitTestExc400(String path) throws Exception{
+    void createVisitTestExc400(String path) throws Exception {
 
         String jsonBody = """
                 {
@@ -262,7 +261,7 @@ class ScheduleControllerTest {
     }
 
     @Test
-    void cancelVisitPositiveTest()  throws Exception{
+    void cancelVisitPositiveTest() throws Exception {
         Schedule scheduleBefore = scheduleService
                 .findById(UUID.fromString("ac5c8867-676f-4737-931f-052cbb9b4a95"));
 
@@ -285,7 +284,7 @@ class ScheduleControllerTest {
         Schedule scheduleAfter = scheduleService
                 .findById(UUID.fromString("ac5c8867-676f-4737-931f-052cbb9b4a95"));
 
-        if (scheduleBefore.getUser().getEmail() != null){
+        if (scheduleBefore.getUser().getEmail() != null) {
             verify(mailSender).send(anyString(), eq("Cancellation of appointment"), anyString());
         }
 
@@ -294,7 +293,7 @@ class ScheduleControllerTest {
     }
 
     @Test
-    void cancelVisitTestExc404()  throws Exception{
+    void cancelVisitTestExc404() throws Exception {
         String jsonBody = """
                 {
                     "userId" : "ac5c8867-676f-4737-931f-052cbb9b4a50"
@@ -309,7 +308,7 @@ class ScheduleControllerTest {
     }
 
     @Test
-    void cancelVisitTestExc400()  throws Exception{
+    void cancelVisitTestExc400() throws Exception {
         String jsonBody = """
                 {
                     "userId" : "ac5c8867-676f-4737-931f-052cbb9b4a59"

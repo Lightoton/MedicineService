@@ -21,9 +21,9 @@ import java.util.List;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Sql("/db/drop.sql")
-@Sql("/db/create-tables-changelog.sql")
-@Sql("/db/insert_test_data.sql")
+@Sql("/db/drop-tables.sql")
+@Sql("/db/create-tables.sql")
+@Sql("/db/insert-tables.sql")
 
 
 @SpringBootTest(classes = TestConfig.class)

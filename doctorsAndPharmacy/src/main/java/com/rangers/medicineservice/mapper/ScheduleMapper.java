@@ -9,7 +9,6 @@ import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
         unmappedTargetPolicy = ReportingPolicy.IGNORE)
-@Component
 public interface ScheduleMapper {
 
     ScheduleDateTimeDto toDto(Schedule schedule);
@@ -22,6 +21,7 @@ public interface ScheduleMapper {
     ScheduleFullDto toFullDto(Schedule schedule);
     @AfterMapping
     default void updateFullDto(Schedule schedule, @MappingTarget ScheduleFullDto scheduleFullDto) {
+        scheduleFullDto.setScheduleId(schedule.getScheduleId());
         scheduleFullDto.setDateAndTime(schedule.getDateTime().toLocalDate().toString()+ " " + schedule.getDateTime().toLocalTime());
         scheduleFullDto.setStatus(schedule.getStatus().toString());
         scheduleFullDto.setDoctorName(schedule.getDoctor().getFirstName()+" "+schedule.getDoctor().getLastName());
