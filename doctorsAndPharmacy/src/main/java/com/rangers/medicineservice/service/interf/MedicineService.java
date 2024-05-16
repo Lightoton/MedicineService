@@ -9,4 +9,6 @@ public interface MedicineService {
     List<MedicineDto> getAvailable();
 
     void resetQuantity();
+
+    List<MedicineDto> getByCategory(String category);
 }

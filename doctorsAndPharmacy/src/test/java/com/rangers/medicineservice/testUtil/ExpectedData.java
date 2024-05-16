@@ -44,4 +44,14 @@ public class ExpectedData {
         return List.of(medicineDto1, medicineDto2, medicineDto3);
     }
 
+    public static List<MedicineDto> getExpectedMedicineByCategory(){
+        MedicineDto medicineDto1 = new MedicineDto();
+        medicineDto1.setName("Claritin");
+        medicineDto1.setDescription("Non-drowsy antihistamine for seasonal allergy relief.");
+        medicineDto1.setPrice("8.99");
+        medicineDto1.setCategory("ANTIHIAMINES");
+
+        return List.of(medicineDto1);
+    }
+
 }
