@@ -14,15 +14,15 @@ import java.util.Objects;
 @Service
 public class ZoomAuthService {
 
-    @Value("${zoom.client-id}")
-    private String clientId;
-    @Value("${zoom.account-id}")
-    private String accountId;
+//    @Value("p_SjHvkBSVSB3tSFPfnrA")
+    private String clientId = "p_SjHvkBSVSB3tSFPfnrA";
+//    @Value("M5e4hk2LRImw94clRJY_EA")
+    private String accountId = "M5e4hk2LRImw94clRJY_EA";
 
-    @Value("${zoom.client-secret}")
-    private String clientSecret;
+//    @Value("awgX5s12APazbvSAqTCnHK7MOXHmUMlj")
+    private String clientSecret = "awgX5s12APazbvSAqTCnHK7MOXHmUMlj";
 
-    @Autowired
+
     @Qualifier("zoomRestTemplate")
     private RestTemplate restTemplate;
 

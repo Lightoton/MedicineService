@@ -13,6 +13,6 @@ public interface UserService {
     String getUserIdByChatId(String chatId);
     UserInfoDto updateUser(UserInfoDto userInfoDto);
     List<UserHistoryOrdersDto> getUserHistoryOrders(String id);
-    UserHistorySchedulesDto getUserHistorySchedules(String id);
-    UserHistoryPrescriptionsDto getUserHistoryPrescriptions(String id);
+    List<ScheduleFullDto> getUserHistorySchedules(String id);
+    List<UserHistoryPrescriptionsDto> getUserHistoryPrescriptions(String id);
 }

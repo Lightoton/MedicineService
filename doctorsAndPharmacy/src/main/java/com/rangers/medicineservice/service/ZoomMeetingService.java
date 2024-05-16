@@ -15,7 +15,6 @@ import java.util.Objects;
 public class ZoomMeetingService {
 
 
-    @Autowired
     @Qualifier("zoomRestTemplate")
     private RestTemplate restTemplate;
 
