@@ -1,5 +1,6 @@
 package com.rangers.medicineservice.service;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -23,7 +24,7 @@ public class ZoomAuthService {
 
     private final RestTemplate restTemplate;
 
-    public ZoomAuthService(RestTemplate restTemplate) {
+    public ZoomAuthService(@Qualifier("zoomRestTemplate") RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
