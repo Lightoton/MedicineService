@@ -2,6 +2,7 @@ package com.rangers.medicineservice.service.impl;
 
 import com.rangers.medicineservice.dto.MedicineDto;
 import com.rangers.medicineservice.entity.Medicine;
+import com.rangers.medicineservice.entity.enums.MedicineCategory;
 import com.rangers.medicineservice.exception.ListIsEmptyException;
 import com.rangers.medicineservice.exception.errorMessage.ErrorMessage;
 import com.rangers.medicineservice.mapper.util.MedicineMapper;
@@ -33,5 +34,15 @@ public class MedicineServiceImpl implements MedicineService {
     @Override
     public void resetQuantity() {
         medicineRepository.resetAvailableQuantity();
+    }
+
+    @Override
+    public List<MedicineDto> getByCategory(String category) {
+        List<Medicine> medicineList = medicineRepository
+                .findByCategoryAndAvailableQuantityGreaterThan(MedicineCategory.valueOf(category), 0);
+        if (medicineList.isEmpty()){
+            throw new ListIsEmptyException(ErrorMessage.THERE_ARE_NO_MEDICINES);
+        }
+        return medicineList.stream().map(medicineMapper::toDto).toList();
     }
 }

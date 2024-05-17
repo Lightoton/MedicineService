@@ -1,6 +1,7 @@
 package com.rangers.medicineservice.service;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class ZoomMeetingService {
 
     private final ZoomAuthService zoomAuthService;
 
-    public ZoomMeetingService(RestTemplate restTemplate, ZoomAuthService zoomAuthService) {
+    public ZoomMeetingService(@Qualifier("zoomRestTemplate") RestTemplate restTemplate, ZoomAuthService zoomAuthService) {
         this.restTemplate = restTemplate;
         this.zoomAuthService = zoomAuthService;
     }

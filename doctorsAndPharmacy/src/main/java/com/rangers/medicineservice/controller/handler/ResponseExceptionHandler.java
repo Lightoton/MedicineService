@@ -61,6 +61,9 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorExtension> handleIllegalArgumentException(IllegalArgumentException ex) {
         ErrorExtension body = new ErrorExtension(ex.getMessage(),
                 HttpStatus.BAD_REQUEST);
+        if (ex.getMessage().contains("No enum constant com.rangers.medicineservice.entity.enums.MedicineCategory")) {
+            body = new ErrorExtension("No such category", HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
   

@@ -9,6 +9,8 @@ import com.rangers.medicineservice.testUtil.ExpectedData;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -61,6 +63,32 @@ class MedicineControllerTest {
         medicineService.resetQuantity();
 
         mockMvc.perform(MockMvcRequestBuilders.get("/medicine/getAvailable"))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    void getByCategoryPositiveTest() throws Exception{
+        List<MedicineDto> expected = ExpectedData.getExpectedMedicineByCategory();
+
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/medicine/getByCategory/ANTIHIAMINES"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String json = mvcResult.getResponse().getContentAsString();
+        List<MedicineDto> actual = objectMapper.readValue(json, new TypeReference<>() {});
+
+        Assertions.assertTrue(expected.size() == actual.size() && expected.containsAll(actual));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "/medicine/getByCategory/VITAMINS_AND_SUPPLEMENTS",
+            "/medicine/getByCategory/NON_EXISTING_CATEGORY"
+    })
+    void getByCategoryTestExc400(String path) throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.get(path))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
