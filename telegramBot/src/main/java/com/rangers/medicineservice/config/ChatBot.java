@@ -9,6 +9,7 @@ import com.rangers.medicineservice.service.impl.ScheduleServiceImpl;
 import com.rangers.medicineservice.service.impl.UserServiceImpl;
 import com.rangers.medicineservice.utils.GetButtons;
 import com.rangers.medicineservice.utils.RegistrationUser;
+import com.rangers.medicineservice.utils.SupportMailSender;
 import com.rangers.medicineservice.utils.headers.MenuHeader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -34,9 +35,11 @@ public class ChatBot extends TelegramLongPollingBot {
     private final RegistrationUser registrationUser;
     private final UserServiceImpl userService;
     private final ScheduleServiceImpl scheduleService;
+    private final SupportMailSender supportMainSender;
     private final Map<String, UserRegistrationDto> users = new HashMap<>();
     private final Map<String, Integer> registrationStep = new HashMap<>();
     public Map<String, Boolean> isRegistrationInProgress = new HashMap<>();
+    public Map<String, Boolean> isSupportInProgress = new HashMap<>();
     public Map<String, String> doctorId = new HashMap<>();
     public Map<String, String> dateSchedule = new HashMap<>();
     public Map<String, String> timeSchedule = new HashMap<>();
@@ -46,19 +49,21 @@ public class ChatBot extends TelegramLongPollingBot {
 
     public ChatBot(@Value("${bot.token}") String botToken, GetButtons getButtons, RegistrationUser registrationUser,
                    UserServiceImpl userService, BotConfig config,
-                   ScheduleServiceImpl scheduleService) {
+                   ScheduleServiceImpl scheduleService, SupportMailSender supportMainSender) {
         super(botToken);
         this.getButtons = getButtons;
         this.registrationUser = registrationUser;
         this.userService = userService;
         this.config = config;
         this.scheduleService = scheduleService;
+        this.supportMainSender = supportMainSender;
     }
 
     @Override
     public String getBotUsername() {
         return config.getBotName();
     }
+
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
@@ -67,19 +72,29 @@ public class ChatBot extends TelegramLongPollingBot {
             handleCallbackQuery(update);
         }
     }
+
     private void handleIncomingMessage(Update update) {
         String chatId = String.valueOf(update.getMessage().getChatId());
         String messageText = update.getMessage().getText();
 
         switch (messageText) {
             case "/start":
+                resettingVariables(chatId);
                 sendMenu(chatId, GetButtons.getListsStartMenu(), MenuHeader.CHOOSE_ACTION);
                 break;
             case "/menu":
-                sendMsg(chatId,"отправка меню с доп функциями(например: мои рецепты, мои заказы)");
+                sendMsg(chatId, "отправка меню с доп функциями(например: мои рецепты, мои заказы)");
+                break;
+            case "/support":
+                isSupportInProgress.put(chatId, true);
+                sendMsg(chatId, "Thank you for contacting our support. Please describe your problem or" +
+                        " question as in more detail.");
+                break;
             default:
                 if (isRegistrationInProgress.getOrDefault(chatId, false)) {
                     handleRegistration(messageText, chatId);
+                } else if (isSupportInProgress.getOrDefault(chatId, false)) {
+                    handleSupport(messageText, chatId);
                 } else if (update.getMessage().hasLocation()) {
                     processLocation(update);
                 }
@@ -167,6 +182,12 @@ public class ChatBot extends TelegramLongPollingBot {
         }
     }
 
+    private void handleSupport(String messageText, String chatId) {
+        supportMainSender.send("", "", messageText + ". " + "UserChatId: " + chatId);
+        sendMsg(chatId, "Thank you for contacting our support. We have received your message and will get back to you as soon as possible.");
+        isSupportInProgress.put(chatId, false);
+    }
+
 
     private void sendDataBot(String chatId) {
         SendMessage message = new SendMessage();
@@ -195,7 +216,7 @@ public class ChatBot extends TelegramLongPollingBot {
             if (lastMessageId.get(chatId) != null) {
                 deleteMessage(chatId, lastMessageId.get(chatId));
             }
-            lastMessageId.put(chatId,messageId);
+            lastMessageId.put(chatId, messageId);
         } catch (TelegramApiException ignored) {
 
         }
@@ -274,7 +295,7 @@ public class ChatBot extends TelegramLongPollingBot {
                 sendMsg(chatId, "Great! Registration is completed!!!");
                 userService.createUser(users.get(chatId));
                 isRegistrationInProgress.put(chatId, false);
-                sendMenu(chatId, getButtons.getListsStartMenu, MenuHeader.CHOOSE_ACTION);
+                sendMenu(chatId, GetButtons.getListsStartMenu(), MenuHeader.CHOOSE_ACTION);
                 break;
         }
 
@@ -295,5 +316,11 @@ public class ChatBot extends TelegramLongPollingBot {
         } catch (TelegramApiException ignored) {
 
         }
+    }
+
+    private void resettingVariables(String chatId) {
+        isRegistrationInProgress.remove(chatId);
+        isSupportInProgress.remove(chatId);
+        registrationStep.remove(chatId);
     }
 }
