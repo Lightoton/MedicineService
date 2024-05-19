@@ -9,6 +9,7 @@ import com.rangers.medicineservice.service.impl.UserServiceImpl;
 import com.rangers.medicineservice.utils.GetButtons;
 import com.rangers.medicineservice.utils.RegistrationUser;
 import com.rangers.medicineservice.utils.headers.MenuHeader;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -18,6 +19,7 @@ import org.telegram.telegrambots.meta.api.objects.Location;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
@@ -27,6 +29,7 @@ import java.util.*;
 
 
 @Component
+@Slf4j
 public class ChatBot extends TelegramLongPollingBot {
     private final GetButtons getButtons;
     private final RegistrationUser registrationUser;
@@ -64,8 +67,12 @@ public class ChatBot extends TelegramLongPollingBot {
             handleIncomingMessage(update);
         } else if (update.hasCallbackQuery()) {
             handleCallbackQuery(update);
+        } else if (update.hasMessage() && update.getMessage().hasLocation()) {
+            String chatId = update.getMessage().getChatId().toString();
+            handleReceivedLocation(chatId, update.getMessage().getLocation().toString());
         }
     }
+
     private void handleIncomingMessage(Update update){
         String chatId = String.valueOf(update.getMessage().getChatId());
         String messageText = update.getMessage().getText();
@@ -77,31 +84,7 @@ public class ChatBot extends TelegramLongPollingBot {
                 sendMsg(chatId,"отправка меню с доп функциями(например: мои рецепты, мои заказы)");
                 break;
             case "/location":
-                ReplyKeyboardMarkup keyboard = new ReplyKeyboardMarkup();
-                keyboard.setResizeKeyboard(true);
-
-                // Создаем строку клавиатуры
-                KeyboardRow row = new KeyboardRow();
-                KeyboardButton button1 = new KeyboardButton("Location");
-                button1.setRequestLocation(true);
-                row.add(button1);
-
-                // Добавляем строку клавиатуры к клавиатуре
-                keyboard.setKeyboard(List.of(row));
-
-                // Отправляем сообщение с клавиатурой
-                SendMessage message = new SendMessage();
-                message.setChatId(chatId);
-                message.setText("Поделись местоположением:");
-                message.setReplyMarkup(keyboard);
-
-                try {
-                    execute(message);
-                } catch (TelegramApiException e) {
-                    throw new RuntimeException(e);
-                }
-
-                processLocation(update);
+                sendLocationRequestButton(chatId);
                 break;
             default:
                 if (isRegistrationInProgress.getOrDefault(chatId, false)) {
@@ -111,6 +94,49 @@ public class ChatBot extends TelegramLongPollingBot {
                 }
                 break;
         }
+    }
+
+    private void sendLocationRequestButton(String chatId) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        message.setText("Please share your location. Click the button below.");
+        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+        List<KeyboardRow> keyboard = new ArrayList<>();
+        KeyboardRow row = new KeyboardRow();
+        KeyboardButton locationButton = new KeyboardButton("Share location");
+        locationButton.setRequestLocation(true);
+        row.add(locationButton);
+        keyboard.add(row);
+        keyboardMarkup.setKeyboard(keyboard);
+        keyboardMarkup.setResizeKeyboard(true);
+        keyboardMarkup.setOneTimeKeyboard(true);
+        message.setReplyMarkup(keyboardMarkup);
+        try {
+            execute(message);
+        } catch (TelegramApiException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private void handleReceivedLocation(String chatId, String location) {
+        SendMessage message = new SendMessage();
+        message.setChatId(String.valueOf(chatId));
+        message.setText("Thank you for sharing your location!");
+        // Remove the keyboard
+        ReplyKeyboardRemove keyboardRemove = new ReplyKeyboardRemove();
+        keyboardRemove.setRemoveKeyboard(true);
+        message.setReplyMarkup(keyboardRemove);
+        try {
+            execute(message);
+        } catch (TelegramApiException e) {
+            log.info(e.getMessage());
+        }
+        sendMsg(chatId,"Pharmacies that are near you:");
+        sendMsg(chatId,pharmaciesNearby(location));
+    }
+
+    private String pharmaciesNearby(String location) {
+        if (location == null) return null;
+        return "https://www.google.com/maps/search/pharmacy/" + location + ",12z/data=!3m1!4b1?entry=ttu";
     }
 
     private void handleCallbackQuery(Update update) {
@@ -168,9 +194,6 @@ public class ChatBot extends TelegramLongPollingBot {
 
     private void saveCallback(String chatId, String callbackData, int number) {
         historyCallbackData.computeIfAbsent(chatId, k -> new HashMap<>());
-//        if (historyCallbackData.get(chatId) == null) {
-//            historyCallbackData.put(chatId,new HashMap<>());
-//        }
         historyCallbackData.get(chatId).put(number,callbackData);
     }
 
@@ -283,7 +306,7 @@ public class ChatBot extends TelegramLongPollingBot {
             try {
                 execute(message);
             } catch (TelegramApiException e) {
-                e.printStackTrace();
+                log.info(e.getMessage());
             }
         }
     }
