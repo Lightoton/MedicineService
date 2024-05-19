@@ -46,7 +46,6 @@ public class GetButtons {
     public static List<List<InlineKeyboardButton>> getListsSchedule() {
         List<String> specializations = Arrays.stream(Specialization.values()).map(Enum::toString).toList();
 
-
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
 
         for (String specialization : specializations) {
@@ -56,7 +55,8 @@ public class GetButtons {
             rowInline.add(button);
             rowsInline.add(rowInline);
         }
-
+        //add BackupBtn which points to the previous step
+        rowsInline.add(getBackupBtn(1));
         return rowsInline;
     }
     public static List<List<InlineKeyboardButton>> getListsDoctors(String specializations) {
@@ -71,7 +71,8 @@ public class GetButtons {
             rowInline.add(button);
             rowsInline.add(rowInline);
         }
-
+        //add BackupBtn which points to the previous step
+        rowsInline.add(getBackupBtn(2));
         return rowsInline;
     }
     public static List<List<InlineKeyboardButton>> getListsDatesByDoctor(String doctorId) {
@@ -85,7 +86,7 @@ public class GetButtons {
             rowInline.add(button);
             rowsInline.add(rowInline);
         }
-
+        rowsInline.add(getBackupBtn(3));
         return rowsInline;
     }
     public static List<List<InlineKeyboardButton>> getListsTimesByDoctorAndDate(String doctorId,String date) {
@@ -99,7 +100,7 @@ public class GetButtons {
             rowInline.add(button);
             rowsInline.add(rowInline);
         }
-
+        rowsInline.add(getBackupBtn(4));
         return rowsInline;
     }
     public List<List<InlineKeyboardButton>> getListsScheduleType(){
@@ -112,7 +113,26 @@ public class GetButtons {
         rowInline.add(button1);
         rowInline.add(button2);
         rowsInline.add(rowInline);
+        rowsInline.add(getBackupBtn(5));
         return rowsInline;
     }
 
+    public static List<List<InlineKeyboardButton>> getLocationInlineBtn() {
+        List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
+        List<InlineKeyboardButton> rowInline = new ArrayList<>();
+        InlineKeyboardButton button1 = new InlineKeyboardButton();
+        button1.setText("Location");
+        button1.setCallbackData("location1");
+        rowInline.add(button1);
+        rowsInline.add(rowInline);
+        return rowsInline;
+    }
+
+    public static List<InlineKeyboardButton> getBackupBtn(int number) {
+        List<InlineKeyboardButton> rowInline = new ArrayList<>();
+        InlineKeyboardButton button = new InlineKeyboardButton("<< Back");
+        button.setCallbackData("back_btn:" + (number-1));
+        rowInline.add(button);
+        return rowInline;
+    }
 }
