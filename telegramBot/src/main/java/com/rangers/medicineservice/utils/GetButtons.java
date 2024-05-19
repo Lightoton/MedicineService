@@ -17,9 +17,6 @@ import java.util.UUID;
 public class GetButtons {
     public static DoctorServiceImpl service;
     public static ScheduleServiceImpl scheduleService;
-    public List<List<InlineKeyboardButton>> getListsScheduleType = getListsScheduleType();
-    public List<List<InlineKeyboardButton>> getListsStartMenu = getListsStartMenu();
-    public List<List<InlineKeyboardButton>> getListsSchedule = getListsSchedule();
 
     public GetButtons(DoctorServiceImpl service, ScheduleServiceImpl scheduleService) {
         GetButtons.service = service;
