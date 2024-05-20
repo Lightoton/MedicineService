@@ -3,6 +3,9 @@ package com.rangers.medicineservice.service.impl;
 import com.rangers.medicineservice.dto.CartItemBeforeCreationDto;
 import com.rangers.medicineservice.dto.CreatedCartItemDto;
 import com.rangers.medicineservice.entity.CartItem;
+import com.rangers.medicineservice.entity.User;
+import com.rangers.medicineservice.exception.ObjectDoesNotExistException;
+import com.rangers.medicineservice.exception.errorMessage.ErrorMessage;
 import com.rangers.medicineservice.exeption.QuantityCantBeLowerThenOneException;
 import com.rangers.medicineservice.mapper.CartItemMapper;
 import com.rangers.medicineservice.repository.CartItemRepository;
@@ -13,6 +16,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -42,6 +46,12 @@ public class CartItemServiceImpl implements CartItemService {
         cartItemRepository.delete(cartItem);
     }
 
+    @Override
+    public List<CartItem> getCartItemsByUserId(String id) {
+        User user = userRepository.findById(UUID.fromString(id))
+                .orElseThrow(() -> new ObjectDoesNotExistException(ErrorMessage.USER_NOT_FOUND));
+        return cartItemRepository.getAllByUser(user);
+    }
 }
 
 

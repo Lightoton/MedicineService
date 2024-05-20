@@ -1,7 +1,9 @@
 package com.rangers.medicineservice.controller;
 
+import com.rangers.medicineservice.annotation.GetCart;
 import com.rangers.medicineservice.dto.CartItemBeforeCreationDto;
 import com.rangers.medicineservice.dto.CreatedCartItemDto;
+import com.rangers.medicineservice.entity.CartItem;
 import com.rangers.medicineservice.service.interf.CartItemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -12,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -50,5 +53,12 @@ public class CartItemController {
     public ResponseEntity<String> deleteCartItem(@PathVariable(name = "id") UUID id) {
         cartItemService.deleteCartItem(id);
         return ResponseEntity.ok("***Deleted successfully!***");
+    }
+
+    @GetCart(path = "/getCart/{userId}")
+    public List<CartItem> getCartItemsByUserId(@PathVariable(name = "userId") String id){
+        List<CartItem> list = cartItemService.getCartItemsByUserId(id);
+        System.out.println("222222222222222222" +list);
+        return list;
     }
 }
