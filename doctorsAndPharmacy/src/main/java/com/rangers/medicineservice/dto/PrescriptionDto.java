@@ -11,4 +11,8 @@ public class PrescriptionDto {
     LocalDate expiryDate;
     String deliveryAddress;
 
+    @Override
+    public String toString() {
+        return "prescription № " + prescriptionId + ", " + expiryDate;
+    }
 }

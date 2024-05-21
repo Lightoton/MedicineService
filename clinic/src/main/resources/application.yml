@@ -25,7 +25,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/medicine_service
     username: root
-    password: loxy1517
+    password: 23402
 
   liquibase:
     change-log: classpath:db/changelog/changelog-master.xml
