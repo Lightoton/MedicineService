@@ -24,9 +24,6 @@ import java.util.stream.Collectors;
 public class GetButtons {
     public static DoctorServiceImpl service;
     public static ScheduleServiceImpl scheduleService;
-    public List<List<InlineKeyboardButton>> getListsScheduleType = getListsScheduleType();
-    public List<List<InlineKeyboardButton>> getListsStartMenu = getListsStartMenu();
-    public List<List<InlineKeyboardButton>> getListsSchedule = getListsSchedule();
 
     public static MedicineServiceImpl medicineService;
     public static CartItemServiceImpl cartItemService;
