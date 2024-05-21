@@ -11,4 +11,6 @@ public interface MedicineService {
     void resetQuantity();
 
     List<MedicineDto> getByCategory(String category);
+
+    MedicineDto getByName(String medicineName);
 }

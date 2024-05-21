@@ -26,7 +26,6 @@ public class CartItem {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH},
             fetch = FetchType.EAGER)
     @JoinColumn(name = "medicine_id", referencedColumnName = "medicine_id")
-    @JsonIgnore
     private Medicine medicine;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH},
@@ -53,6 +52,8 @@ public class CartItem {
         return "CartItem{" +
                 "cartItemId=" + cartItemId +
                 ", quantity=" + quantity +
+                ", medicine=" + medicine.getName() +
+                ", user=" + user.getUserId() +
                 '}';
     }
 }

@@ -1,5 +1,6 @@
 package com.rangers.medicineservice.repository;
 
+import com.rangers.medicineservice.entity.User;
 import org.jetbrains.annotations.NotNull;
 import com.rangers.medicineservice.entity.Prescription;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,4 +19,6 @@ public interface PrescriptionRepository extends JpaRepository<Prescription, UUID
 
     @NotNull
     Optional<Prescription> findById(@NotNull UUID uuid);
+    @Query("SELECT p FROM Prescription p WHERE p.user.userId = :userId AND p.isActive = true")
+    List<Prescription> findActive(UUID userId);
 }
