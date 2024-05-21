@@ -4,12 +4,16 @@ package com.rangers.medicineservice.config;
 import com.rangers.medicineservice.dto.*;
 import com.rangers.medicineservice.entity.*;
 import com.rangers.medicineservice.service.impl.*;
+
+import com.rangers.medicineservice.utils.GetBotInfo;
 import com.rangers.medicineservice.utils.GetButtons;
 import com.rangers.medicineservice.utils.RegistrationUser;
 import com.rangers.medicineservice.utils.SupportMailSender;
 import com.rangers.medicineservice.utils.headers.MenuHeader;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
@@ -98,6 +102,11 @@ public class ChatBot extends TelegramLongPollingBot {
                 isSupportInProgress.put(chatId, true);
                 sendMsg(chatId, "Thank you for contacting our support. Please describe your problem or" +
                         " question as in more detail.");
+                break;
+            case "/botInfo":
+                isSupportInProgress.put(chatId, true);
+                sendMsg(chatId, GetBotInfo.getBotInfo()
+                        , "MarkdownV2");
                 break;
             default:
                 if (isRegistrationInProgress.getOrDefault(chatId, false)) {
@@ -263,6 +272,20 @@ public class ChatBot extends TelegramLongPollingBot {
             SendMessage message = new SendMessage();
             message.setChatId(chatId);
             message.setText(text);
+            try {
+                execute(message);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void sendMsg(String chatId, String text, String type) {
+        if (text != null) {
+            SendMessage message = new SendMessage();
+            message.setChatId(chatId);
+            message.setText(text);
+            message.setParseMode(type);
             try {
                 execute(message);
             } catch (TelegramApiException e) {
