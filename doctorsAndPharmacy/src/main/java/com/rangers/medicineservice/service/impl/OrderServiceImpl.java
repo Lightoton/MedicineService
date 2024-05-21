@@ -5,6 +5,7 @@ import com.rangers.medicineservice.entity.*;
 import com.rangers.medicineservice.exception.DataNotExistExp;
 import com.rangers.medicineservice.exception.InActivePrescriptionExp;
 import com.rangers.medicineservice.exception.NotEnoughBalanceExp;
+import com.rangers.medicineservice.exception.RunOutOfMedicineException;
 import com.rangers.medicineservice.exception.errorMessage.ErrorMessage;
 import com.rangers.medicineservice.mapper.*;
 import com.rangers.medicineservice.mapper.util.MedicineMapper;
@@ -44,37 +45,59 @@ public class OrderServiceImpl implements OrderService {
         if (cartItems.isEmpty()) {
             throw new IllegalArgumentException("Cart items set cannot be empty.");
         }
+
         List<OrderDetail> orderDetails = new ArrayList<>();
         BigDecimal orderCost = BigDecimal.ZERO;
-        OrderBeforeCreation orderBeforeCreation = new OrderBeforeCreation(); // Создаем один объект для заказа
+        OrderBeforeCreation orderBeforeCreation = new OrderBeforeCreation();
+
         for (CartItem cartItem : cartItems) {
             CartItemToOrderDetailDto dto = cartItemMapper.toOrderDetailDto(
                     cartItemRepository.findById(cartItem.getCartItemId()).orElse(null)
             );
-            OrderDetail orderDetail = orderMapper.toOrderDetail(dto);
-            orderDetail.setMedicine(medicineMapper.toEntity(dto.getMedicine()));
-            orderDetails.add(orderDetail);
-            BigDecimal itemCost = orderDetail.getMedicine().getPrice().multiply(new BigDecimal(orderDetail.getQuantity()));
-            orderCost = orderCost.add(itemCost);
+
+            Medicine medicine = medicineRepository.findByName(dto.getMedicine().getName());
+            if (medicine == null) {
+                throw new IllegalArgumentException("Medicine not found: " + dto.getMedicine().getName());
+            }
+
+            if (dto.getQuantity() < medicine.getAvailableQuantity()) {
+                OrderDetail orderDetail = orderMapper.toOrderDetail(dto);
+                orderDetail.setMedicine(medicine);
+                orderDetails.add(orderDetail);
+                BigDecimal itemCost = medicine.getPrice().multiply(new BigDecimal(orderDetail.getQuantity()));
+                orderCost = orderCost.add(itemCost);
+
+                // Update availableQuantity in medicine
+                int newQuantity = medicine.getAvailableQuantity() - dto.getQuantity();
+                medicine.setAvailableQuantity(newQuantity);
+                medicineRepository.save(medicine);  // Сохраните обновленный объект Medicine
+            } else {
+                throw new RunOutOfMedicineException(ErrorMessage.RUN_OUT_OF_MEDICINE);
+            }
         }
-        orderBeforeCreation.setOrderDetails(orderDetails); // Устанавливаем все детали заказа
-        orderBeforeCreation.setOrderCost(orderCost); // Устанавливаем стоимость заказа
+
+        orderBeforeCreation.setOrderDetails(orderDetails);
+        orderBeforeCreation.setOrderCost(orderCost);
 
         Order order = orderMapper.toEntity(orderMapper.toDto(orderBeforeCreation));
         order.setOrderCost(orderCost);
         order.setOrderDetails(orderDetails);
+
         // Определяем пользователя из первого элемента корзины
         CartItem firstCartItem = cartItems.iterator().next();
         CartItemToOrderDetailDto firstDto = cartItemMapper.toOrderDetailDto(
                 cartItemRepository.findById(firstCartItem.getCartItemId()).orElse(null)
         );
         order.setUser(userMapper.toEntity(firstDto.getUser()));
+
         // Сохраняем все детали заказа
         for (OrderDetail detail : orderDetails) {
             detail.setOrder(order);
             orderDetailRepository.save(detail);
         }
-        orderRepository.saveAndFlush(order); // Сохраняем заказ
+
+        orderRepository.saveAndFlush(order);  // Сохраняем заказ
+
         return orderMapper.toDto(orderBeforeCreation);
     }
 

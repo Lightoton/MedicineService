@@ -22,4 +22,7 @@ public class ErrorMessage {
     public static final String EXPIRED_PRESCRIPTION= "The prescription has expired.";
     public static final String NOT_ENOUGH_BALANCE= "Not enough balance";
     public static final String WRONG_PRESCRIPTION= "The prescription belongs to another user";
+    public static final String INVALID_VALUE = "Invalid value";
+    public static final String RUN_OUT_OF_MEDICINE = "Run Out of Medicine";
+
 }

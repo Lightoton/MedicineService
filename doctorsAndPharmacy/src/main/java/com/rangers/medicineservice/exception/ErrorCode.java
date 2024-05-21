@@ -1,4 +1,4 @@
-package com.rangers.medicineservice.exeption;
+package com.rangers.medicineservice.exception;
 
 import lombok.experimental.UtilityClass;
 
