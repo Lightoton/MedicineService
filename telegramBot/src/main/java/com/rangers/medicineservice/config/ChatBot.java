@@ -2,10 +2,8 @@ package com.rangers.medicineservice.config;
 
 
 import com.rangers.medicineservice.dto.*;
-import com.rangers.medicineservice.service.impl.CartItemServiceImpl;
-import com.rangers.medicineservice.service.impl.MedicineServiceImpl;
-import com.rangers.medicineservice.service.impl.ScheduleServiceImpl;
-import com.rangers.medicineservice.service.impl.UserServiceImpl;
+import com.rangers.medicineservice.entity.*;
+import com.rangers.medicineservice.service.impl.*;
 import com.rangers.medicineservice.utils.GetButtons;
 import com.rangers.medicineservice.utils.RegistrationUser;
 import com.rangers.medicineservice.utils.headers.MenuHeader;
@@ -21,11 +19,10 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.math.BigDecimal;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -47,10 +44,12 @@ public class ChatBot extends TelegramLongPollingBot {
     private final BotConfig config;
     private final MedicineServiceImpl medicineService;
     private final CartItemServiceImpl cartItemService;
+    private final PrescriptionServiceImpl prescriptionService;
+    private final OrderServiceImpl orderService;
 
     public ChatBot(@Value("${bot.token}") String botToken, GetButtons getButtons, RegistrationUser registrationUser,
                    UserServiceImpl userService, BotConfig config,
-                   ScheduleServiceImpl scheduleService, MedicineServiceImpl medicineService, CartItemServiceImpl cartItemService) {
+                   ScheduleServiceImpl scheduleService, MedicineServiceImpl medicineService, CartItemServiceImpl cartItemService, PrescriptionServiceImpl prescriptionService, OrderServiceImpl orderService) {
         super(botToken);
         this.getButtons = getButtons;
         this.registrationUser = registrationUser;
@@ -59,6 +58,8 @@ public class ChatBot extends TelegramLongPollingBot {
         this.scheduleService = scheduleService;
         this.medicineService = medicineService;
         this.cartItemService = cartItemService;
+        this.prescriptionService = prescriptionService;
+        this.orderService = orderService;
     }
 
     @Override
@@ -121,6 +122,20 @@ public class ChatBot extends TelegramLongPollingBot {
             handleToCartCallBack(chatId, callbackData);
         } else if (callbackData.startsWith("delete item")) {
             handleDeleteItemCallBack(chatId, callbackData);
+        } else if (callbackData.startsWith("checkout")) {
+            handleCheckoutCallBack(chatId, callbackData);
+        } else if (callbackData.startsWith("pickup")) {
+            handlePickupCallBack(chatId);
+        } else if (callbackData.startsWith("courier")) {
+            handleCourierCallBack(chatId);
+        }  else if (callbackData.startsWith("choose the prescription")) {
+            handleChoosePrescriptionCallBack(chatId);
+        } else if (callbackData.startsWith("prescription:")) {
+            handlePrescriptionCallBack(chatId, callbackData);
+        } else if (callbackData.startsWith("check prescription:")) {
+            handleCheckPrescriptionCallBack(chatId, callbackData);
+        } else if (callbackData.startsWith("back to main menu")) {
+            handleBackToMainManuCallback(chatId);
         } else {
             handleDefaultCallback(chatId, callbackData);
         }
@@ -323,16 +338,17 @@ public class ChatBot extends TelegramLongPollingBot {
             registrationStep.put(chatId, 0);
             startRegistration(chatId);
         }
+
+        String userId = userService.getUserIdByChatId(chatId);
         //проверка на наличие рецептов в базе
-        List<PrescriptionDto> prescriptions = userService.getUserPrescriptions(UUID.fromString(userService.getUserIdByChatId(chatId)));
-        if (prescriptions.size() == 1) {
-            sendMsg(chatId, "You have 1 prescription. Would you like to stock your recipe?");
-            sendMenu(chatId, GetButtons.getYesNoButtons("Yes", "No","stock the prescription",
-                    "do not stock the prescription"), MenuHeader.CHOOSE_ACTION);
-        } else if (prescriptions.size() > 1) {
-            sendMsg(chatId, "You have " + prescriptions.size() + " prescriptions. Would you like to stock your recipes?");
-            sendMenu(chatId, GetButtons.getYesNoButtons("Yes", "No", "choose the prescription",
-                    "do not stock the prescription"), MenuHeader.CHOOSE_ACTION);
+        List<PrescriptionDto> prescriptions = prescriptionService.getActivePrescriptions(userId);
+        if (!prescriptions.isEmpty()) {
+            sendMenu(chatId, GetButtons.getYesNoButtons(
+                    "Yes",
+                    "Choose medicines",
+                    "choose the prescription",
+                    "do not stock the prescription"
+            ), "You have prescriptions. Would you like to stock your recipes?");
         } else {
             sendMenu(chatId, GetButtons.getMedicineCategoryButtons(), MenuHeader.CHOOSE_MEDICINE_CATEGORY);
         }
@@ -367,7 +383,6 @@ public class ChatBot extends TelegramLongPollingBot {
                 quantity);
         cartItemService.createCartItem(cartItemBeforeCreationDto);
         sendMsg(chatId, "Item added to cart");
-//        sendMsg(chatId, "Do you want to select more products?");
         sendMenu(chatId, GetButtons.getYesNoButtons(
                 "Yes",
                 "Go to cart",
@@ -382,11 +397,122 @@ public class ChatBot extends TelegramLongPollingBot {
 
     private void handleToCartCallBack(String chatId, String callbackData){
         String userId = userService.getUserIdByChatId(chatId);
-        sendMenu(chatId, GetButtons.getCart(userId), MenuHeader.CHOOSE_ITEM_FOR_DELETE);
+        List<CartItem> cartItems = cartItemService.getCartItemsByUserId(userId);
+        if (cartItems.isEmpty()){
+            sendMenu(chatId, GetButtons.getListsStartMenu(), MenuHeader.CART_IS_EMPTY);
+        } else{
+            List<CartItem> cartWithoutDoubles = getCartWithoutDoubles(cartItems);
+            sendMenu(chatId, GetButtons.getCart(userId, chatId, cartWithoutDoubles), MenuHeader.CHOOSE_ITEM_FOR_DELETE);
+        }
     }
 
     private void handleDeleteItemCallBack(String chatId, String callbackData){
-        sendMsg(chatId, "Hello");
+        String medicineId = callbackData.substring("delete item:".length());
+        String userId = userService.getUserIdByChatId(chatId);
+        cartItemService.deleteAllByMedicineAndUser(medicineId, userId);
+        handleToCartCallBack(chatId, callbackData);
     }
 
+    private void handleCheckoutCallBack(String chatId, String callbackData){
+        String userId = userService.getUserIdByChatId(chatId);
+        List<CartItem> cart = cartItemService.getCartItemsByUserId(userId);
+        List<CartItem> cartWithoutDoubles = getCartWithoutDoubles(cart);
+        StringBuilder cartMessage = new StringBuilder();
+        final BigDecimal[] sum = {BigDecimal.valueOf(0)};
+        cartWithoutDoubles
+                        .forEach(cartItem -> {
+                            BigDecimal price = cartItem.getMedicine().getPrice();
+                            BigDecimal quantity = BigDecimal.valueOf(cartItem.getQuantity());
+                            cartMessage.append(cartItem.getMedicine().getName()).append(", ");
+                            cartMessage.append("price: $").append(price).append(", ");
+                            cartMessage.append("quantity: ").append(quantity).append("\n");
+                            BigDecimal itemTotal = price.multiply(quantity);
+                            sum[0] = sum[0].add(itemTotal);
+                        });
+        cartMessage.append("Total sum: ");
+        String stringSum = Arrays.toString(sum);
+        String result = stringSum.substring(1, stringSum.length() - 1);
+        cartMessage.append("$").append(result);
+        sendMsg(chatId, String.valueOf(cartMessage));
+
+        sendMenu(chatId, GetButtons.getYesNoButtons(
+                "Pickup",
+                "Courier delivery",
+                "pickup",
+                "courier"
+        ), MenuHeader.DELIVERY_METHOD);
+    }
+
+    private List<CartItem> getCartWithoutDoubles(List<CartItem> list){
+        Map<Medicine, Integer> mergedMap = list.stream()
+                .filter(item -> item.getMedicine() != null) // Фильтр для исключения null значений Medicine
+                .collect(Collectors.groupingBy(
+                        CartItem::getMedicine,
+                        Collectors.summingInt(CartItem::getQuantity)
+                ));
+
+        return mergedMap.entrySet().stream()
+                .map(entry -> {
+                    CartItem cartItem1 = new CartItem();
+                    cartItem1.setMedicine(entry.getKey());
+                    cartItem1.setQuantity(entry.getValue());
+                    return cartItem1;
+                })
+                .toList();
+    }
+
+    private void handlePickupCallBack(String chatId){
+        String message = "You can pick up your order at 'Healthy Pharmacy' at 456 Oak Street, 12345, Berlin." +
+                " We are waiting for you from 8AM to 9PM every day. Thank you for your order!";
+        sendMenu(chatId, GetButtons.getListsStartMenu(), message);
+    }
+
+    private void handleCourierCallBack(String chatId){
+        String userId = userService.getUserIdByChatId(chatId);
+        UserInfoDto user = userService.getUserById(userId);
+        String message = "We will deliver your order to the address: "
+                + user.getAddress() + ", "
+                + user.getPostalCode() + ", "
+                + user.getCity()
+                + ". We wish you good health!";
+        sendMenu(chatId, GetButtons.getListsStartMenu(), message);
+    }
+
+    private void handleChoosePrescriptionCallBack(String chatId) {
+        String userId = userService.getUserIdByChatId(chatId);
+        List<PrescriptionDto> prescriptions = userService.getUserPrescriptions(UUID.fromString(userId));
+        sendMenu(chatId, GetButtons.getListPrescription(userId), MenuHeader.CHOOSE_PRESCRIPTION);
+    }
+
+    private void handlePrescriptionCallBack(String chatId, String callbackData){
+        Prescription prescription = prescriptionService.getPrescription(callbackData.substring("prescription:".length()));
+        String prescriptionString = prescription.toString();
+        sendMsg(chatId, prescriptionString);
+        sendMenu(chatId, GetButtons.getYesNoButtons(
+                "CHECKOUT",
+                "Back to menu",
+                "check prescription:" + prescription.getPrescriptionId(),
+                "back to main menu"
+        ), MenuHeader.CHECKOUT_OR_MENU);
+    }
+
+    private void handleCheckPrescriptionCallBack(String chatId, String callbackData){
+        String prescriptionId = callbackData.substring("check prescription:".length());
+        PrescriptionDto prescriptionDto = prescriptionService.getPrescriptionDto(prescriptionId);
+        String userId = userService.getUserIdByChatId(chatId);
+        UserInfoDto user = userService.getUserById(userId);
+        prescriptionDto.setDeliveryAddress(user.getAddress());
+        OrderFromPrescriptionDto orderFromPrescriptionDto = orderService.addOrder(prescriptionDto);
+        sendMsg(chatId, orderFromPrescriptionDto.toString());
+        sendMenu(chatId, GetButtons.getYesNoButtons(
+                "Pickup",
+                "Courier delivery",
+                "pickup",
+                "courier"
+        ), MenuHeader.DELIVERY_METHOD);
+    }
+
+    private void handleBackToMainManuCallback(String chatId){
+        sendMenu(chatId, GetButtons.getListsStartMenu(), MenuHeader.CHOOSE_ACTION);
+    }
 }

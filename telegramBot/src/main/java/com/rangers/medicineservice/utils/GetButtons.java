@@ -2,22 +2,21 @@ package com.rangers.medicineservice.utils;
 
 import com.rangers.medicineservice.dto.DoctorDto;
 import com.rangers.medicineservice.dto.MedicineDto;
+import com.rangers.medicineservice.dto.PrescriptionDto;
 import com.rangers.medicineservice.dto.ScheduleDateTimeDto;
 import com.rangers.medicineservice.entity.CartItem;
 import com.rangers.medicineservice.entity.Medicine;
-import com.rangers.medicineservice.entity.User;
+import com.rangers.medicineservice.entity.Prescription;
 import com.rangers.medicineservice.entity.enums.MedicineCategory;
 import com.rangers.medicineservice.entity.enums.Specialization;
 import com.rangers.medicineservice.service.impl.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -71,6 +70,7 @@ public class GetButtons {
         rowsInline.add(rowInline);
         return rowsInline;
     }
+
     public static List<List<InlineKeyboardButton>> getListsSchedule() {
         List<String> specializations = Arrays.stream(Specialization.values()).map(Enum::toString).toList();
 
@@ -87,6 +87,7 @@ public class GetButtons {
 
         return rowsInline;
     }
+
     public static List<List<InlineKeyboardButton>> getListsDoctors(String specializations) {
         List<DoctorDto> doctorDtos = service.getDoctors(specializations);
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
@@ -102,6 +103,7 @@ public class GetButtons {
 
         return rowsInline;
     }
+
     public static List<List<InlineKeyboardButton>> getListsDatesByDoctor(String doctorId) {
         List<ScheduleDateTimeDto> date = scheduleService.getScheduleDate(UUID.fromString(doctorId));
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
@@ -116,8 +118,9 @@ public class GetButtons {
 
         return rowsInline;
     }
-    public static List<List<InlineKeyboardButton>> getListsTimesByDoctorAndDate(String doctorId,String date) {
-        List<ScheduleDateTimeDto> time = scheduleService.getScheduleTime(UUID.fromString(doctorId),date);
+
+    public static List<List<InlineKeyboardButton>> getListsTimesByDoctorAndDate(String doctorId, String date) {
+        List<ScheduleDateTimeDto> time = scheduleService.getScheduleTime(UUID.fromString(doctorId), date);
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
 
         for (ScheduleDateTimeDto dto : time) {
@@ -130,7 +133,8 @@ public class GetButtons {
 
         return rowsInline;
     }
-    public List<List<InlineKeyboardButton>> getListsScheduleType(){
+
+    public List<List<InlineKeyboardButton>> getListsScheduleType() {
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
         List<InlineKeyboardButton> rowInline = new ArrayList<>();
         InlineKeyboardButton button1 = new InlineKeyboardButton("ONLINE");
@@ -143,7 +147,7 @@ public class GetButtons {
         return rowsInline;
     }
 
-    public static List<List<InlineKeyboardButton>> getYesNoButtons(String nameYes, String nameNo, String callBackYes, String callBackNo){
+    public static List<List<InlineKeyboardButton>> getYesNoButtons(String nameYes, String nameNo, String callBackYes, String callBackNo) {
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
         List<InlineKeyboardButton> rowInline = new ArrayList<>();
         InlineKeyboardButton button1 = new InlineKeyboardButton(nameYes);
@@ -156,7 +160,7 @@ public class GetButtons {
         return rowsInline;
     }
 
-    public static List<List<InlineKeyboardButton>> getMedicineCategoryButtons(){
+    public static List<List<InlineKeyboardButton>> getMedicineCategoryButtons() {
         List<String> categories = Arrays.stream(MedicineCategory.values()).map(Enum::toString).toList();
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
 
@@ -185,36 +189,16 @@ public class GetButtons {
         return rowsInline;
     }
 
-    public static List<List<InlineKeyboardButton>> getCart(String userId){
-        List<CartItem> cartItems = cartItemService.getCartItemsByUserId(userId);
-
-
-//        List<CartItem> newCartItems = cartItems.stream()
-//                .collect(Collectors.groupingBy(CartItem::getMedicine))
-//                .entrySet().stream()
-//                .map(entry -> {
-//                    Medicine medicine = entry.getKey();
-//                    int totalQuantity = entry.getValue().stream()
-//                            .mapToInt(CartItem::getQuantity)
-//                            .sum();
-//                    User user = entry.getValue().get(0).getUser(); // Предполагаем, что user одинаков для всех
-//                    CartItem cartItem = new CartItem();
-//                    cartItem.setMedicine(medicine);
-//                    cartItem.setUser(user);
-//                    cartItem.setQuantity(totalQuantity);
-//                    return new CartItem();
-//                })
-//                .collect(Collectors.toList());
-
+    public static List<List<InlineKeyboardButton>> getCart(String userId, String chatId, List<CartItem> cart) {
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
 
-        for (CartItem cartItem : cartItems) {
+        for (CartItem cartItem : cart) {
             List<InlineKeyboardButton> rowInline = new ArrayList<>();
             InlineKeyboardButton button = new InlineKeyboardButton(
                     cartItem.getMedicine().getName()
-                            + ". price: " + cartItem.getMedicine().getPrice()
+                            + ". price: $" + cartItem.getMedicine().getPrice()
                             + ", quantity: " + cartItem.getQuantity());
-            button.setCallbackData("delete item:" + cartItem.getCartItemId());
+            button.setCallbackData("delete item:" + cartItem.getMedicine().getMedicineId());
             rowInline.add(button);
             rowsInline.add(rowInline);
         }
@@ -225,4 +209,20 @@ public class GetButtons {
         rowsInline.add(rowInline);
         return rowsInline;
     }
+
+    public static List<List<InlineKeyboardButton>> getListPrescription(String userId) {
+        List<PrescriptionDto> prescriptionDtoList= userService.getUserPrescriptions(UUID.fromString(userId));
+        List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
+
+        for (PrescriptionDto prescription : prescriptionDtoList) {
+            List<InlineKeyboardButton> rowInline = new ArrayList<>();
+            InlineKeyboardButton button = new InlineKeyboardButton(prescription.toString());
+            button.setCallbackData("prescription:" + prescription.getPrescriptionId());
+            rowInline.add(button);
+            rowsInline.add(rowInline);
+        }
+        return rowsInline;
+    }
+
 }
+

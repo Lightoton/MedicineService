@@ -12,4 +12,6 @@ public interface CartItemService {
     void deleteCartItem(UUID cartItemId);
 
     List<CartItem> getCartItemsByUserId(String id);
+
+    void deleteAllByMedicineAndUser(String medicineId, String userId);
 }

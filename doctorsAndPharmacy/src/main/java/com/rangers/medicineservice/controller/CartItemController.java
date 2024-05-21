@@ -1,5 +1,6 @@
 package com.rangers.medicineservice.controller;
 
+import com.rangers.medicineservice.annotation.DeleteAllCartItemsByMedicineAndUser;
 import com.rangers.medicineservice.annotation.GetCart;
 import com.rangers.medicineservice.dto.CartItemBeforeCreationDto;
 import com.rangers.medicineservice.dto.CreatedCartItemDto;
@@ -57,8 +58,14 @@ public class CartItemController {
 
     @GetCart(path = "/getCart/{userId}")
     public List<CartItem> getCartItemsByUserId(@PathVariable(name = "userId") String id){
-        List<CartItem> list = cartItemService.getCartItemsByUserId(id);
-        System.out.println("222222222222222222" +list);
-        return list;
+        return cartItemService.getCartItemsByUserId(id);
+    }
+
+    @DeleteAllCartItemsByMedicineAndUser(path = "/delete/{medicineId}/{userId}")
+    public ResponseEntity<String> deleteAllByMedicineAndUser(
+            @PathVariable(name = "medicineId") String medicineId,
+            @PathVariable(name = "userId") String userId) {
+        cartItemService.deleteAllByMedicineAndUser(medicineId, userId);
+        return ResponseEntity.ok("***Deleted successfully!***");
     }
 }
