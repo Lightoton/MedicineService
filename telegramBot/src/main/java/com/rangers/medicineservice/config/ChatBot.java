@@ -60,7 +60,7 @@ public class ChatBot extends TelegramLongPollingBot {
         this.scheduleService = scheduleService;
         this.supportMainSender = supportMainSender;
     }
-
+    
     @Override
     public String getBotUsername() {
         return config.getBotName();
@@ -74,7 +74,7 @@ public class ChatBot extends TelegramLongPollingBot {
             handleCallbackQuery(update);
         } else if (update.hasMessage() && update.getMessage().hasLocation()) {
             String chatId = update.getMessage().getChatId().toString();
-            handleReceivedLocation(chatId, update.getMessage().getLocation().toString());
+            handleReceivedLocation(chatId, update.getMessage().getLocation());
         }
     }
 
@@ -102,8 +102,6 @@ public class ChatBot extends TelegramLongPollingBot {
                     handleRegistration(messageText, chatId);
                 } else if (isSupportInProgress.getOrDefault(chatId, false)) {
                     handleSupport(messageText, chatId);
-                } else if (update.getMessage().hasLocation()) {
-                    processLocation(update);
                 }
                 break;
         }
@@ -130,7 +128,7 @@ public class ChatBot extends TelegramLongPollingBot {
             throw new RuntimeException(e);
         }
     }
-    private void handleReceivedLocation(String chatId, String location) {
+    private void handleReceivedLocation(String chatId, Location location) {
         SendMessage message = new SendMessage();
         message.setChatId(String.valueOf(chatId));
         message.setText("Thank you for sharing your location!");
@@ -147,9 +145,10 @@ public class ChatBot extends TelegramLongPollingBot {
         sendMsg(chatId,pharmaciesNearby(location));
     }
 
-    private String pharmaciesNearby(String location) {
+    private String pharmaciesNearby(Location location) {
         if (location == null) return null;
-        return "https://www.google.com/maps/search/pharmacy/" + location + ",12z/data=!3m1!4b1?entry=ttu";
+        return "https://www.google.com/maps/search/pharmacy/@" + location.getLatitude() + "," +
+                location.getLongitude() + "z/data=!3m1!4b1?entry=ttu";
     }
 
     private void handleCallbackQuery(Update update) {
@@ -282,18 +281,6 @@ public class ChatBot extends TelegramLongPollingBot {
         isSupportInProgress.put(chatId, false);
     }
 
-
-    private void sendDataBot(String chatId) {
-        SendMessage message = new SendMessage();
-        message.setChatId(chatId);
-        message.setText(getBotUsername());
-        try {
-            execute(message);
-        } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public void sendMenu(String chatId, List<List<InlineKeyboardButton>> rowsInline, String header) {
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
@@ -327,19 +314,6 @@ public class ChatBot extends TelegramLongPollingBot {
             } catch (TelegramApiException e) {
                 log.info(e.getMessage());
             }
-        }
-    }
-
-    // todo
-    // get Users location
-    private void processLocation(Update update) {
-        Message message = update.getMessage();
-        Location location = message.getLocation();
-        if (location!=null) {
-            double latitude = location.getLatitude();
-            double longitude = location.getLongitude();
-            String chatId = String.valueOf(message.getChatId());
-            sendMsg(chatId, latitude + " : " + longitude);
         }
     }
 
