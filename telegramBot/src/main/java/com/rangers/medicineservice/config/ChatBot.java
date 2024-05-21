@@ -52,8 +52,9 @@ public class ChatBot extends TelegramLongPollingBot {
 
     public ChatBot(@Value("${bot.token}") String botToken, GetButtons getButtons, RegistrationUser registrationUser,
                    UserServiceImpl userService, BotConfig config,
-                   ScheduleServiceImpl scheduleService, SupportMailSender supportMainSender) {
-        MedicineServiceImpl medicineService, CartItemServiceImpl cartItemService, PrescriptionServiceImpl prescriptionService, OrderServiceImpl orderService) {
+                   ScheduleServiceImpl scheduleService, SupportMailSender supportMainSender,
+                   MedicineServiceImpl medicineService, CartItemServiceImpl cartItemService, PrescriptionServiceImpl
+                           prescriptionService, OrderServiceImpl orderService) {
         super(botToken);
         this.getButtons = getButtons;
         this.registrationUser = registrationUser;
@@ -92,7 +93,6 @@ public class ChatBot extends TelegramLongPollingBot {
                 break;
             case "/menu":
                 sendMsg(chatId, "отправка меню с доп функциями(например: мои рецепты, мои заказы)");
-                sendMsg(chatId, "отправка меню с доп функциями(например: мои рецепты, мои заказы)");
                 break;
             case "/support":
                 isSupportInProgress.put(chatId, true);
@@ -103,7 +103,7 @@ public class ChatBot extends TelegramLongPollingBot {
                 if (isRegistrationInProgress.getOrDefault(chatId, false)) {
                     handleRegistration(messageText, chatId);
                 } else if (addToCart.getOrDefault(chatId, false)) {
-                   handleQuantity(messageText, chatId, medicineNameForCart.get(chatId));
+                    handleQuantity(messageText, chatId, medicineNameForCart.get(chatId));
                 } else if (isSupportInProgress.getOrDefault(chatId, false)) {
                     handleSupport(messageText, chatId);
                 } else if (update.getMessage().hasLocation()) {
@@ -131,7 +131,7 @@ public class ChatBot extends TelegramLongPollingBot {
             handleMedicineCategoryCallback(chatId, callbackData);
         } else if (callbackData.startsWith("medicine:")) {
             handleMedicineCallback(chatId, callbackData);
-        } else if (callbackData.startsWith("categoryButtons")){
+        } else if (callbackData.startsWith("categoryButtons")) {
             handleCategoryCallback(chatId, callbackData);
         } else if (callbackData.startsWith("to cart")) {
             handleToCartCallBack(chatId, callbackData);
@@ -143,7 +143,7 @@ public class ChatBot extends TelegramLongPollingBot {
             handlePickupCallBack(chatId);
         } else if (callbackData.startsWith("courier")) {
             handleCourierCallBack(chatId);
-        }  else if (callbackData.startsWith("choose the prescription")) {
+        } else if (callbackData.startsWith("choose the prescription")) {
             handleChoosePrescriptionCallBack(chatId);
         } else if (callbackData.startsWith("prescription:")) {
             handlePrescriptionCallBack(chatId, callbackData);
@@ -251,7 +251,7 @@ public class ChatBot extends TelegramLongPollingBot {
             if (lastMessageId.get(chatId) != null) {
                 deleteMessage(chatId, lastMessageId.get(chatId));
             }
-            lastMessageId.put(chatId,messageId);
+            lastMessageId.put(chatId, messageId);
         } catch (TelegramApiException ignored) {
 
         }
@@ -358,10 +358,10 @@ public class ChatBot extends TelegramLongPollingBot {
         isSupportInProgress.remove(chatId);
         registrationStep.remove(chatId);
     }
-}
+
 
     private void handleStart2(String chatId) {
-        if (!registrationUser.isHaveUser(chatId)){
+        if (!registrationUser.isHaveUser(chatId)) {
             users.put(chatId, new UserRegistrationDto());
             registrationStep.put(chatId, 0);
             startRegistration(chatId);
@@ -387,18 +387,18 @@ public class ChatBot extends TelegramLongPollingBot {
         sendMenu(chatId, GetButtons.getListsMedicines(categoryName), MenuHeader.CHOOSE_MEDICINE);
     }
 
-    private void handleMedicineCallback(String chatId, String callbackData){
+    private void handleMedicineCallback(String chatId, String callbackData) {
         String medicineName = callbackData.substring("medicine:".length());
         MedicineDto medicineDto = medicineService.getByName(medicineName);
         sendMsg(chatId, "Medicine: " + medicineDto.getName() + "\n"
                 + "Description: " + medicineDto.getDescription() + "\n"
                 + "Price: " + medicineDto.getPrice());
-        sendMsg(chatId,"Enter quantity");
+        sendMsg(chatId, "Enter quantity");
         addToCart.put(chatId, true);
         medicineNameForCart.put(chatId, medicineDto);
     }
 
-    private void handleQuantity(String messageText, String chatId, MedicineDto medicineDto){
+    private void handleQuantity(String messageText, String chatId, MedicineDto medicineDto) {
         String input = messageText.trim();
         if (!input.matches("^[1-9]\\d*$")) {
             sendMsg(chatId, "Please, enter a valid value");
@@ -423,40 +423,40 @@ public class ChatBot extends TelegramLongPollingBot {
         sendMenu(chatId, GetButtons.getMedicineCategoryButtons(), MenuHeader.CHOOSE_MEDICINE_CATEGORY);
     }
 
-    private void handleToCartCallBack(String chatId, String callbackData){
+    private void handleToCartCallBack(String chatId, String callbackData) {
         String userId = userService.getUserIdByChatId(chatId);
         List<CartItem> cartItems = cartItemService.getCartItemsByUserId(userId);
-        if (cartItems.isEmpty()){
+        if (cartItems.isEmpty()) {
             sendMenu(chatId, GetButtons.getListsStartMenu(), MenuHeader.CART_IS_EMPTY);
-        } else{
+        } else {
             List<CartItem> cartWithoutDoubles = getCartWithoutDoubles(cartItems);
             sendMenu(chatId, GetButtons.getCart(userId, chatId, cartWithoutDoubles), MenuHeader.CHOOSE_ITEM_FOR_DELETE);
         }
     }
 
-    private void handleDeleteItemCallBack(String chatId, String callbackData){
+    private void handleDeleteItemCallBack(String chatId, String callbackData) {
         String medicineId = callbackData.substring("delete item:".length());
         String userId = userService.getUserIdByChatId(chatId);
         cartItemService.deleteAllByMedicineAndUser(medicineId, userId);
         handleToCartCallBack(chatId, callbackData);
     }
 
-    private void handleCheckoutCallBack(String chatId, String callbackData){
+    private void handleCheckoutCallBack(String chatId, String callbackData) {
         String userId = userService.getUserIdByChatId(chatId);
         List<CartItem> cart = cartItemService.getCartItemsByUserId(userId);
         List<CartItem> cartWithoutDoubles = getCartWithoutDoubles(cart);
         StringBuilder cartMessage = new StringBuilder();
         final BigDecimal[] sum = {BigDecimal.valueOf(0)};
         cartWithoutDoubles
-                        .forEach(cartItem -> {
-                            BigDecimal price = cartItem.getMedicine().getPrice();
-                            BigDecimal quantity = BigDecimal.valueOf(cartItem.getQuantity());
-                            cartMessage.append(cartItem.getMedicine().getName()).append(", ");
-                            cartMessage.append("price: $").append(price).append(", ");
-                            cartMessage.append("quantity: ").append(quantity).append("\n");
-                            BigDecimal itemTotal = price.multiply(quantity);
-                            sum[0] = sum[0].add(itemTotal);
-                        });
+                .forEach(cartItem -> {
+                    BigDecimal price = cartItem.getMedicine().getPrice();
+                    BigDecimal quantity = BigDecimal.valueOf(cartItem.getQuantity());
+                    cartMessage.append(cartItem.getMedicine().getName()).append(", ");
+                    cartMessage.append("price: $").append(price).append(", ");
+                    cartMessage.append("quantity: ").append(quantity).append("\n");
+                    BigDecimal itemTotal = price.multiply(quantity);
+                    sum[0] = sum[0].add(itemTotal);
+                });
         cartMessage.append("Total sum: ");
         String stringSum = Arrays.toString(sum);
         String result = stringSum.substring(1, stringSum.length() - 1);
@@ -471,7 +471,7 @@ public class ChatBot extends TelegramLongPollingBot {
         ), MenuHeader.DELIVERY_METHOD);
     }
 
-    private List<CartItem> getCartWithoutDoubles(List<CartItem> list){
+    private List<CartItem> getCartWithoutDoubles(List<CartItem> list) {
         Map<Medicine, Integer> mergedMap = list.stream()
                 .filter(item -> item.getMedicine() != null) // Фильтр для исключения null значений Medicine
                 .collect(Collectors.groupingBy(
@@ -489,13 +489,13 @@ public class ChatBot extends TelegramLongPollingBot {
                 .toList();
     }
 
-    private void handlePickupCallBack(String chatId){
+    private void handlePickupCallBack(String chatId) {
         String message = "You can pick up your order at 'Healthy Pharmacy' at 456 Oak Street, 12345, Berlin." +
                 " We are waiting for you from 8AM to 9PM every day. Thank you for your order!";
         sendMenu(chatId, GetButtons.getListsStartMenu(), message);
     }
 
-    private void handleCourierCallBack(String chatId){
+    private void handleCourierCallBack(String chatId) {
         String userId = userService.getUserIdByChatId(chatId);
         UserInfoDto user = userService.getUserById(userId);
         String message = "We will deliver your order to the address: "
@@ -512,7 +512,7 @@ public class ChatBot extends TelegramLongPollingBot {
         sendMenu(chatId, GetButtons.getListPrescription(userId), MenuHeader.CHOOSE_PRESCRIPTION);
     }
 
-    private void handlePrescriptionCallBack(String chatId, String callbackData){
+    private void handlePrescriptionCallBack(String chatId, String callbackData) {
         Prescription prescription = prescriptionService.getPrescription(callbackData.substring("prescription:".length()));
         String prescriptionString = prescription.toString();
         sendMsg(chatId, prescriptionString);
@@ -524,7 +524,7 @@ public class ChatBot extends TelegramLongPollingBot {
         ), MenuHeader.CHECKOUT_OR_MENU);
     }
 
-    private void handleCheckPrescriptionCallBack(String chatId, String callbackData){
+    private void handleCheckPrescriptionCallBack(String chatId, String callbackData) {
         String prescriptionId = callbackData.substring("check prescription:".length());
         PrescriptionDto prescriptionDto = prescriptionService.getPrescriptionDto(prescriptionId);
         String userId = userService.getUserIdByChatId(chatId);
@@ -540,7 +540,8 @@ public class ChatBot extends TelegramLongPollingBot {
         ), MenuHeader.DELIVERY_METHOD);
     }
 
-    private void handleBackToMainManuCallback(String chatId){
+    private void handleBackToMainManuCallback(String chatId) {
         sendMenu(chatId, GetButtons.getListsStartMenu(), MenuHeader.CHOOSE_ACTION);
     }
 }
+
