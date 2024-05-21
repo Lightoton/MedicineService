@@ -7,6 +7,7 @@ import com.rangers.medicineservice.dto.ScheduleFullDto;
 import com.rangers.medicineservice.dto.UserRegistrationDto;
 import com.rangers.medicineservice.service.impl.ScheduleServiceImpl;
 import com.rangers.medicineservice.service.impl.UserServiceImpl;
+import com.rangers.medicineservice.utils.GetBotInfo;
 import com.rangers.medicineservice.utils.GetButtons;
 import com.rangers.medicineservice.utils.RegistrationUser;
 import com.rangers.medicineservice.utils.SupportMailSender;
@@ -89,6 +90,11 @@ public class ChatBot extends TelegramLongPollingBot {
                 isSupportInProgress.put(chatId, true);
                 sendMsg(chatId, "Thank you for contacting our support. Please describe your problem or" +
                         " question as in more detail.");
+                break;
+            case "/botInfo":
+                isSupportInProgress.put(chatId, true);
+                sendMsg(chatId, GetBotInfo.getBotInfo()
+                        , "MarkdownV2");
                 break;
             default:
                 if (isRegistrationInProgress.getOrDefault(chatId, false)) {
@@ -228,6 +234,20 @@ public class ChatBot extends TelegramLongPollingBot {
             SendMessage message = new SendMessage();
             message.setChatId(chatId);
             message.setText(text);
+            try {
+                execute(message);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void sendMsg(String chatId, String text, String type) {
+        if (text != null) {
+            SendMessage message = new SendMessage();
+            message.setChatId(chatId);
+            message.setText(text);
+            message.setParseMode(type);
             try {
                 execute(message);
             } catch (TelegramApiException e) {
