@@ -49,13 +49,9 @@ public class PrescriptionDetail {
         return Objects.hash(prescriptionDetailsId, medicine, quantity);
     }
 
+
     @Override
     public String toString() {
-        return "PrescriptionDetails{" +
-                "prescriptionDetailsId=" + prescriptionDetailsId +
-                ", prescription=" + prescription +
-                ", medicine=" + medicine +
-                ", quantity=" + quantity +
-                '}';
+        return "\n" + medicine.getName() + ", quantity=" + quantity;
     }
 }
