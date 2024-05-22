@@ -13,10 +13,12 @@ public interface MedicineMapper {
 
     @AfterMapping
     default void generateMedicineDto(@MappingTarget MedicineDto medicineDto, Medicine medicine) {
+        medicineDto.setId(String.valueOf(medicine.getMedicineId()));
         medicineDto.setName(medicine.getName());
         medicineDto.setDescription(medicine.getDescription());
         medicineDto.setPrice(String.valueOf(medicine.getPrice()));
         medicineDto.setCategory(String.valueOf(medicine.getCategory()));
+        medicineDto.setAvailableQuantity(String.valueOf(medicine.getAvailableQuantity()));
     }
 
     Medicine toEntity(MedicineDto medicineDto);

@@ -16,10 +16,13 @@ public class ErrorMessage {
     public static final String ORDERS_NOT_FOUND = "The orders were not found.";
     public static final String SCHEDULES_NOT_FOUND = "The schedules were not found.";
     public static final String PRESCRIPTIONS_NOT_FOUND = "The prescriptions were not found.";
-    public static final String N0_DATA_FOUND= "The prescription is empty";
-    public static final String ORDERS_IS_EMPTY= "You don't have any orders yet!";
-    public static final String INACTIVE_PRESCRIPTION= "The prescription has already been cashed.";
-    public static final String EXPIRED_PRESCRIPTION= "The prescription has expired.";
-    public static final String NOT_ENOUGH_BALANCE= "Not enough balance";
-    public static final String WRONG_PRESCRIPTION= "The prescription belongs to another user";
+    public static final String N0_DATA_FOUND = "The prescription is empty";
+    public static final String ORDERS_IS_EMPTY = "You don't have any orders yet!";
+    public static final String INACTIVE_PRESCRIPTION = "The prescription has already been cashed.";
+    public static final String EXPIRED_PRESCRIPTION = "The prescription has expired.";
+    public static final String NOT_ENOUGH_BALANCE = "Not enough balance";
+    public static final String WRONG_PRESCRIPTION = "The prescription belongs to another user";
+    public static final String INVALID_VALUE = "Invalid value";
+    public static final String RUN_OUT_OF_MEDICINE = "Run Out of Medicine";
+    public static final String THERE_IS_NO_SUCH_MEDICINE = "there is no such medicine";
 }
