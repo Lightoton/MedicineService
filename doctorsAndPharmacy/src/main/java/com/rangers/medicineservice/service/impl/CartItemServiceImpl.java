@@ -64,6 +64,11 @@ public class CartItemServiceImpl implements CartItemService {
                 .orElseThrow(() -> new ObjectDoesNotExistException(ErrorMessage.USER_NOT_FOUND));
         cartItemRepository.deleteAllByMedicineAndUser(medicine, user);
     }
+
+    @Override
+    public List<CartItem> getAllByMedicineAndUser(Medicine medicine, User user) {
+        return cartItemRepository.getAllByMedicineAndUser(medicine, user);
+    }
 }
 
 

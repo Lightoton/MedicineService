@@ -27,6 +27,7 @@ public class GetButtons {
     public static MedicineServiceImpl medicineService;
     public static CartItemServiceImpl cartItemService;
     public static UserServiceImpl userService;
+    public static PrescriptionServiceImpl prescriptionService;
 
     @Autowired
     public void setMedicineService(MedicineServiceImpl medicineService) {
@@ -43,10 +44,11 @@ public class GetButtons {
         GetButtons.userService = userService;
     }
 
-    public GetButtons(DoctorServiceImpl service, ScheduleServiceImpl scheduleService, MedicineServiceImpl medicineService) {
+    public GetButtons(DoctorServiceImpl service, ScheduleServiceImpl scheduleService, MedicineServiceImpl medicineService, PrescriptionServiceImpl prescriptionService) {
         GetButtons.service = service;
         GetButtons.scheduleService = scheduleService;
         GetButtons.medicineService = medicineService;
+        GetButtons.prescriptionService = prescriptionService;
     }
 
     public static List<List<InlineKeyboardButton>> getListsStartMenu() {
@@ -228,7 +230,7 @@ public class GetButtons {
     }
 
     public static List<List<InlineKeyboardButton>> getListPrescription(String userId) {
-        List<PrescriptionDto> prescriptionDtoList= userService.getUserPrescriptions(UUID.fromString(userId));
+        List<PrescriptionDto> prescriptionDtoList= prescriptionService.getActivePrescriptions(userId);
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
 
         for (PrescriptionDto prescription : prescriptionDtoList) {

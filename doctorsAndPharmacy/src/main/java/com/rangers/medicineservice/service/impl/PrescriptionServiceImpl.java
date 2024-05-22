@@ -14,8 +14,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.*;
 
-import static java.lang.Math.random;
-
 @Service
 @RequiredArgsConstructor
 public class PrescriptionServiceImpl implements PrescriptionService {
@@ -68,6 +66,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     }
 
+    @Override
     public Prescription getPrescription(String prescriptionId) {
         return prescriptionRepository.findById(UUID.fromString(prescriptionId))
                 .orElseThrow(() -> new ObjectDoesNotExistException(ErrorMessage.PRESCRIPTIONS_NOT_FOUND));
@@ -82,7 +81,10 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     @Override
     public List<PrescriptionDto> getActivePrescriptions(String userId) {
-        List<Prescription> prescriptions = prescriptionRepository.findActive(UUID.fromString(userId));
+        List<Prescription> prescriptionList = prescriptionRepository.findByUserId(UUID.fromString(userId));
+        List<Prescription> prescriptions = prescriptionList.stream()
+                .filter(Prescription::isActive)
+                .toList();
         List<PrescriptionDto> prescriptionDtoList = new ArrayList<>();
         if (prescriptions.isEmpty()) {
             return Collections.emptyList();
