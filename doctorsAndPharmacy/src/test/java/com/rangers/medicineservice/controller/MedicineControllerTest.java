@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rangers.medicineservice.TestConfig;
 import com.rangers.medicineservice.dto.MedicineDto;
+import com.rangers.medicineservice.entity.CartItem;
+import com.rangers.medicineservice.entity.Medicine;
 import com.rangers.medicineservice.service.impl.MedicineServiceImpl;
 import com.rangers.medicineservice.testUtil.ExpectedData;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +47,7 @@ class MedicineControllerTest {
 
     @Test
     void getAvailablePositiveTest() throws Exception {
-        List<MedicineDto> expected = ExpectedData.getExpectedMedicine();
+        List<MedicineDto> expected = ExpectedData.getExpectedMedicines();
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/medicine/getAvailable"))
                 .andExpect(status().isOk())
@@ -87,9 +89,26 @@ class MedicineControllerTest {
             "/medicine/getByCategory/NON_EXISTING_CATEGORY"
     })
     void getByCategoryTestExc400(String path) throws Exception {
-
         mockMvc.perform(MockMvcRequestBuilders.get(path))
                 .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    void getByNamePositiveTest() throws Exception{
+        Medicine expected = ExpectedData.getExpectedMedicine();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/medicine/getByName/Claritin"))
+                .andExpect(status().isOk())
+                .andReturn();
+        String json = mvcResult.getResponse().getContentAsString();
+        Medicine actual = objectMapper.readValue(json, new TypeReference<>() {});
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void getByNameTestExc404() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders.get("/medicine/getByName/Non-existing_name"))
+                .andExpect(status().isNotFound())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 }

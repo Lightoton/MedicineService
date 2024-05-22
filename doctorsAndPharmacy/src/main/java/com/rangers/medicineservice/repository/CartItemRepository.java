@@ -15,4 +15,5 @@ public interface CartItemRepository extends JpaRepository<CartItem, UUID> {
     List<CartItem> getAllByUser(User user);
 
     void deleteAllByMedicineAndUser(Medicine medicine, User user);
+    List<CartItem> getAllByMedicineAndUser(Medicine medicine, User user);
 }

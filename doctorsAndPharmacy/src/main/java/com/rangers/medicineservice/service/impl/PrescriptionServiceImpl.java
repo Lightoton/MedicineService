@@ -28,26 +28,35 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     @Autowired
     UserRepository userRepository;
 
-    public Prescription getPrescription(String prescriptionId){
+    @Override
+    public Prescription getPrescription(String prescriptionId) {
         return prescriptionRepository.findById(UUID.fromString(prescriptionId))
                 .orElseThrow(() -> new ObjectDoesNotExistException(ErrorMessage.PRESCRIPTIONS_NOT_FOUND));
     }
+
     @Override
     public PrescriptionDto getPrescriptionDto(String prescriptionId) {
-        Prescription prescription =  prescriptionRepository.findById(UUID.fromString(prescriptionId))
+        Prescription prescription = prescriptionRepository.findById(UUID.fromString(prescriptionId))
                 .orElseThrow(() -> new ObjectDoesNotExistException(ErrorMessage.PRESCRIPTIONS_NOT_FOUND));
         return prescriptionMapper.toDto(prescription);
     }
 
     @Override
     public List<PrescriptionDto> getActivePrescriptions(String userId) {
-        List<Prescription> prescriptions =  prescriptionRepository.findActive(UUID.fromString(userId));
+//        List<Prescription> prescriptions = prescriptionRepository.findActive(UUID.fromString(userId));
+        List<Prescription> prescriptionList = prescriptionRepository.findByUserId(UUID.fromString(userId));
+        List<Prescription> prescriptions = prescriptionList.stream()
+                .filter(Prescription::isActive)
+                .toList();
         List<PrescriptionDto> prescriptionDtoList = new ArrayList<>();
+
         if (prescriptions.isEmpty()) {
+            System.out.println("111111111111111111111");
             return Collections.emptyList();
         } else {
             for (Prescription prescription : prescriptions) {
                 prescriptionDtoList.add(prescriptionMapper.toDto(prescription));
+                System.out.println("!!!!!!!!!!!!!!!!!"+ prescriptionDtoList);
             }
         }
         return prescriptionDtoList;
