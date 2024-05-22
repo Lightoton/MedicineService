@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
-import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -163,14 +162,14 @@ public class OrderServiceImpl implements OrderService {
             }
             order.setOrderCost(orderCost);
 
+            OrderDetail orderDetail = order.getOrderDetails().stream().findFirst().orElse(null);
+            assert orderDetail != null;
+
+            order.setPharmacy(orderDetail.getMedicine().getPharmacy());
+
             if (!prescriptionDto.getDeliveryAddress().isEmpty()) {
                 order.setDeliveryAddress(prescriptionDto.getDeliveryAddress());
             } else {
-
-                OrderDetail orderDetail = order.getOrderDetails().stream().findFirst().orElse(null);
-                assert orderDetail != null;
-
-                order.setPharmacy(orderDetail.getMedicine().getPharmacy());
                 order.setDeliveryAddress(orderDetail.getMedicine().getPharmacy().getAddress());
             }
 
