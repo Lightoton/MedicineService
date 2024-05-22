@@ -28,5 +28,4 @@ public interface MedicineRepository extends JpaRepository<Medicine, UUID> {
 
     List<Medicine> findByCategoryAndAvailableQuantityGreaterThan(MedicineCategory category, int quantity);
 
-    Optional<Medicine> findByName(String name);
 }

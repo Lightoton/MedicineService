@@ -28,6 +28,8 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMar
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.util.*;
 import java.math.BigDecimal;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Component
 @Slf4j
@@ -109,7 +111,7 @@ public class ChatBot extends TelegramLongPollingBot {
                 sendMsg(chatId, "Thank you for contacting our support. Please describe your problem or" +
                         " question as in more detail.");
                 break;
-            case "/botInfo":
+            case "/botinfo":
                 isSupportInProgress.put(chatId, true);
                 sendMsg(chatId, GetBotInfo.getBotInfo()
                         , "MarkdownV2");
