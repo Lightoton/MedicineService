@@ -20,7 +20,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class GetButtons {
     public static DoctorServiceImpl service;
     public static ScheduleServiceImpl scheduleService;

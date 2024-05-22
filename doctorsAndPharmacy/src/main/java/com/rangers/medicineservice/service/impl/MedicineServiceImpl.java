@@ -51,8 +51,10 @@ public class MedicineServiceImpl implements MedicineService {
 
     @Override
     public MedicineDto getByName(String medicineName) {
-        Medicine medicine = medicineRepository.findByName(medicineName)
-                .orElseThrow(() -> new ObjectDoesNotExistException(ErrorMessage.THERE_IS_NO_SUCH_MEDICINE));
+        Medicine medicine = medicineRepository.findByName(medicineName);
+        if (medicine == null){
+            throw new ObjectDoesNotExistException(ErrorMessage.THERE_ARE_NO_MEDICINES);
+        }
         return medicineMapper.toDto(medicine);
     }
 }
