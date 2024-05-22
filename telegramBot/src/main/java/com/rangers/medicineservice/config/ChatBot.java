@@ -765,7 +765,7 @@ public class ChatBot extends TelegramLongPollingBot {
 
     private void handleChoosePrescriptionCallBack(String chatId) {
         String userId = userService.getUserIdByChatId(chatId);
-        List<PrescriptionDto> prescriptions = userService.getUserPrescriptions(UUID.fromString(userId));
+//        List<PrescriptionDto> prescriptions = userService.getUserPrescriptions(UUID.fromString(userId));
         sendMenu(chatId, GetButtons.getListPrescription(userId), MenuHeader.CHOOSE_PRESCRIPTION);
     }
 

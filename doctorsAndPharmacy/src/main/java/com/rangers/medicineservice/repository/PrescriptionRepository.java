@@ -19,6 +19,6 @@ public interface PrescriptionRepository extends JpaRepository<Prescription, UUID
 
     @NotNull
     Optional<Prescription> findById(@NotNull UUID uuid);
-    @Query("SELECT p FROM Prescription p WHERE p.user.userId = :userId AND p.isActive = true")
-    List<Prescription> findActive(UUID userId);
+//    @Query("SELECT p FROM Prescription p WHERE p.user.userId = :userId AND p.isActive = true")
+//    List<Prescription> findActive(UUID userId);
 }
