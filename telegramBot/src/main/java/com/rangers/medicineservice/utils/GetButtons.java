@@ -1,26 +1,18 @@
 package com.rangers.medicineservice.utils;
 
-import com.rangers.medicineservice.dto.DoctorDto;
-import com.rangers.medicineservice.dto.MedicineDto;
-import com.rangers.medicineservice.dto.PrescriptionDto;
-import com.rangers.medicineservice.dto.ScheduleDateTimeDto;
-import com.rangers.medicineservice.dto.ScheduleFullDto;
+import com.rangers.medicineservice.dto.*;
 import com.rangers.medicineservice.entity.CartItem;
-import com.rangers.medicineservice.entity.Medicine;
-import com.rangers.medicineservice.entity.Prescription;
 import com.rangers.medicineservice.entity.enums.MedicineCategory;
 import com.rangers.medicineservice.entity.enums.Specialization;
 import com.rangers.medicineservice.service.impl.*;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class GetButtons {

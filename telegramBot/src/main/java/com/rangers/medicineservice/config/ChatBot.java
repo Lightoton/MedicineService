@@ -1,24 +1,22 @@
 package com.rangers.medicineservice.config;
 
 import com.rangers.medicineservice.dto.*;
-import com.rangers.medicineservice.entity.*;
-import com.rangers.medicineservice.service.impl.*;
-
+import com.rangers.medicineservice.entity.CartItem;
+import com.rangers.medicineservice.entity.Medicine;
+import com.rangers.medicineservice.entity.Prescription;
 import com.rangers.medicineservice.mapper.ScheduleMapper;
-import com.rangers.medicineservice.service.impl.ScheduleServiceImpl;
-import com.rangers.medicineservice.service.impl.UserServiceImpl;
+import com.rangers.medicineservice.service.impl.*;
 import com.rangers.medicineservice.utils.GetBotInfo;
 import com.rangers.medicineservice.utils.GetButtons;
 import com.rangers.medicineservice.utils.RegistrationUser;
-import com.rangers.medicineservice.utils.formater.ScheduleFormat;
 import com.rangers.medicineservice.utils.SupportMailSender;
+import com.rangers.medicineservice.utils.formater.ScheduleFormat;
 import com.rangers.medicineservice.utils.headers.MenuHeader;
 import com.rangers.medicineservice.utils.userVariable.UserVariable;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
@@ -26,20 +24,15 @@ import org.telegram.telegrambots.meta.api.objects.Location;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-
-import java.util.*;
 import java.math.BigDecimal;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -51,15 +44,8 @@ public class ChatBot extends TelegramLongPollingBot {
     private final ScheduleServiceImpl scheduleService;
     private final ScheduleMapper scheduleMapper;
     private final ScheduleFormat scheduleFormat;
-    private final Map<String, UserVariable> userVariableMap = new ConcurrentHashMap<>();
     private final SupportMailSender supportMainSender;
-    public Map<String, Boolean> isSupportInProgress = new HashMap<>();
-    public Map<String, Boolean> addToCart = new ConcurrentHashMap<>();
-    public Map<String, MedicineDto> medicineNameForCart = new ConcurrentHashMap<>();
-    public Map<String, String> doctorId = new HashMap<>();
-    public Map<String, String> dateSchedule = new HashMap<>();
-    public Map<String, String> timeSchedule = new HashMap<>();
-    public Map<String, Map<Integer, String>> historyCallbackData = new HashMap<>();
+    private final Map<String, UserVariable> userVariableMap = new ConcurrentHashMap<>();
 
     private final BotConfig config;
     private final MedicineServiceImpl medicineService;
@@ -132,7 +118,6 @@ public class ChatBot extends TelegramLongPollingBot {
                         " question as in more detail.");
                 break;
             case "/botinfo":
-                isSupportInProgress.put(chatId, true);
                 sendMsg(chatId, GetBotInfo.getBotInfo()
                         , "MarkdownV2");
                 break;
@@ -142,8 +127,8 @@ public class ChatBot extends TelegramLongPollingBot {
             default:
                 if (userVariableMap.get(chatId).getIsRegistrationInProgress().equals(true)) {
                     handleRegistration(messageText, chatId);
-                } else if (addToCart.getOrDefault(chatId, false)) {
-                    handleQuantity(messageText, chatId, medicineNameForCart.get(chatId));
+                } else if (userVariableMap.get(chatId).getAddToCart().equals(true)) {
+                    handleQuantity(messageText, chatId, userVariableMap.get(chatId).getMedicineNameForCart());
                 } else if (userVariableMap.get(chatId).getIsSupportInProgress().equals(true)) {
                     handleSupport(messageText, chatId);
                 }
@@ -279,28 +264,32 @@ public class ChatBot extends TelegramLongPollingBot {
                 break;
             case "2":
                 //Show list of Doctors
-                handleSpecializationCallback(chatId, historyCallbackData.get(chatId).get(1));
+                handleSpecializationCallback(chatId, userVariableMap.get(chatId).getHistoryCallbackData().get(1));
                 break;
             case "3":
                 //Show list of Dates
-                handleDoctorCallback(chatId, historyCallbackData.get(chatId).get(2));
+                handleDoctorCallback(chatId, userVariableMap.get(chatId).getHistoryCallbackData().get(2));
                 break;
             case "4":
                 //Show list of Times
-                handleDateCallback(chatId, historyCallbackData.get(chatId).get(3));
+                handleDateCallback(chatId, userVariableMap.get(chatId).getHistoryCallbackData().get(3));
                 break;
             case "5":
                 //Show types of call
-                handleTimeCallback(chatId, historyCallbackData.get(chatId).get(4));
+                handleTimeCallback(chatId, userVariableMap.get(chatId).getHistoryCallbackData().get(4));
                 break;
             case "6":
-                handleTypeCallback(chatId, historyCallbackData.get(chatId).get(5));
+                handleTypeCallback(chatId, userVariableMap.get(chatId).getHistoryCallbackData().get(5));
         }
     }
 
     private void saveCallback(String chatId, String callbackData, int number) {
-        historyCallbackData.computeIfAbsent(chatId, k -> new HashMap<>());
-        historyCallbackData.get(chatId).put(number, callbackData);
+        userVariableMap.get(chatId).setHistoryCallbackData(
+                userVariableMap.get(chatId).getHistoryCallbackData() != null
+                        ? userVariableMap.get(chatId).getHistoryCallbackData()
+                        : new ConcurrentHashMap<>()
+        );
+        userVariableMap.get(chatId).getHistoryCallbackData().put(number, callbackData);
     }
 
     private void handleSpecializationCallback(String chatId, String callbackData) {
@@ -318,8 +307,6 @@ public class ChatBot extends TelegramLongPollingBot {
             sendMsg(chatId, "There are no appointments for this doctor, please try again later!");
             sendStartMenu(chatId);
         }
-
-        doctorId.put(chatId, callbackData.substring("Doctor:".length()));
         saveCallback(chatId, callbackData, 2);
     }
 
@@ -327,12 +314,10 @@ public class ChatBot extends TelegramLongPollingBot {
         userVariableMap.get(chatId).setDateSchedule(callbackData.substring("Date:".length()));
         sendMenu(chatId, GetButtons.getListsTimesByDoctorAndDate(userVariableMap.get(chatId).getDoctorId(),
                         userVariableMap.get(chatId).getDateSchedule()),MenuHeader.CHOOSE_TIME);
-        dateSchedule.put(chatId, callbackData.substring("Date:".length()));
         saveCallback(chatId, callbackData, 3);
     }
 
     private void handleTimeCallback(String chatId, String callbackData) {
-        timeSchedule.put(chatId, callbackData.substring("Time:".length()));
         saveCallback(chatId, callbackData, 4);
         sendMenu(chatId, GetButtons.getListsScheduleType(), MenuHeader.CHOOSE_APPOINTMENT_TYPE);
         userVariableMap.get(chatId).setTimeSchedule(callbackData.substring("Time:".length()));
@@ -479,7 +464,6 @@ public class ChatBot extends TelegramLongPollingBot {
                 userVariableMap.get(chatId).getUserRegistrationDto().setFirstname(messageText);
                 sendMsg(chatId, "Great! Now enter your last name:");
                 userVariableMap.get(chatId).setRegistrationStep(userVariableMap.get(chatId).getRegistrationStep() + 1);
-//                registrationStep.put(chatId, registrationStep.get(chatId) + 1);
                 break;
             case 1:
                 userVariableMap.get(chatId).getUserRegistrationDto().setLastname(messageText);
@@ -551,6 +535,7 @@ public class ChatBot extends TelegramLongPollingBot {
         userVariableMap.get(chatId).setIsSupportInProgress(false);
         userVariableMap.get(chatId).setRegistrationStep(null);
         userVariableMap.get(chatId).setScheduleIdForCancel(null);
+        userVariableMap.get(chatId).setAddToCart(false);
     }
 
     private void sendStartMenu(String chatId) {
@@ -592,8 +577,8 @@ public class ChatBot extends TelegramLongPollingBot {
                 + "Description: " + medicineDto.getDescription() + "\n"
                 + "Price: " + medicineDto.getPrice());
         sendMsg(chatId, "Enter quantity");
-        addToCart.put(chatId, true);
-        medicineNameForCart.put(chatId, medicineDto);
+        userVariableMap.get(chatId).setAddToCart(true);
+        userVariableMap.get(chatId).setMedicineNameForCart(medicineDto);
     }
 
     private void handleQuantity(String messageText, String chatId, MedicineDto medicineDto) {
@@ -615,7 +600,6 @@ public class ChatBot extends TelegramLongPollingBot {
                 "categoryButtons",
                 "to cart"
         ), MenuHeader.SELECT_MORE_PRODUCTS);
-        addToCart.remove(chatId);
     }
 
     private void handleCategoryCallback(String chatId, String callbackData) {
@@ -669,7 +653,7 @@ public class ChatBot extends TelegramLongPollingBot {
                 "courier"
         ), MenuHeader.DELIVERY_METHOD);
 
-        addToCart.remove(chatId);
+        userVariableMap.get(chatId).setAddToCart(false);
     }
 
     private List<CartItem> getCartWithoutDoubles(List<CartItem> list) {
