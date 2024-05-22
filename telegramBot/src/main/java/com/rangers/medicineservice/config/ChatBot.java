@@ -618,6 +618,7 @@ public class ChatBot extends TelegramLongPollingBot {
         userVariableMap.get(chatId).setRegistrationStep(null);
         userVariableMap.get(chatId).setScheduleIdForCancel(null);
         userVariableMap.get(chatId).setAddToCart(false);
+        userVariableMap.get(chatId).setIsChatInProgress(false);
     }
 
     private void sendStartMenu(String chatId) {
