@@ -31,7 +31,6 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRem
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import javax.security.auth.callback.CallbackHandler;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
@@ -785,4 +784,5 @@ public class ChatBot extends TelegramLongPollingBot {
         ), MenuHeader.DELIVERY_METHOD);
     }
 }
+
 
