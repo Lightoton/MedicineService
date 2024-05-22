@@ -1,22 +1,20 @@
 package com.rangers.medicineservice.service.impl;
 
 import com.rangers.medicineservice.dto.PrescriptionDto;
-import com.rangers.medicineservice.entity.Prescription;
-import com.rangers.medicineservice.entity.User;
+import com.rangers.medicineservice.entity.*;
 import com.rangers.medicineservice.exception.ObjectDoesNotExistException;
 import com.rangers.medicineservice.exception.errorMessage.ErrorMessage;
 import com.rangers.medicineservice.mapper.PrescriptionMapper;
-import com.rangers.medicineservice.repository.PrescriptionRepository;
-import com.rangers.medicineservice.repository.UserRepository;
+import com.rangers.medicineservice.repository.*;
 import com.rangers.medicineservice.service.interf.PrescriptionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.time.LocalDate;
+import java.util.*;
+
+import static java.lang.Math.random;
 
 @Service
 @RequiredArgsConstructor
@@ -27,21 +25,64 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     PrescriptionMapper prescriptionMapper;
     @Autowired
     UserRepository userRepository;
+    private final DoctorRepository doctorRepository;
+    private final MedicineRepository medicineRepository;
+    private final PrescriptionDetailRepository prescriptionDetailRepository;
 
-    public Prescription getPrescription(String prescriptionId){
+    public void creatTestPrescription(UUID userId, UUID doctorId) {
+
+        Prescription newPrescription = new Prescription();
+
+        Optional<User> user = userRepository.findById(userId);
+        newPrescription.setUser(user.orElse(null));
+
+        Optional<Doctor> doctor = doctorRepository.findById(doctorId);
+        newPrescription.setDoctor(doctor.orElse(null));
+
+        newPrescription.setActive(true);
+
+        LocalDate currentDate = LocalDate.now();
+        newPrescription.setCreatedAt(currentDate);
+        newPrescription.setExpDate(currentDate.plusMonths(1));
+        Random random = new Random();
+
+        List<PrescriptionDetail> ld = new ArrayList<>();
+        List<Medicine> listM = medicineRepository.findAll();
+
+        for (int i = 0; i < random.nextInt(5); i++) {
+            PrescriptionDetail pd = new PrescriptionDetail();
+            Medicine medicine = listM.get(random.nextInt(0, listM.size()));
+
+            boolean isPresent = ld.stream().anyMatch(e -> e.getMedicine().getMedicineId() == medicine.getMedicineId());
+            if (!isPresent) {
+                pd.setMedicine(medicine);
+                pd.setQuantity(1);
+                pd.setPrescription(newPrescription);
+                prescriptionDetailRepository.save(pd);
+                ld.add(pd);
+            }
+        }
+        newPrescription.setPrescriptionDetails(ld);
+
+        prescriptionRepository.save(newPrescription);
+
+    }
+
+    public Prescription getPrescription(String prescriptionId) {
         return prescriptionRepository.findById(UUID.fromString(prescriptionId))
                 .orElseThrow(() -> new ObjectDoesNotExistException(ErrorMessage.PRESCRIPTIONS_NOT_FOUND));
     }
+
     @Override
     public PrescriptionDto getPrescriptionDto(String prescriptionId) {
-        Prescription prescription =  prescriptionRepository.findById(UUID.fromString(prescriptionId))
+        Prescription prescription = prescriptionRepository.findById(UUID.fromString(prescriptionId))
                 .orElseThrow(() -> new ObjectDoesNotExistException(ErrorMessage.PRESCRIPTIONS_NOT_FOUND));
         return prescriptionMapper.toDto(prescription);
     }
 
     @Override
     public List<PrescriptionDto> getActivePrescriptions(String userId) {
-        List<Prescription> prescriptions =  prescriptionRepository.findActive(UUID.fromString(userId));
+        List<Prescription> prescriptions = prescriptionRepository.findActive(UUID.fromString(userId));
         List<PrescriptionDto> prescriptionDtoList = new ArrayList<>();
         if (prescriptions.isEmpty()) {
             return Collections.emptyList();
