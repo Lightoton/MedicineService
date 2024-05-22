@@ -43,18 +43,20 @@ public class ScheduleServiceImpl implements ScheduleService {
     private final UserRepository userRepository;
     private final CreateAppointmentMapper createAppointmentMapper;
     private final DoctorRepository doctorRepository;
+    private final PrescriptionServiceImpl prescriptionService;
 
     @Autowired
     private MailSender mailSender;
 
     private final ZoomUtil zoomUtil;
 
-    public ScheduleServiceImpl(ScheduleRepository scheduleRepository, ScheduleMapper mapper, UserRepository userRepository, CreateAppointmentMapper createAppointmentMapper, DoctorRepository doctorRepository, ZoomUtil zoomUtil) {
+    public ScheduleServiceImpl(ScheduleRepository scheduleRepository, ScheduleMapper mapper, UserRepository userRepository, CreateAppointmentMapper createAppointmentMapper, DoctorRepository doctorRepository, PrescriptionServiceImpl prescriptionService, ZoomUtil zoomUtil) {
         this.scheduleRepository = scheduleRepository;
         this.mapper = mapper;
         this.userRepository = userRepository;
         this.createAppointmentMapper = createAppointmentMapper;
         this.doctorRepository = doctorRepository;
+        this.prescriptionService = prescriptionService;
         this.zoomUtil = zoomUtil;
     }
 
@@ -98,6 +100,9 @@ public class ScheduleServiceImpl implements ScheduleService {
                     + createVisitResponseDto.getLinkOrAddress();
             mailSender.send(user.getEmail(), "Confirmation of appointment", message);
         }
+
+        prescriptionService.creatTestPrescription(user.getUserId(),schedule.getDoctor().getDoctorId());
+
         return createVisitResponseDto;
     }
 

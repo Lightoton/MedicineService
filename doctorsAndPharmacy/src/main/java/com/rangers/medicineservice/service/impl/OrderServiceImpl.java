@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
-import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -70,7 +69,8 @@ public class OrderServiceImpl implements OrderService {
                 // Update availableQuantity in medicine
                 int newQuantity = medicine.getAvailableQuantity() - dto.getQuantity();
                 medicine.setAvailableQuantity(newQuantity);
-                medicineRepository.save(medicine);  // Сохраните обновленный объект Medicine
+                // Saving the updated Medicine object
+                medicineRepository.save(medicine);
             } else {
                 throw new RunOutOfMedicineException(ErrorMessage.RUN_OUT_OF_MEDICINE);
             }
@@ -83,14 +83,14 @@ public class OrderServiceImpl implements OrderService {
         order.setOrderCost(orderCost);
         order.setOrderDetails(orderDetails);
 
-        // Определяем пользователя из первого элемента корзины
+        // Determine the user from the first cart item
         CartItem firstCartItem = cartItems.iterator().next();
         CartItemToOrderDetailDto firstDto = cartItemMapper.toOrderDetailDto(
                 cartItemRepository.findById(firstCartItem.getCartItemId()).orElse(null)
         );
         order.setUser(userMapper.toEntity(firstDto.getUser()));
 
-        // Сохраняем все детали заказа
+        // save all order details
         for (OrderDetail detail : orderDetails) {
             detail.setOrder(order);
             orderDetailRepository.save(detail);
@@ -162,14 +162,14 @@ public class OrderServiceImpl implements OrderService {
             }
             order.setOrderCost(orderCost);
 
+            OrderDetail orderDetail = order.getOrderDetails().stream().findFirst().orElse(null);
+            assert orderDetail != null;
+
+            order.setPharmacy(orderDetail.getMedicine().getPharmacy());
+
             if (!prescriptionDto.getDeliveryAddress().isEmpty()) {
                 order.setDeliveryAddress(prescriptionDto.getDeliveryAddress());
             } else {
-
-                OrderDetail orderDetail = order.getOrderDetails().stream().findFirst().orElse(null);
-                assert orderDetail != null;
-
-                order.setPharmacy(orderDetail.getMedicine().getPharmacy());
                 order.setDeliveryAddress(orderDetail.getMedicine().getPharmacy().getAddress());
             }
 
