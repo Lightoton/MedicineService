@@ -134,7 +134,6 @@ public class GetButtons {
         return rowsInline;
     }
 
-    public List<List<InlineKeyboardButton>> getListsScheduleType() {
     public static List<List<InlineKeyboardButton>> getListsScheduleType(){
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
         List<InlineKeyboardButton> rowInline = new ArrayList<>();
@@ -248,7 +247,6 @@ public class GetButtons {
     public static List<List<InlineKeyboardButton>> getListsSchedulesActiveByUser(String uuid) {
         List<ScheduleFullDto> schedules = scheduleService.getSchedulesByUserInProgress(UUID.fromString(uuid));
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
-        scheduleByUser.put(uuid, schedules);
 
         for (ScheduleFullDto dto : schedules) {
             if (dto != null) {
