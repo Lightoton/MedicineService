@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 @Repository
 public interface MedicineRepository extends JpaRepository<Medicine, UUID> {
@@ -27,4 +28,5 @@ public interface MedicineRepository extends JpaRepository<Medicine, UUID> {
 
     List<Medicine> findByCategoryAndAvailableQuantityGreaterThan(MedicineCategory category, int quantity);
 
+    Optional<Medicine> findByName(String name);
 }

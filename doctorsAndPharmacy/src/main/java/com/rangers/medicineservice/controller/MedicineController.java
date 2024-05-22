@@ -1,6 +1,7 @@
 package com.rangers.medicineservice.controller;
 
 import com.rangers.medicineservice.annotation.GetAvailableMedicines;
+import com.rangers.medicineservice.annotation.GetMedicineByName;
 import com.rangers.medicineservice.annotation.GetMedicinesByCategory;
 import com.rangers.medicineservice.dto.MedicineDto;
 import com.rangers.medicineservice.service.interf.MedicineService;
@@ -26,5 +27,10 @@ public class MedicineController {
     @GetMedicinesByCategory(path = "/getByCategory/{category}")
     List<MedicineDto> getByCategory(@PathVariable String category){
         return medicineService.getByCategory(category);
+    }
+
+    @GetMedicineByName(path = "/getByName/{medicineName}")
+    MedicineDto getByName(@PathVariable String medicineName){
+        return medicineService.getByName(medicineName);
     }
 }

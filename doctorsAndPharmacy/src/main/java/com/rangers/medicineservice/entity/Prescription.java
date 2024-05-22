@@ -57,13 +57,17 @@ public class Prescription {
         return Objects.hash(prescriptionId, expDate, createdAt, isActive);
     }
 
+
+    public String prescriptionDetailsToString(){
+        return prescriptionDetails + "";
+    }
     @Override
     public String toString() {
-        return "PrescriptionDto{" +
-                "prescriptionId=" + prescriptionId +
-                ", expDate=" + expDate +
-                ", createdAt=" + createdAt +
-                ", isActive=" + isActive +
-                '}';
+        return "Prescription №" + prescriptionId + "\n" +
+                "created at " + createdAt + "\n" +
+                "valid until " + expDate + "\n" +
+                "dr. " + doctor.getFirstName() + " " + doctor.getLastName() + "\n" +
+                "user: " + user.getFirstname() + " " + user.getLastname() + "\n" +
+                "medicines: " + prescriptionDetailsToString().substring(1, prescriptionDetailsToString().length() - 1);
     }
 }

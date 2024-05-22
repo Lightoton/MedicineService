@@ -13,6 +13,7 @@ public interface MedicineMapper {
 
     @AfterMapping
     default void generateMedicineDto(@MappingTarget MedicineDto medicineDto, Medicine medicine) {
+        medicineDto.setId(String.valueOf(medicine.getMedicineId()));
         medicineDto.setName(medicine.getName());
         medicineDto.setDescription(medicine.getDescription());
         medicineDto.setPrice(String.valueOf(medicine.getPrice()));
