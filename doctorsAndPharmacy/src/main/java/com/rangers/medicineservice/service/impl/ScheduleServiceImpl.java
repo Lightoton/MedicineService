@@ -98,7 +98,7 @@ public class ScheduleServiceImpl implements ScheduleService {
                     + createVisitResponseDto.getDoctorName() + ". Time of visit: "
                     + createVisitResponseDto.getDateTime() + ". We are waiting for you here: "
                     + createVisitResponseDto.getLinkOrAddress();
-//            mailSender.send(user.getEmail(), "Confirmation of appointment", message);
+            mailSender.send(user.getEmail(), "Confirmation of appointment", message);
         }
 
         prescriptionService.creatTestPrescription(user.getUserId(),schedule.getDoctor().getDoctorId());
@@ -149,7 +149,7 @@ public class ScheduleServiceImpl implements ScheduleService {
             String message = "Hello, " + user.getFirstname() + "! Your appointment with Dr. "
                     + cancelVisitResponseDto.getDoctorFullName() + " was canceled. Time of visit: "
                     + cancelVisitResponseDto.getDateTime();
-//            mailSender.send(user.getEmail(), "Cancellation of appointment", message);
+            mailSender.send(user.getEmail(), "Cancellation of appointment", message);
         }
 
         return cancelVisitResponseDto;

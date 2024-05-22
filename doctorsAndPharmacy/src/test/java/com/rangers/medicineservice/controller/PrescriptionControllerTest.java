@@ -73,13 +73,12 @@ class PrescriptionControllerTest {
 
     @Test
     void getActiveTestListIsEmpty() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/cart/getCart/ac5c8867-676f-4737-931f-052cbb9b4a11"))
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/prescription/getActive/ac5c8867-676f-4737-931f-052cbb9b4a11"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         String json = mvcResult.getResponse().getContentAsString();
         List<PrescriptionDto> actual = objectMapper.readValue(json, new TypeReference<>() {});
-        System.out.println("2222222222222222222"+actual.size());
-        System.out.println("2222222222222222222"+actual);
+        Assertions.assertTrue(actual.isEmpty());
     }
 }
