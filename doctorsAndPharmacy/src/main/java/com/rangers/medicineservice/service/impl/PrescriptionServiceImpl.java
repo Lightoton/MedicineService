@@ -27,6 +27,48 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     PrescriptionMapper prescriptionMapper;
     @Autowired
     UserRepository userRepository;
+    private final DoctorRepository doctorRepository;
+    private final MedicineRepository medicineRepository;
+    private final PrescriptionDetailRepository prescriptionDetailRepository;
+
+    public void creatTestPrescription(UUID userId, UUID doctorId) {
+
+        Prescription newPrescription = new Prescription();
+
+        Optional<User> user = userRepository.findById(userId);
+        newPrescription.setUser(user.orElse(null));
+
+        Optional<Doctor> doctor = doctorRepository.findById(doctorId);
+        newPrescription.setDoctor(doctor.orElse(null));
+
+        newPrescription.setActive(true);
+
+        LocalDate currentDate = LocalDate.now();
+        newPrescription.setCreatedAt(currentDate);
+        newPrescription.setExpDate(currentDate.plusMonths(1));
+        Random random = new Random();
+
+        List<PrescriptionDetail> ld = new ArrayList<>();
+        List<Medicine> listM = medicineRepository.findAll();
+
+        for (int i = 0; i < random.nextInt(5); i++) {
+            PrescriptionDetail pd = new PrescriptionDetail();
+            Medicine medicine = listM.get(random.nextInt(0, listM.size()));
+
+            boolean isPresent = ld.stream().anyMatch(e -> e.getMedicine().getMedicineId() == medicine.getMedicineId());
+            if (!isPresent) {
+                pd.setMedicine(medicine);
+                pd.setQuantity(1);
+                pd.setPrescription(newPrescription);
+                prescriptionDetailRepository.save(pd);
+                ld.add(pd);
+            }
+        }
+        newPrescription.setPrescriptionDetails(ld);
+
+        prescriptionRepository.save(newPrescription);
+
+    }
 
     @Override
     public Prescription getPrescription(String prescriptionId) {
@@ -48,8 +90,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         List<Prescription> prescriptions = prescriptionList.stream()
                 .filter(Prescription::isActive)
                 .toList();
+        List<Prescription> prescriptions = prescriptionRepository.findActive(UUID.fromString(userId));
         List<PrescriptionDto> prescriptionDtoList = new ArrayList<>();
-
         if (prescriptions.isEmpty()) {
             System.out.println("111111111111111111111");
             return Collections.emptyList();
