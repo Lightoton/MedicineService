@@ -1,13 +1,9 @@
 package com.rangers.medicineservice.controller;
 
-import com.rangers.medicineservice.annotation.GetScheduleByDoctorAndDateAndTimeMapping;
-import com.rangers.medicineservice.annotation.GetScheduleByDoctorAndDateMapping;
-import com.rangers.medicineservice.annotation.GetScheduleByDoctorMapping;
+import com.rangers.medicineservice.annotation.*;
 import com.rangers.medicineservice.dto.ScheduleDateTimeDto;
 import com.rangers.medicineservice.dto.ScheduleFullDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import com.rangers.medicineservice.annotation.CancelVisit;
-import com.rangers.medicineservice.annotation.CreateVisit;
 import com.rangers.medicineservice.dto.CancelVisitRequestDto;
 import com.rangers.medicineservice.dto.CancelVisitResponseDto;
 import com.rangers.medicineservice.dto.CreateVisitRequestDto;
@@ -56,5 +52,9 @@ public class ScheduleController {
     public CancelVisitResponseDto cancelVisit(@RequestBody CancelVisitRequestDto cancelVisitRequestDto,
                                               @PathVariable(name = "schedule_id") String schedule_id){
         return scheduleService.cancelVisit(schedule_id, cancelVisitRequestDto);
+    }
+    @GetScheduleByUserMapping(path = "/get_schedule_by_user_in_progress/{userId}")
+    public List<ScheduleFullDto> getSchedulesByUserInProgress(@PathVariable UUID userId) {
+        return scheduleService.getSchedulesByUserInProgress(userId);
     }
 }

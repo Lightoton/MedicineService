@@ -7,4 +7,5 @@ public class MenuHeader {
     public static final String CHOOSE_DATE = "Please, choose date";
     public static final String CHOOSE_TIME = "Please, choose time";
     public static final String CHOOSE_APPOINTMENT_TYPE = "Please, choose type of appointment";
+    public static final String CHOOSE_SCHEDULE = "Please, choose schedule";
 }

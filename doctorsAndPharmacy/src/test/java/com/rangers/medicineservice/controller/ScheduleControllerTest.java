@@ -69,6 +69,7 @@ class ScheduleControllerTest {
     private MailSender mailSender;
 
     private final UUID doctorId = UUID.fromString("01f558a1-736b-4916-b7e8-02a06c63ac7a");
+    private final UUID userId = UUID.fromString("ddb7ccab-9f3d-409d-a7ab-9573061c6e29");
     private final List<String> dateAndTimes = List.of("2024-11-23T15:00", "2024-11-23T10:00");
 
 
@@ -148,7 +149,7 @@ class ScheduleControllerTest {
         scheduleFullDto.setDoctorSpecialization("THERAPIST");
         scheduleFullDto.setDoctorName("Michael Johnson");
         scheduleFullDto.setStatus("FREE");
-        scheduleFullDto.setDateAndTime("2024-11-23 15:00");
+        scheduleFullDto.setDateAndTime("23-11 15:00");
         String dateAndTime = "2024-11-23 15:00:00";
 
         MvcResult mvcResult = mockMvc
@@ -320,5 +321,29 @@ class ScheduleControllerTest {
                         .content(jsonBody))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    void getSchedulesByUserInProgress() throws Exception {
+        ScheduleFullDto scheduleFullDto = new ScheduleFullDto();
+        scheduleFullDto.setScheduleId(UUID.fromString("ac5c8867-676f-4737-931f-052cbb9b4a95"));
+        scheduleFullDto.setStatus("IN_PROGRESS");
+        scheduleFullDto.setDoctorName("John Doe");
+        scheduleFullDto.setDoctorSpecialization("FAMILY_DOCTOR");
+        scheduleFullDto.setDateAndTime("25-11 17:00");
+        List<ScheduleFullDto> listTest = new ArrayList<>();
+        listTest.add(scheduleFullDto);
+
+        MvcResult mvcResult = mockMvc
+                .perform(MockMvcRequestBuilders
+                        .get("/schedule/get_schedule_by_user_in_progress/" + userId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String response = mvcResult.getResponse().getContentAsString();
+        List<ScheduleFullDto> responseSchedule = objectMapper.readValue(response, new TypeReference<>() {
+        });
+        Assertions.assertEquals(listTest, responseSchedule);
     }
 }

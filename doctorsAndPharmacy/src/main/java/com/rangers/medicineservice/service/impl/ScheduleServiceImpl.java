@@ -136,6 +136,9 @@ public class ScheduleServiceImpl implements ScheduleService {
         } else {
             cancelVisitResponseDto.setUserFullName(schedule.getUser().getFirstname() + " " + schedule.getUser().getLastname());
             schedule.setUser(null);
+            schedule.setStatus(ScheduleStatus.FREE);
+            schedule.setType(null);
+            schedule.setLink(null);
         }
         cancelVisitResponseDto.setDoctorFullName(schedule.getDoctor().getFirstName() + " " + schedule.getDoctor().getLastName());
         cancelVisitResponseDto.setDateTime(DateTimeFormat.formatLocalDateTime(schedule.getDateTime()));
@@ -160,11 +163,19 @@ public class ScheduleServiceImpl implements ScheduleService {
             }
             return mapper.toFullDto(schedule);
         }
-        @Override
+
+    @Override
+    public List<ScheduleFullDto> getSchedulesByUserInProgress(UUID userId) {
+        List<Schedule> schedules = scheduleRepository.findAllByUserInProgress(userId);
+        return schedules.stream().map(mapper::toFullDto).toList();
+    }
+
+    @Override
         @Transactional
         public Schedule findById (UUID id){
                 return scheduleRepository.findByScheduleId(id);
             }
         }
+
 
 

@@ -1,17 +1,18 @@
 package com.rangers.medicineservice.config;
 
 
-import com.rangers.medicineservice.dto.CreateVisitRequestDto;
-import com.rangers.medicineservice.dto.CreateVisitResponseDto;
-import com.rangers.medicineservice.dto.ScheduleFullDto;
-import com.rangers.medicineservice.dto.UserRegistrationDto;
+import com.rangers.medicineservice.dto.*;
+import com.rangers.medicineservice.mapper.ScheduleMapper;
 import com.rangers.medicineservice.service.impl.ScheduleServiceImpl;
 import com.rangers.medicineservice.service.impl.UserServiceImpl;
 import com.rangers.medicineservice.utils.GetButtons;
 import com.rangers.medicineservice.utils.RegistrationUser;
+import com.rangers.medicineservice.utils.formater.ScheduleFormat;
 import com.rangers.medicineservice.utils.SupportMailSender;
 import com.rangers.medicineservice.utils.headers.MenuHeader;
+import com.rangers.medicineservice.utils.userVariable.UserVariable;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -23,39 +24,35 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 @Component
 public class ChatBot extends TelegramLongPollingBot {
-    private final GetButtons getButtons;
     private final RegistrationUser registrationUser;
     private final UserServiceImpl userService;
     private final ScheduleServiceImpl scheduleService;
-    private final SupportMailSender supportMainSender;
-    private final Map<String, UserRegistrationDto> users = new HashMap<>();
-    private final Map<String, Integer> registrationStep = new HashMap<>();
-    public Map<String, Boolean> isRegistrationInProgress = new HashMap<>();
-    public Map<String, Boolean> isSupportInProgress = new HashMap<>();
-    public Map<String, String> doctorId = new HashMap<>();
-    public Map<String, String> dateSchedule = new HashMap<>();
-    public Map<String, String> timeSchedule = new HashMap<>();
-    public Map<String, Integer> lastMessageId = new HashMap<>();
+    private final ScheduleMapper scheduleMapper;
+    private final ScheduleFormat scheduleFormat;
+    private final Map<String, UserVariable> userVariableMap = new ConcurrentHashMap<>();
 
+    private final SupportMailSender supportMainSender;
     private final BotConfig config;
 
-    public ChatBot(@Value("${bot.token}") String botToken, GetButtons getButtons, RegistrationUser registrationUser,
+    public ChatBot(@Value("${bot.token}") String botToken, RegistrationUser registrationUser,
                    UserServiceImpl userService, BotConfig config,
-                   ScheduleServiceImpl scheduleService, SupportMailSender supportMainSender) {
+                   ScheduleServiceImpl scheduleService, SupportMailSender supportMainSender, ScheduleMapper scheduleMapper
+            , ScheduleFormat scheduleFormat) {
         super(botToken);
-        this.getButtons = getButtons;
         this.registrationUser = registrationUser;
         this.userService = userService;
         this.config = config;
         this.scheduleService = scheduleService;
+        this.scheduleMapper = scheduleMapper;
+        this.scheduleFormat = scheduleFormat;
         this.supportMainSender = supportMainSender;
     }
 
@@ -64,6 +61,7 @@ public class ChatBot extends TelegramLongPollingBot {
         return config.getBotName();
     }
 
+    @Async
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
@@ -76,6 +74,13 @@ public class ChatBot extends TelegramLongPollingBot {
     private void handleIncomingMessage(Update update) {
         String chatId = String.valueOf(update.getMessage().getChatId());
         String messageText = update.getMessage().getText();
+        userVariableMap.computeIfAbsent(chatId, k -> new UserVariable());
+        try {
+            userVariableMap.get(chatId).setUserId(userService.getUserIdByChatId(chatId));
+        } catch (Exception ignored) {
+
+        }
+
 
         switch (messageText) {
             case "/start":
@@ -86,14 +91,17 @@ public class ChatBot extends TelegramLongPollingBot {
                 sendMsg(chatId, "отправка меню с доп функциями(например: мои рецепты, мои заказы)");
                 break;
             case "/support":
-                isSupportInProgress.put(chatId, true);
+                userVariableMap.get(chatId).setIsSupportInProgress(true);
                 sendMsg(chatId, "Thank you for contacting our support. Please describe your problem or" +
                         " question as in more detail.");
                 break;
+            case "/my_appointment":
+                handleScheduleByUser(chatId, userVariableMap.get(chatId).getUserId());
+                break;
             default:
-                if (isRegistrationInProgress.getOrDefault(chatId, false)) {
+                if (userVariableMap.get(chatId).getIsRegistrationInProgress().equals(true)) {
                     handleRegistration(messageText, chatId);
-                } else if (isSupportInProgress.getOrDefault(chatId, false)) {
+                } else if (userVariableMap.get(chatId).getIsSupportInProgress().equals(true)) {
                     handleSupport(messageText, chatId);
                 } else if (update.getMessage().hasLocation()) {
                     processLocation(update);
@@ -106,6 +114,12 @@ public class ChatBot extends TelegramLongPollingBot {
         String chatId = String.valueOf(update.getCallbackQuery().getMessage().getChatId());
         String callbackData = update.getCallbackQuery().getData();
 
+        if (callbackData == null) {
+            sendMsg(chatId, "Callback data is null.");
+            return;
+        }
+
+
         if (callbackData.startsWith("specialization:")) {
             handleSpecializationCallback(chatId, callbackData);
         } else if (callbackData.startsWith("Doctor:")) {
@@ -116,6 +130,12 @@ public class ChatBot extends TelegramLongPollingBot {
             handleTimeCallback(chatId, callbackData);
         } else if (callbackData.startsWith("type:")) {
             handleTypeCallback(chatId, callbackData);
+        } else if (callbackData.startsWith("ScheduleUser:")) {
+            handleScheduleBYUserCancelCallback(chatId, callbackData);
+        } else if (callbackData.startsWith("CancelSchedule:")) {
+            handleCancelApproveCallback(chatId, callbackData);
+        } else if (callbackData.startsWith("ApproveCancel:")) {
+            handelCancelAppointment(chatId, callbackData);
         } else {
             handleDefaultCallback(chatId, callbackData);
         }
@@ -127,24 +147,33 @@ public class ChatBot extends TelegramLongPollingBot {
     }
 
     private void handleDoctorCallback(String chatId, String callbackData) {
-        doctorId.put(chatId, callbackData.substring("Doctor:".length()));
-        sendMenu(chatId, GetButtons.getListsDatesByDoctor(doctorId.get(chatId)), MenuHeader.CHOOSE_DATE);
+        userVariableMap.get(chatId).setDoctorId(callbackData.substring("Doctor:".length()));
+        try {
+            sendMenu(chatId, GetButtons.getListsDatesByDoctor(userVariableMap.get(chatId).getDoctorId()),
+                    MenuHeader.CHOOSE_DATE);
+        } catch (Exception e) {
+            sendMsg(chatId, "There are no appointments for this doctor, please try again later!");
+            sendStartMenu(chatId);
+        }
+
     }
 
     private void handleDateCallback(String chatId, String callbackData) {
-        dateSchedule.put(chatId, callbackData.substring("Date:".length()));
-        sendMenu(chatId, GetButtons.getListsTimesByDoctorAndDate(doctorId.get(chatId), dateSchedule.get(chatId)),
+        userVariableMap.get(chatId).setDateSchedule(callbackData.substring("Date:".length()));
+        sendMenu(chatId, GetButtons.getListsTimesByDoctorAndDate(userVariableMap.get(chatId).getDoctorId(),
+                        userVariableMap.get(chatId).getDateSchedule()),
                 MenuHeader.CHOOSE_TIME);
     }
 
     private void handleTimeCallback(String chatId, String callbackData) {
-        timeSchedule.put(chatId, callbackData.substring("Time:".length()));
-        sendMenu(chatId, getButtons.getListsScheduleType(), MenuHeader.CHOOSE_APPOINTMENT_TYPE);
+        userVariableMap.get(chatId).setTimeSchedule(callbackData.substring("Time:".length()));
+        sendMenu(chatId, GetButtons.getListsScheduleType(), MenuHeader.CHOOSE_APPOINTMENT_TYPE);
     }
 
     private void handleTypeCallback(String chatId, String callbackData) {
-        ScheduleFullDto scheduleFullDto = scheduleService.getSchedule(UUID.fromString(doctorId.get(chatId)),
-                dateSchedule.get(chatId) + " " + timeSchedule.get(chatId) + ":00");
+        ScheduleFullDto scheduleFullDto = scheduleService.getSchedule(UUID.fromString(userVariableMap.
+                get(chatId).getDoctorId()), userVariableMap.get(chatId).getDateSchedule()
+                + " " + userVariableMap.get(chatId).getTimeSchedule() + ":00");
         CreateVisitRequestDto createVisitRequestDto = new CreateVisitRequestDto();
         createVisitRequestDto.setUser_id(userService.getUserIdByChatId(chatId));
         createVisitRequestDto.setAppointmentType(callbackData.substring("type:".length()));
@@ -152,8 +181,43 @@ public class ChatBot extends TelegramLongPollingBot {
                 String.valueOf(scheduleFullDto.getScheduleId()), createVisitRequestDto);
         sendMsg(chatId, "You have signed up for: " + responseDto.getDoctorName() + "\n"
                 + "Date and time: " + responseDto.getDateTime() + "\n"
+                + "Type of appointment: " + createVisitRequestDto.getAppointmentType() + "\n"
                 + responseDto.getLinkOrAddress());
-        sendMenu(chatId, GetButtons.getListsStartMenu(), MenuHeader.CHOOSE_ACTION);
+        sendStartMenu(chatId);
+    }
+
+    private void handleScheduleByUser(String chatId, String userId) {
+        List<List<InlineKeyboardButton>> listsScheduleActiveByUser = GetButtons.getListsSchedulesActiveByUser(userId);
+        if (listsScheduleActiveByUser.isEmpty()) {
+            sendMsg(chatId, "You have no active appointments");
+        } else {
+            sendMenu(chatId, listsScheduleActiveByUser, MenuHeader.CHOOSE_SCHEDULE);
+        }
+
+    }
+
+    private void handleScheduleBYUserCancelCallback(String chatId, String callbackData) {
+        String scheduleId = callbackData.substring("ScheduleUser:".length());
+        ScheduleFullDto scheduleFullDto = scheduleMapper.toFullDto(scheduleService.findById(UUID.fromString(scheduleId)));
+
+        if (scheduleFullDto != null) {
+            userVariableMap.get(chatId).setScheduleIdForCancel(scheduleId);
+            String fullInfo = scheduleFormat.getScheduleFormat(scheduleFullDto);
+
+
+            // Отправка кнопки отмены
+            List<List<InlineKeyboardButton>> cancelButton = GetButtons.getCancelButtonForSchedule(scheduleId);
+            sendMenu(chatId, cancelButton, fullInfo + " \n" + "Cancel the selected schedule?");
+        } else {
+            sendMsg(chatId, "Schedule not found.");
+        }
+    }
+
+    private void handleCancelApproveCallback(String chatId, String callbackData) {
+        // Отправка кнопок подтверждения
+        List<List<InlineKeyboardButton>> cancelButton = GetButtons.getApproveCancelButtonForSchedule();
+        sendMenu(chatId, cancelButton, "Are you sure you want to cancel your appointment?");
+
     }
 
     private void handleDefaultCallback(String chatId, String callbackData) {
@@ -176,8 +240,8 @@ public class ChatBot extends TelegramLongPollingBot {
         if (registrationUser.isHaveUser(chatId)) {
             sendMenu(chatId, GetButtons.getListsSchedule(), MenuHeader.CHOOSE_SPECIALIZATION);
         } else {
-            users.put(chatId, new UserRegistrationDto());
-            registrationStep.put(chatId, 0);
+            userVariableMap.get(chatId).setUserRegistrationDto(new UserRegistrationDto());
+            userVariableMap.get(chatId).setRegistrationStep(0);
             startRegistration(chatId);
         }
     }
@@ -185,7 +249,22 @@ public class ChatBot extends TelegramLongPollingBot {
     private void handleSupport(String messageText, String chatId) {
         supportMainSender.send("", "", messageText + ". " + "UserChatId: " + chatId);
         sendMsg(chatId, "Thank you for contacting our support. We have received your message and will get back to you as soon as possible.");
-        isSupportInProgress.put(chatId, false);
+        userVariableMap.get(chatId).setIsSupportInProgress(false);
+    }
+
+    private void handelCancelAppointment(String chatId, String callbackData) {
+        String response = callbackData.substring("ApproveCancel:".length());
+        CancelVisitRequestDto cancelVisitRequestDto = new CancelVisitRequestDto();
+        cancelVisitRequestDto.setUserId(userVariableMap.get(chatId).getUserId());
+        if (response.equals("yes")) {
+            CancelVisitResponseDto responseDto = scheduleService.
+                    cancelVisit(userVariableMap.get(chatId).getScheduleIdForCancel(), cancelVisitRequestDto);
+            sendMsg(chatId, scheduleFormat.getCancelScheduleFormat(responseDto));
+            userVariableMap.get(chatId).setScheduleIdForCancel(null);
+            sendStartMenu(chatId);
+        } else {
+            sendStartMenu(chatId);
+        }
     }
 
 
@@ -200,7 +279,7 @@ public class ChatBot extends TelegramLongPollingBot {
         }
     }
 
-    public void sendMenu(String chatId, List<List<InlineKeyboardButton>> rowsInline, String header) {
+    private void sendMenu(String chatId, List<List<InlineKeyboardButton>> rowsInline, String header) {
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
         message.setText(header);
@@ -213,17 +292,17 @@ public class ChatBot extends TelegramLongPollingBot {
         try {
             Message sentMessage = execute(message);
             int messageId = sentMessage.getMessageId();
-            if (lastMessageId.get(chatId) != null) {
-                deleteMessage(chatId, lastMessageId.get(chatId));
+            if (userVariableMap.get(chatId).getLastMessageId() != null) {
+                deleteMessage(chatId, userVariableMap.get(chatId).getLastMessageId());
             }
-            lastMessageId.put(chatId, messageId);
+            userVariableMap.get(chatId).setLastMessageId(messageId);
         } catch (TelegramApiException ignored) {
 
         }
     }
 
 
-    public void sendMsg(String chatId, String text) {
+    private void sendMsg(String chatId, String text) {
         if (text != null) {
             SendMessage message = new SendMessage();
             message.setChatId(chatId);
@@ -248,62 +327,64 @@ public class ChatBot extends TelegramLongPollingBot {
     }
 
     private void handleRegistration(String messageText, String chatId) {
-        switch (registrationStep.get(chatId)) {
+        switch (userVariableMap.get(chatId).getRegistrationStep()) {
             case 0:
-                users.get(chatId).setFirstname(messageText);
+                userVariableMap.get(chatId).getUserRegistrationDto().setFirstname(messageText);
                 sendMsg(chatId, "Great! Now enter your last name:");
-                registrationStep.put(chatId, registrationStep.get(chatId) + 1);
+                userVariableMap.get(chatId).setRegistrationStep(userVariableMap.get(chatId).getRegistrationStep()+1);
+//                registrationStep.put(chatId, registrationStep.get(chatId) + 1);
                 break;
             case 1:
-                users.get(chatId).setLastname(messageText);
+                userVariableMap.get(chatId).getUserRegistrationDto().setLastname(messageText);
                 sendMsg(chatId, "Great! Now enter your email:");
-                registrationStep.put(chatId, registrationStep.get(chatId) + 1);
+                userVariableMap.get(chatId).setRegistrationStep(userVariableMap.get(chatId).getRegistrationStep()+1);
                 break;
             case 2:
-                users.get(chatId).setEmail(messageText);
+                userVariableMap.get(chatId).getUserRegistrationDto().setEmail(messageText);
                 sendMsg(chatId, "Great! Now enter your phone number:");
-                registrationStep.put(chatId, registrationStep.get(chatId) + 1);
+                userVariableMap.get(chatId).setRegistrationStep(userVariableMap.get(chatId).getRegistrationStep()+1);
                 break;
             case 3:
-                users.get(chatId).setPhoneNumber(messageText);
+                userVariableMap.get(chatId).getUserRegistrationDto().setPhoneNumber(messageText);
                 sendMsg(chatId, "Great! Now enter your address:");
-                registrationStep.put(chatId, registrationStep.get(chatId) + 1);
+                userVariableMap.get(chatId).setRegistrationStep(userVariableMap.get(chatId).getRegistrationStep()+1);
                 break;
             case 4:
-                users.get(chatId).setAddress(messageText);
+                userVariableMap.get(chatId).getUserRegistrationDto().setAddress(messageText);
                 sendMsg(chatId, "Great! Now enter your city of residence:");
-                registrationStep.put(chatId, registrationStep.get(chatId) + 1);
+                userVariableMap.get(chatId).setRegistrationStep(userVariableMap.get(chatId).getRegistrationStep()+1);
                 break;
             case 5:
-                users.get(chatId).setCity(messageText);
+                userVariableMap.get(chatId).getUserRegistrationDto().setCity(messageText);
                 sendMsg(chatId, "Great! Now enter your country of residence:");
-                registrationStep.put(chatId, registrationStep.get(chatId) + 1);
+                userVariableMap.get(chatId).setRegistrationStep(userVariableMap.get(chatId).getRegistrationStep()+1);
                 break;
             case 6:
-                users.get(chatId).setCountry(messageText);
+                userVariableMap.get(chatId).getUserRegistrationDto().setCountry(messageText);
                 sendMsg(chatId, "Great! Now enter your postal code:");
-                registrationStep.put(chatId, registrationStep.get(chatId) + 1);
+                userVariableMap.get(chatId).setRegistrationStep(userVariableMap.get(chatId).getRegistrationStep()+1);
                 break;
             case 7:
-                users.get(chatId).setPostalCode(messageText);
+                userVariableMap.get(chatId).getUserRegistrationDto().setPostalCode(messageText);
                 sendMsg(chatId, "Great! Now enter your insurance number:");
-                registrationStep.put(chatId, registrationStep.get(chatId) + 1);
+                userVariableMap.get(chatId).setRegistrationStep(userVariableMap.get(chatId).getRegistrationStep()+1);
                 break;
             case 8:
-                users.get(chatId).setPolicyNumber(messageText);
-                users.get(chatId).setChatId(chatId);
+                userVariableMap.get(chatId).getUserRegistrationDto().setPolicyNumber(messageText);
+                userVariableMap.get(chatId).getUserRegistrationDto().setChatId(chatId);
                 sendMsg(chatId, "Great! Registration is completed!!!");
-                userService.createUser(users.get(chatId));
-                isRegistrationInProgress.put(chatId, false);
-                sendMenu(chatId, GetButtons.getListsStartMenu(), MenuHeader.CHOOSE_ACTION);
+                userService.createUser(userVariableMap.get(chatId).getUserRegistrationDto());
+                userVariableMap.get(chatId).setIsRegistrationInProgress(false);
+                sendStartMenu(chatId);
+                userVariableMap.get(chatId).setUserId(userService.getUserIdByChatId(chatId));
                 break;
         }
 
     }
 
-    public void startRegistration(String chatId) {
+    private void startRegistration(String chatId) {
         sendMsg(chatId, "Hello! Let's start registration. Enter your name:");
-        isRegistrationInProgress.put(chatId, true);
+        userVariableMap.get(chatId).setIsRegistrationInProgress(true);
     }
 
     private void deleteMessage(String chatId, Integer messageId) {
@@ -319,8 +400,13 @@ public class ChatBot extends TelegramLongPollingBot {
     }
 
     private void resettingVariables(String chatId) {
-        isRegistrationInProgress.remove(chatId);
-        isSupportInProgress.remove(chatId);
-        registrationStep.remove(chatId);
+            userVariableMap.get(chatId).setIsRegistrationInProgress(false);
+            userVariableMap.get(chatId).setIsSupportInProgress(false);
+            userVariableMap.get(chatId).setRegistrationStep(null);
+            userVariableMap.get(chatId).setScheduleIdForCancel(null);
+    }
+
+    private void sendStartMenu(String chatId) {
+        sendMenu(chatId, GetButtons.getListsStartMenu(), MenuHeader.CHOOSE_ACTION);
     }
 }
