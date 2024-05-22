@@ -1,5 +1,6 @@
 package com.rangers.medicineservice.config;
 
+import com.rangers.medicineservice.controller.ChatController;
 import com.rangers.medicineservice.dto.*;
 import com.rangers.medicineservice.entity.*;
 import com.rangers.medicineservice.service.impl.*;
@@ -26,6 +27,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
 import java.util.*;
 import java.math.BigDecimal;
 import java.util.concurrent.ConcurrentHashMap;
@@ -34,6 +36,7 @@ import java.util.stream.Collectors;
 @Component
 @Slf4j
 public class ChatBot extends TelegramLongPollingBot {
+    private ChatController chatController;
     private final GetButtons getButtons;
     private final RegistrationUser registrationUser;
     private final UserServiceImpl userService;
@@ -41,6 +44,7 @@ public class ChatBot extends TelegramLongPollingBot {
     private final SupportMailSender supportMainSender;
     private final Map<String, UserRegistrationDto> users = new HashMap<>();
     private final Map<String, Integer> registrationStep = new HashMap<>();
+    public Map<String, Boolean> isChatInProgress = new HashMap<>();
     public Map<String, Boolean> isRegistrationInProgress = new HashMap<>();
     public Map<String, Boolean> isSupportInProgress = new HashMap<>();
     public Map<String, Boolean> addToCart = new ConcurrentHashMap<>();
@@ -49,7 +53,7 @@ public class ChatBot extends TelegramLongPollingBot {
     public Map<String, String> dateSchedule = new HashMap<>();
     public Map<String, String> timeSchedule = new HashMap<>();
     public Map<String, Integer> lastMessageId = new HashMap<>();
-    public Map<String, Map<Integer,String>> historyCallbackData = new HashMap<>();
+    public Map<String, Map<Integer, String>> historyCallbackData = new HashMap<>();
 
     private final BotConfig config;
     private final MedicineServiceImpl medicineService;
@@ -57,12 +61,13 @@ public class ChatBot extends TelegramLongPollingBot {
     private final PrescriptionServiceImpl prescriptionService;
     private final OrderServiceImpl orderService;
 
-    public ChatBot(@Value("${bot.token}") String botToken, GetButtons getButtons, RegistrationUser registrationUser,
+    public ChatBot(@Value("${bot.token}") String botToken, ChatController chatController, GetButtons getButtons, RegistrationUser registrationUser,
                    UserServiceImpl userService, BotConfig config,
                    ScheduleServiceImpl scheduleService, SupportMailSender supportMainSender,
                    MedicineServiceImpl medicineService, CartItemServiceImpl cartItemService, PrescriptionServiceImpl
                            prescriptionService, OrderServiceImpl orderService) {
         super(botToken);
+        this.chatController = chatController;
         this.getButtons = getButtons;
         this.registrationUser = registrationUser;
         this.userService = userService;
@@ -74,7 +79,7 @@ public class ChatBot extends TelegramLongPollingBot {
         this.prescriptionService = prescriptionService;
         this.orderService = orderService;
     }
-    
+
     @Override
     public String getBotUsername() {
         return config.getBotName();
@@ -101,7 +106,7 @@ public class ChatBot extends TelegramLongPollingBot {
                 sendMenu(chatId, GetButtons.getListsStartMenu(), MenuHeader.CHOOSE_ACTION);
                 break;
             case "/menu":
-                sendMsg(chatId,"отправка меню с доп функциями(например: мои рецепты, мои заказы)");
+                sendMsg(chatId, "отправка меню с доп функциями(например: мои рецепты, мои заказы)");
                 break;
             case "/location":
                 sendLocationRequestButton(chatId);
@@ -123,6 +128,8 @@ public class ChatBot extends TelegramLongPollingBot {
                     handleQuantity(messageText, chatId, medicineNameForCart.get(chatId));
                 } else if (isSupportInProgress.getOrDefault(chatId, false)) {
                     handleSupport(messageText, chatId);
+                } else if (isChatInProgress.getOrDefault(chatId, false)) {
+                    handleAiMessage(chatId, messageText);
                 }
                 break;
         }
@@ -149,6 +156,7 @@ public class ChatBot extends TelegramLongPollingBot {
             throw new RuntimeException(e);
         }
     }
+
     private void handleReceivedLocation(String chatId, Location location) {
         SendMessage message = new SendMessage();
         message.setChatId(String.valueOf(chatId));
@@ -162,8 +170,8 @@ public class ChatBot extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
             log.info(e.getMessage());
         }
-        sendMsg(chatId,"Pharmacies that are near you:");
-        sendMsg(chatId,pharmaciesNearby(location));
+        sendMsg(chatId, "Pharmacies that are near you:");
+        sendMsg(chatId, pharmaciesNearby(location));
     }
 
     private String pharmaciesNearby(Location location) {
@@ -211,7 +219,7 @@ public class ChatBot extends TelegramLongPollingBot {
             handleBackToMainManuCallback(chatId);
         } else if (callbackData.startsWith("back_btn:")) {
             handleBackupCallback(chatId, callbackData);
-        }  else {
+        } else {
             handleDefaultCallback(chatId, callbackData);
         }
     }
@@ -251,7 +259,7 @@ public class ChatBot extends TelegramLongPollingBot {
 
     private void saveCallback(String chatId, String callbackData, int number) {
         historyCallbackData.computeIfAbsent(chatId, k -> new HashMap<>());
-        historyCallbackData.get(chatId).put(number,callbackData);
+        historyCallbackData.get(chatId).put(number, callbackData);
     }
 
     private void handleSpecializationCallback(String chatId, String callbackData) {
@@ -303,7 +311,7 @@ public class ChatBot extends TelegramLongPollingBot {
                 handleStart2(chatId);
                 break;
             case "start3":
-                sendMsg(chatId, "Общение с AI");
+                handleStart3(chatId);
                 break;
             default:
                 break;
@@ -317,6 +325,71 @@ public class ChatBot extends TelegramLongPollingBot {
             users.put(chatId, new UserRegistrationDto());
             registrationStep.put(chatId, 0);
             startRegistration(chatId);
+        }
+    }
+
+    /**
+     * handleStart3 - start button with OpenAI ChatGPT.
+     */
+
+    private void handleStart3(String chatId) {
+        sendMsg(chatId, "Hi! My name is Helen, I will be your assistant for today.\n\nHow can I help you?");
+        sendStopButton(chatId);
+        isChatInProgress.put(chatId, true);
+    }
+
+    private void handleAiMessage(String chatId, String text) {
+
+        if (isChatInProgress.getOrDefault(chatId, false)) {
+
+            if (text.equalsIgnoreCase("Stop chat")) {
+
+                SendMessage removeKeyboard = new SendMessage();
+                removeKeyboard.setChatId(chatId);
+                removeKeyboard.setText("Good luck to you, and don`t get sick!");
+
+                ReplyKeyboardRemove keyboardRemove = new ReplyKeyboardRemove();
+                keyboardRemove.setRemoveKeyboard(true);
+                removeKeyboard.setReplyMarkup(keyboardRemove);
+
+                try {
+                    execute(removeKeyboard);
+                } catch (TelegramApiException ignored) {
+
+                }
+
+                isChatInProgress.put(chatId, false);
+
+                sendMenu(chatId, GetButtons.getListsStartMenu(), MenuHeader.CHOOSE_ACTION);
+            } else {
+                PromptRequest prompt = new PromptRequest();
+                prompt.setPrompt(text);
+
+//                sendMsg(chatId, "Generating answer...");
+
+                sendMsg(chatId, chatController.getAiResponse(prompt));
+            }
+        }
+    }
+
+    private void sendStopButton(String chatId) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        message.setText("You can stop the chat anytime by clicking the button below.");
+        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+        List<KeyboardRow> keyboard = new ArrayList<>();
+        KeyboardRow row = new KeyboardRow();
+        KeyboardButton stopChat = new KeyboardButton("Stop chat");
+        row.add(stopChat);
+        keyboard.add(row);
+        keyboardMarkup.setKeyboard(keyboard);
+        keyboardMarkup.setResizeKeyboard(true);
+        keyboardMarkup.setOneTimeKeyboard(true);
+        message.setReplyMarkup(keyboardMarkup);
+        try {
+            execute(message);
+        } catch (TelegramApiException e) {
+            throw new RuntimeException(e);
         }
     }
 
