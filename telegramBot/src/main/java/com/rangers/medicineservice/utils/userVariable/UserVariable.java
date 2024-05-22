@@ -23,6 +23,7 @@ public class UserVariable {
     private String scheduleIdForCancel;
     private Boolean addToCart;
     private MedicineDto medicineNameForCart;
+    private Boolean isChatInProgress;
     private Map<Integer, String> historyCallbackData;
 
 

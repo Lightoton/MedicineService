@@ -7,7 +7,10 @@ import com.rangers.medicineservice.entity.enums.Specialization;
 import com.rangers.medicineservice.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -141,16 +144,18 @@ public class GetButtons {
         rowsInline.add(getBackupBtn(5));
         return rowsInline;
     }
-
-    public static List<List<InlineKeyboardButton>> getLocationInlineBtn() {
-        List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
-        List<InlineKeyboardButton> rowInline = new ArrayList<>();
-        InlineKeyboardButton button1 = new InlineKeyboardButton();
-        button1.setText("Location");
-        button1.setCallbackData("location1");
-        rowInline.add(button1);
-        rowsInline.add(rowInline);
-        return rowsInline;
+    public static ReplyKeyboardMarkup getKeyboardMarkup(String text, boolean isLocation) {
+        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+        List<KeyboardRow> keyboard = new ArrayList<>();
+        KeyboardRow row = new KeyboardRow();
+        KeyboardButton button = new KeyboardButton(text);
+        button.setRequestLocation(isLocation);
+        row.add(button);
+        keyboard.add(row);
+        keyboardMarkup.setKeyboard(keyboard);
+        keyboardMarkup.setResizeKeyboard(true);
+        keyboardMarkup.setOneTimeKeyboard(true);
+        return keyboardMarkup;
     }
 
     public static List<InlineKeyboardButton> getBackupBtn(int number) {
