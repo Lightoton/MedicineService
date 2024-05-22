@@ -9,5 +9,5 @@ public class MedicineDto {
     String description;
     String price;
     String category;
-
+    String availableQuantity;
 }

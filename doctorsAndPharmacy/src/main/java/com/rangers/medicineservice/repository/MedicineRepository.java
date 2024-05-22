@@ -17,6 +17,8 @@ public interface MedicineRepository extends JpaRepository<Medicine, UUID> {
 
     Medicine findMedicineByMedicineId(UUID medicineId);
 
+    Medicine findByName(String name);
+
     List<Medicine> findAllByAvailableQuantityGreaterThan(int quantity);
 
     @Transactional

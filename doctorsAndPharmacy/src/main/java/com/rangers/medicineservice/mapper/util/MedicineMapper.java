@@ -18,6 +18,7 @@ public interface MedicineMapper {
         medicineDto.setDescription(medicine.getDescription());
         medicineDto.setPrice(String.valueOf(medicine.getPrice()));
         medicineDto.setCategory(String.valueOf(medicine.getCategory()));
+        medicineDto.setAvailableQuantity(String.valueOf(medicine.getAvailableQuantity()));
     }
 
     Medicine toEntity(MedicineDto medicineDto);
