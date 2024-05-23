@@ -19,49 +19,55 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Configuration class for creating and training a text categorization model
+ * using Apache OpenNLP. The model is trained with data provided in a specified file.
+ * @author Maksym Bondarenko
+ */
 @Configuration
 public class TextClassifierConfig {
 
     @Value("${training.opennlp.data.path}")
     private String trainingDataPath;
 
-    // Метод для обучения модели категоризации текста
+    /**
+     * Method for training a text categorization model.
+     * @return Trained DoccatModel
+     * @throws IOException If there is an issue reading the training data.
+     */
     @Bean
     public DoccatModel trainModel() throws IOException {
-        // Создаем список для хранения образцов документов
+        // Create a list to store document samples
         List<DocumentSample> documentSamples = new ArrayList<>();
 
-        // Чтение файла обучающих данных
+        // Reading the training data file
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(trainingDataPath), StandardCharsets.UTF_8))) {
             String line;
-            // Чтение каждой строки из файла
+            // Read each line from the file
             while ((line = reader.readLine()) != null) {
-                // Разделение строки на части по ", "
+                // Split the line into parts by ", "
                 String[] parts = line.split(", ");
-                // Проверка наличия текста и метки категории в строке
+                // Check if the line contains both text and category label
                 if (parts.length >= 2) {
-                    // Получение текста и метки категории
+                    // Get the text and category label
                     String text = parts[0];
                     String category = parts[1];
-                    // Преобразование текста в массив слов
+                    // Split the text into an array of words
                     String[] words = text.split(" ");
-                    // Создание объекта DocumentSample и добавление его в список
+                    // Create a DocumentSample object and add it to the list
                     documentSamples.add(new DocumentSample(category, words));
                 }
             }
         }
 
-        // Создание потока объектов DocumentSample из списка образцов документов
         ObjectStream<DocumentSample> sampleStream = new CollectionObjectStream<>(documentSamples);
 
-        // Создание фабрики и параметров для обучения
+        // Create factory and parameters for training
         DoccatFactory factory = new DoccatFactory();
         TrainingParameters params = new TrainingParameters();
         params.put(TrainingParameters.CUTOFF_PARAM, "5");
 
-        // Обучение модели категоризации текста с помощью DocumentCategorizerME
+        // Train the text categorization model using DocumentCategorizerME
         return DocumentCategorizerME.train("en", sampleStream, params, factory);
     }
 }
-
-
