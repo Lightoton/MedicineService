@@ -67,7 +67,6 @@ public class ExpectedData {
         medicineDto1.setPrice("8.99");
         medicineDto1.setCategory("ANTIHIAMINES");
         medicineDto1.setAvailableQuantity("25");
-
         return List.of(medicineDto1);
     }
 

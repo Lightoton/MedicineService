@@ -283,7 +283,9 @@ public class ChatBot extends TelegramLongPollingBot {
             handleChooseMedicinesCallback(chatId);
         } else if (callbackData.startsWith("back_btn:")) {
             handleBackupCallback(chatId, callbackData);
-        } else {
+        }   else if (callbackData.startsWith("do not stock the prescription")) {
+            handleChooseMedicinesCallback(chatId);
+        }  else {
             handleDefaultCallback(chatId, callbackData);
         }
     }
