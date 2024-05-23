@@ -1,23 +1,21 @@
 package com.rangers.medicineservice.utils;
 
-import com.rangers.medicineservice.dto.DoctorDto;
-import com.rangers.medicineservice.dto.MedicineDto;
-import com.rangers.medicineservice.dto.PrescriptionDto;
-import com.rangers.medicineservice.dto.ScheduleDateTimeDto;
+import com.rangers.medicineservice.dto.*;
 import com.rangers.medicineservice.entity.CartItem;
-import com.rangers.medicineservice.entity.Medicine;
-import com.rangers.medicineservice.entity.Prescription;
 import com.rangers.medicineservice.entity.enums.MedicineCategory;
 import com.rangers.medicineservice.entity.enums.Specialization;
 import com.rangers.medicineservice.service.impl.*;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class GetButtons {
@@ -133,7 +131,7 @@ public class GetButtons {
         return rowsInline;
     }
 
-    public List<List<InlineKeyboardButton>> getListsScheduleType() {
+    public static List<List<InlineKeyboardButton>> getListsScheduleType(){
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
         List<InlineKeyboardButton> rowInline = new ArrayList<>();
         InlineKeyboardButton button1 = new InlineKeyboardButton("ONLINE");
@@ -146,16 +144,18 @@ public class GetButtons {
         rowsInline.add(getBackupBtn(5));
         return rowsInline;
     }
-
-    public static List<List<InlineKeyboardButton>> getLocationInlineBtn() {
-        List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
-        List<InlineKeyboardButton> rowInline = new ArrayList<>();
-        InlineKeyboardButton button1 = new InlineKeyboardButton();
-        button1.setText("Location");
-        button1.setCallbackData("location1");
-        rowInline.add(button1);
-        rowsInline.add(rowInline);
-        return rowsInline;
+    public static ReplyKeyboardMarkup getKeyboardMarkup(String text, boolean isLocation) {
+        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+        List<KeyboardRow> keyboard = new ArrayList<>();
+        KeyboardRow row = new KeyboardRow();
+        KeyboardButton button = new KeyboardButton(text);
+        button.setRequestLocation(isLocation);
+        row.add(button);
+        keyboard.add(row);
+        keyboardMarkup.setKeyboard(keyboard);
+        keyboardMarkup.setResizeKeyboard(true);
+        keyboardMarkup.setOneTimeKeyboard(true);
+        return keyboardMarkup;
     }
 
     public static List<InlineKeyboardButton> getBackupBtn(int number) {
@@ -242,5 +242,49 @@ public class GetButtons {
         }
         return rowsInline;
     }
-}
 
+    public static List<List<InlineKeyboardButton>> getListsSchedulesActiveByUser(String uuid) {
+        List<ScheduleFullDto> schedules = scheduleService.getSchedulesByUserInProgress(UUID.fromString(uuid));
+        List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
+
+        for (ScheduleFullDto dto : schedules) {
+            if (dto != null) {
+                List<InlineKeyboardButton> rowInline = new ArrayList<>();
+                InlineKeyboardButton scheduleButton = new InlineKeyboardButton("Date and time: " + dto.getDateAndTime()
+                        + ", " + dto.getDoctorSpecialization());
+                scheduleButton.setCallbackData("ScheduleUser:" + dto.getScheduleId());
+                rowInline.add(scheduleButton);
+                rowsInline.add(rowInline);
+            }
+        }
+        return rowsInline;
+    }
+
+    public static List<List<InlineKeyboardButton>> getCancelButtonForSchedule(String scheduleId) {
+        List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
+        List<InlineKeyboardButton> rowInline = new ArrayList<>();
+
+        InlineKeyboardButton cancelButton = new InlineKeyboardButton("Cancel");
+        cancelButton.setCallbackData("CancelSchedule:" + scheduleId);
+        rowInline.add(cancelButton);
+
+        rowsInline.add(rowInline);
+
+        return rowsInline;
+    }
+    public static List<List<InlineKeyboardButton>> getApproveCancelButtonForSchedule() {
+        List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
+        List<InlineKeyboardButton> rowInline = new ArrayList<>();
+
+        InlineKeyboardButton yes = new InlineKeyboardButton("yes");
+        InlineKeyboardButton no = new InlineKeyboardButton("no");
+        yes.setCallbackData("ApproveCancel:" + yes.getText());
+        no.setCallbackData("ApproveCancel:" + no.getText());
+        rowInline.add(yes);
+        rowInline.add(no);
+
+        rowsInline.add(rowInline);
+
+        return rowsInline;
+    }
+}

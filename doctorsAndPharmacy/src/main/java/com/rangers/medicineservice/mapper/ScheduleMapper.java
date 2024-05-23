@@ -5,6 +5,8 @@ import com.rangers.medicineservice.dto.ScheduleFullDto;
 import com.rangers.medicineservice.entity.Schedule;
 import org.mapstruct.*;
 import org.springframework.stereotype.Component;
+
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
@@ -21,11 +23,17 @@ public interface ScheduleMapper {
     ScheduleFullDto toFullDto(Schedule schedule);
     @AfterMapping
     default void updateFullDto(Schedule schedule, @MappingTarget ScheduleFullDto scheduleFullDto) {
+        DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("dd-MM HH:mm");
         scheduleFullDto.setScheduleId(schedule.getScheduleId());
-        scheduleFullDto.setDateAndTime(schedule.getDateTime().toLocalDate().toString()+ " " + schedule.getDateTime().toLocalTime());
+        scheduleFullDto.setDateAndTime(schedule.getDateTime().format(formatterTime));
         scheduleFullDto.setStatus(schedule.getStatus().toString());
         scheduleFullDto.setDoctorName(schedule.getDoctor().getFirstName()+" "+schedule.getDoctor().getLastName());
         scheduleFullDto.setDoctorSpecialization(schedule.getDoctor().getSpecialization().toString());
+        if (schedule.getType() != null) {
+            scheduleFullDto.setAppointmentType(schedule.getType().toString());
+        } else {
+            scheduleFullDto.setAppointmentType(null);
+        }
     }
 
     List<ScheduleFullDto> toFullDtoList(List<Schedule> schedules);

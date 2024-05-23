@@ -19,4 +19,6 @@ public interface ScheduleService {
     List<ScheduleDateTimeDto> getScheduleTime(UUID doctorId, String date);
 
     ScheduleFullDto getSchedule(UUID doctorId, String dateAndTime);
+
+    List<ScheduleFullDto> getSchedulesByUserInProgress(UUID userId);
 }
