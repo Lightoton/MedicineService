@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * Service implementation for text classification using a pre-trained DoccatModel.
  * This service classifies input text into predefined categories.
+ * @author Maksym Bondarenko
  */
 @Service
 public class TextClassificationServiceImpl implements TextClassificationService {

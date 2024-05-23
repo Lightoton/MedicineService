@@ -15,6 +15,7 @@ import java.util.List;
 /**
  * Configuration class for loading training data from a file into a list of QuestionAnswer objects.
  * The training data file is for OpenAI model.
+ * @author Maksym Bondarenko
  */
 @Configuration
 public class TrainingDataConfig {

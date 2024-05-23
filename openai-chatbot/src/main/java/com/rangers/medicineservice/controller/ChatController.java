@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Controller class for handling AI-related HTTP requests.
  * It receives user prompts, classifies them using a text classification service,
  * and sends medical prompts to OpenAI for responses.
+ * @author Maksym Bondarenko
  */
 @RestController
 @RequestMapping("/ai")

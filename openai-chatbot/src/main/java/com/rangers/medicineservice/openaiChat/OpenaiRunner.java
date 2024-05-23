@@ -16,6 +16,7 @@ import java.util.List;
 /**
  * Component class for interacting with OpenAI's API to send chat messages and receive responses.
  * This class uses training data to build a context for the conversation and sends the user's prompt to the API.
+ * @author Maksym Bondarenko
  */
 @Component
 public class OpenaiRunner {

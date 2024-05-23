@@ -22,6 +22,7 @@ import java.util.List;
 /**
  * Configuration class for creating and training a text categorization model
  * using Apache OpenNLP. The model is trained with data provided in a specified file.
+ * @author Maksym Bondarenko
  */
 @Configuration
 public class TextClassifierConfig {
