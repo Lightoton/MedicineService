@@ -5,6 +5,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * Configuration class for creating and setting up a RestTemplate bean
+ * that adds the OpenAI API key to the Authorization header for all outgoing requests.
+ * @author Maksym Bondarenko
+ */
 @Configuration
 public class RestTemplateConfig {
 

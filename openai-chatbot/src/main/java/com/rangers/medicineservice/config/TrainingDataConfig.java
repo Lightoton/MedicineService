@@ -12,15 +12,23 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Configuration class for loading training data from a file into a list of QuestionAnswer objects.
+ * The training data file is for OpenAI model.
+ * @author Maksym Bondarenko
+ */
 @Configuration
 public class TrainingDataConfig {
 
-    @Value("${training.openai.data.path}") // Путь к training_file
+    @Value("${training.openai.data.path}")
     private String trainingFilePath;
 
+    /**
+     * Bean for reading training data from a file and converting it to a list of QuestionAnswer objects.
+     * @return List of QuestionAnswer objects or an empty list if an error occurs.
+     */
     @Bean
     public List<QuestionAnswer> trainingData() {
-        // Чтение данных из training_file и преобразование в список QuestionAnswer
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             File file = new File(trainingFilePath);
@@ -31,4 +39,5 @@ public class TrainingDataConfig {
         }
     }
 }
+
 
