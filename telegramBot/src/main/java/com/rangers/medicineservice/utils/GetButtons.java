@@ -17,6 +17,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Provides utility methods to generate  buttons for various actions in the chat interface.
+ *
+ * @author Viktor
+ * @author Volha
+ * @author Oleksandr
+ */
 @Service
 public class GetButtons {
     public static DoctorServiceImpl service;
@@ -49,6 +56,11 @@ public class GetButtons {
         GetButtons.prescriptionService = prescriptionService;
     }
 
+    /**
+     * Returns a list of buttons for the main menu.
+     * @author Viktor
+     * @return A list of button rows.
+     */
     public static List<List<InlineKeyboardButton>> getListsStartMenu() {
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
         List<InlineKeyboardButton> rowInline = new ArrayList<>();
@@ -67,6 +79,11 @@ public class GetButtons {
         return rowsInline;
     }
 
+    /**
+     * Returns a list of buttons for scheduling appointments.
+     * @author Viktor
+     * @return A list of button rows.
+     */
     public static List<List<InlineKeyboardButton>> getListsSchedule() {
         List<String> specializations = Arrays.stream(Specialization.values()).map(Enum::toString).toList();
 
@@ -84,6 +101,12 @@ public class GetButtons {
         return rowsInline;
     }
 
+    /**
+     * Returns a list of buttons for selecting doctors by specialization.
+     * @author Viktor
+     * @param specializations The specialization for which doctors are selected.
+     * @return A list of button rows.
+     */
     public static List<List<InlineKeyboardButton>> getListsDoctors(String specializations) {
         List<DoctorDto> doctorDtos = service.getDoctors(specializations);
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
@@ -100,7 +123,12 @@ public class GetButtons {
         rowsInline.add(getBackupBtn(2));
         return rowsInline;
     }
-
+    /**
+     * Generates a list of buttons for selecting appointment dates by doctor.
+     * @author Viktor
+     * @param doctorId The ID of the doctor.
+     * @return A list of button rows.
+     */
     public static List<List<InlineKeyboardButton>> getListsDatesByDoctor(String doctorId) {
         List<ScheduleDateTimeDto> date = scheduleService.getScheduleDate(UUID.fromString(doctorId));
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
@@ -115,7 +143,13 @@ public class GetButtons {
         rowsInline.add(getBackupBtn(3));
         return rowsInline;
     }
-
+    /**
+     * Generates a list of buttons for selecting appointment times by doctor and date.
+     * @author Viktor
+     * @param doctorId The ID of the doctor.
+     * @param date     The selected date for the appointment.
+     * @return A list of button rows.
+     */
     public static List<List<InlineKeyboardButton>> getListsTimesByDoctorAndDate(String doctorId, String date) {
         List<ScheduleDateTimeDto> time = scheduleService.getScheduleTime(UUID.fromString(doctorId), date);
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
@@ -130,8 +164,12 @@ public class GetButtons {
         rowsInline.add(getBackupBtn(4));
         return rowsInline;
     }
-
-    public static List<List<InlineKeyboardButton>> getListsScheduleType(){
+    /**
+     * Generates a list of buttons for selecting the appointment type (online or offline).
+     * @author Viktor
+     * @return A list of button rows.
+     */
+    public static List<List<InlineKeyboardButton>> getListsScheduleType() {
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
         List<InlineKeyboardButton> rowInline = new ArrayList<>();
         InlineKeyboardButton button1 = new InlineKeyboardButton("ONLINE");
@@ -144,6 +182,13 @@ public class GetButtons {
         rowsInline.add(getBackupBtn(5));
         return rowsInline;
     }
+    /**
+     * Generates a keyboard markup with a single button.
+     * @author Viktor
+     * @param text        The text displayed on the button.
+     * @param isLocation  Indicates whether the button should request the user's location.
+     * @return Keyboard markup with a single button.
+     */
     public static ReplyKeyboardMarkup getKeyboardMarkup(String text, boolean isLocation) {
         ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
         List<KeyboardRow> keyboard = new ArrayList<>();
@@ -157,15 +202,28 @@ public class GetButtons {
         keyboardMarkup.setOneTimeKeyboard(true);
         return keyboardMarkup;
     }
-
+    /**
+     * Generates a backup button for navigating to the previous step.
+     * @author Oleksandr
+     * @param number The step number to which the button navigates.
+     * @return A list containing the backup button.
+     */
     public static List<InlineKeyboardButton> getBackupBtn(int number) {
         List<InlineKeyboardButton> rowInline = new ArrayList<>();
         InlineKeyboardButton button = new InlineKeyboardButton("<< Back");
-        button.setCallbackData("back_btn:" + (number-1));
+        button.setCallbackData("back_btn:" + (number - 1));
         rowInline.add(button);
         return rowInline;
     }
-
+    /**
+     * Generates a list of buttons for selecting yes or no options.
+     * @author Volha
+     * @param nameYes    The label for the 'yes' button.
+     * @param nameNo     The label for the 'no' button.
+     * @param callBackYes The callback data for the 'yes' button.
+     * @param callBackNo  The callback data for the 'no' button.
+     * @return A list of button rows.
+     */
     public static List<List<InlineKeyboardButton>> getYesNoButtons(String nameYes, String nameNo, String callBackYes, String callBackNo) {
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
         List<InlineKeyboardButton> rowInline = new ArrayList<>();
@@ -178,7 +236,11 @@ public class GetButtons {
         rowsInline.add(rowInline);
         return rowsInline;
     }
-
+    /**
+     * Generates a list of buttons for selecting medicine categories.
+     * @author Volha
+     * @return A list of button rows.
+     */
     public static List<List<InlineKeyboardButton>> getMedicineCategoryButtons() {
         List<String> categories = Arrays.stream(MedicineCategory.values()).map(Enum::toString).toList();
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
@@ -192,7 +254,12 @@ public class GetButtons {
         }
         return rowsInline;
     }
-
+    /**
+     * Generates a list of buttons for displaying medicines in a specific category.
+     * @author Volha
+     * @param category The category of medicines to display.
+     * @return A list of button rows.
+     */
     public static List<List<InlineKeyboardButton>> getListsMedicines(String category) {
         List<MedicineDto> medicineList = medicineService.getByCategory(category);
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
@@ -207,7 +274,14 @@ public class GetButtons {
         }
         return rowsInline;
     }
-
+    /**
+     * Generates a list of buttons representing the user's shopping cart.
+     * @author Volha
+     * @param userId  The ID of the user.
+     * @param chatId  The ID of the chat.
+     * @param cart    The list of items in the shopping cart.
+     * @return A list of button rows representing the shopping cart.
+     */
     public static List<List<InlineKeyboardButton>> getCart(String userId, String chatId, List<CartItem> cart) {
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
 
@@ -228,9 +302,14 @@ public class GetButtons {
         rowsInline.add(rowInline);
         return rowsInline;
     }
-
+    /**
+     * Generates a list of buttons representing prescriptions for a user.
+     * @author Volha
+     * @param userId The ID of the user.
+     * @return A list of button rows representing prescriptions.
+     */
     public static List<List<InlineKeyboardButton>> getListPrescription(String userId) {
-        List<PrescriptionDto> prescriptionDtoList= prescriptionService.getActivePrescriptions(userId);
+        List<PrescriptionDto> prescriptionDtoList = prescriptionService.getActivePrescriptions(userId);
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
 
         for (PrescriptionDto prescription : prescriptionDtoList) {
@@ -242,7 +321,12 @@ public class GetButtons {
         }
         return rowsInline;
     }
-
+    /**
+     * Generates a list of buttons representing active schedules for a user.
+     * @author Viktor
+     * @param uuid The UUID of the user.
+     * @return A list of button rows representing active schedules.
+     */
     public static List<List<InlineKeyboardButton>> getListsSchedulesActiveByUser(String uuid) {
         List<ScheduleFullDto> schedules = scheduleService.getSchedulesByUserInProgress(UUID.fromString(uuid));
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
@@ -259,7 +343,12 @@ public class GetButtons {
         }
         return rowsInline;
     }
-
+    /**
+     * Generates a list of buttons for cancelling a schedule.
+     * @author Viktor
+     * @param scheduleId The ID of the schedule to cancel.
+     * @return A list of button rows for cancelling the schedule.
+     */
     public static List<List<InlineKeyboardButton>> getCancelButtonForSchedule(String scheduleId) {
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
         List<InlineKeyboardButton> rowInline = new ArrayList<>();
@@ -272,6 +361,11 @@ public class GetButtons {
 
         return rowsInline;
     }
+    /**
+     * Generates a list of buttons for approving or denying the cancellation of a schedule.
+     * @author Viktor
+     * @return A list of button rows for approving or denying cancellation.
+     */
     public static List<List<InlineKeyboardButton>> getApproveCancelButtonForSchedule() {
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
         List<InlineKeyboardButton> rowInline = new ArrayList<>();
