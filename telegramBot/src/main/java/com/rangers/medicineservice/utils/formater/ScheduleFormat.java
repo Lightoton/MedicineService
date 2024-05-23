@@ -3,7 +3,10 @@ package com.rangers.medicineservice.utils.formater;
 import com.rangers.medicineservice.dto.CancelVisitResponseDto;
 import com.rangers.medicineservice.dto.ScheduleFullDto;
 import org.springframework.stereotype.Service;
-
+/**
+ * This class provides methods to format schedule-related information for display or communication.
+ * @author Viktor
+ */
 @Service
 public class ScheduleFormat {
     public String getScheduleFormat(ScheduleFullDto scheduleFullDto) {
