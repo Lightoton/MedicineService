@@ -6,6 +6,10 @@ import opennlp.tools.doccat.DocumentCategorizerME;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service implementation for text classification using a pre-trained DoccatModel.
+ * This service classifies input text into predefined categories.
+ */
 @Service
 public class TextClassificationServiceImpl implements TextClassificationService {
 
@@ -16,16 +20,19 @@ public class TextClassificationServiceImpl implements TextClassificationService 
         this.model = model;
     }
 
+    /**
+     * Classifies the given text into a category using the trained DoccatModel.
+     * @param text The text to classify.
+     * @return The most probable category for the given text.
+     */
     @Override
     public String classifyText(String text) {
-        // экземпляр класса DocumentCategorizerME - для классификации текста с использованием модели
+        // Create an instance of DocumentCategorizerME for classifying text using the model
         DocumentCategorizerME categorizer = new DocumentCategorizerME(model);
         String[] words = text.split(" ");
-        // получение вероятности категории(medical/non-medical)
+        // Get the probabilities of each category (e.g., medical/non-medical)
         double[] probabilities = categorizer.categorize(words);
-        // возвращаем наиболее вероятную категорию
+        // Return the most probable category
         return categorizer.getBestCategory(probabilities);
     }
 }
-
-

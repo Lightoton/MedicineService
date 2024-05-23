@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Controller class for handling AI-related HTTP requests.
+ * It receives user prompts, classifies them using a text classification service,
+ * and sends medical prompts to OpenAI for responses.
+ */
 @RestController
 @RequestMapping("/ai")
 public class ChatController {
@@ -22,14 +27,17 @@ public class ChatController {
         this.openaiRunner = openaiRunner;
     }
 
+    /**
+     * Receives a user prompt, classifies it, and returns an AI-generated response.
+     * @param promptRequest The request containing the user prompt.
+     * @return The AI-generated response.
+     */
     @PostMapping("/response")
     public String getAiResponse(@RequestBody PromptRequest promptRequest) {
         String prompt = promptRequest.getPrompt();
 
-        // Классифицируем вопрос
         String category = classificationService.classifyText(prompt);
 
-        // Проверяем категорию и отправляем соответствующий ответ
         if (category.equals("medical")) {
             return openaiRunner.sendMessage(prompt);
         } else {
