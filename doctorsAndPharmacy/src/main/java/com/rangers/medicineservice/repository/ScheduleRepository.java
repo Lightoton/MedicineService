@@ -15,6 +15,9 @@ public interface ScheduleRepository extends JpaRepository<Schedule, UUID> {
 
     Schedule findByScheduleId(UUID id);
 
+    @Query("SELECT s FROM Schedule s WHERE s.user.userId = :userId and s.status='IN_PROGRESS'")
+    List<Schedule> findAllByUserInProgress(UUID userId);
+
     @Query("SELECT s FROM Schedule s WHERE s.doctor.doctorId = :doctorId AND s.status = 'FREE'")
     List<Schedule> findByDoctor(@Param("doctorId") UUID doctorId);
 

@@ -45,7 +45,6 @@ public class UserServiceImpl implements UserService {
     public List<PrescriptionDto> getUserPrescriptions(UUID id) {
         User user = userRepository.findById(id).orElse(null);
         List<PrescriptionDto> prescriptionDtoList = new ArrayList<>();
-
         if (user == null || user.getPrescriptions().isEmpty()) {
             return Collections.emptyList();
         } else {

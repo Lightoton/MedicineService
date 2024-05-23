@@ -16,6 +16,12 @@
             <artifactId>doctorsAndPharmacy</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.rangers.medicineservice</groupId>
+            <artifactId>openai-chatbot</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

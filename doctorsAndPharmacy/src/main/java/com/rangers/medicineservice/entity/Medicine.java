@@ -1,6 +1,7 @@
 package com.rangers.medicineservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.rangers.medicineservice.entity.enums.MedicineCategory;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -20,6 +21,7 @@ public class Medicine {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "medicine_id")
+    @JsonProperty("id")
     private UUID medicineId;
 
     @Column(name = "medicine_name")

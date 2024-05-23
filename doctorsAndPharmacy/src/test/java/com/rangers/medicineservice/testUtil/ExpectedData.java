@@ -2,9 +2,18 @@ package com.rangers.medicineservice.testUtil;
 
 import com.rangers.medicineservice.dto.DoctorDto;
 import com.rangers.medicineservice.dto.MedicineDto;
-import com.rangers.medicineservice.entity.Doctor;
+import com.rangers.medicineservice.dto.PrescriptionDto;
+import com.rangers.medicineservice.entity.CartItem;
+import com.rangers.medicineservice.entity.Medicine;
+import com.rangers.medicineservice.entity.Prescription;
+import com.rangers.medicineservice.entity.User;
+import com.rangers.medicineservice.entity.enums.MedicineCategory;
 
-import java.util.ArrayList;
+import javax.swing.text.DateFormatter;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,7 +31,7 @@ public class ExpectedData {
         return List.of(doctor1, doctor2);
     }
 
-    public static List<MedicineDto> getExpectedMedicine(){
+    public static List<MedicineDto> getExpectedMedicines(){
         MedicineDto medicineDto1 = new MedicineDto();
         medicineDto1.setId("01f558a1-736b-4916-b7e8-02a06c63ac8a");
         medicineDto1.setName("Claritin");
@@ -61,4 +70,47 @@ public class ExpectedData {
         return List.of(medicineDto1);
     }
 
+    public static List<CartItem> getExpectedCartItems() {
+        CartItem cartItem = new CartItem();
+        cartItem.setCartItemId(UUID.fromString("e7ecbc11-0064-4764-9872-aae30692cf7f"));
+        Medicine medicine = new Medicine();
+        medicine.setMedicineId(UUID.fromString("8bda1395-2ee3-4aee-80c1-842bedd9f4c2"));
+        cartItem.setMedicine(medicine);
+        User user = new User();
+        user.setUserId(UUID.fromString("ac5c8867-676f-4737-931f-052cbb9b4a11"));
+        cartItem.setUser(user);
+        cartItem.setQuantity(1);
+        return List.of(cartItem);
+    }
+
+    public static Medicine getExpectedMedicine(){
+        Medicine medicine = new Medicine();
+        medicine.setMedicineId(UUID.fromString("01f558a1-736b-4916-b7e8-02a06c63ac8a"));
+        medicine.setName("Claritin");
+        medicine.setDescription("Non-drowsy antihistamine for seasonal allergy relief.");
+        medicine.setPrice(BigDecimal.valueOf(8.99));
+        medicine.setCategory(MedicineCategory.ANTIHIAMINES);
+        return medicine;
+    }
+
+    public static Prescription getExpectedPrescription() {
+        Prescription prescription = new Prescription();
+        prescription.setPrescriptionId(UUID.fromString("ac4c4444-176f-4754-1357-f52cbb9b4a95"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime createdAt = LocalDateTime.parse("2023-11-25 17:00:00", formatter);
+        prescription.setCreatedAt(LocalDate.from(createdAt));
+        LocalDateTime expDate = LocalDateTime.parse("2025-11-26 17:00:00", formatter);
+        prescription.setExpDate(LocalDate.from(expDate));
+        prescription.setActive(true);
+        return prescription;
+    }
+
+    public static PrescriptionDto getExpectedPrescriptionDto() {
+        PrescriptionDto prescriptionDto = new PrescriptionDto();
+        prescriptionDto.setPrescriptionId("ac5c9927-676f-4714-2357-f52cbb9b4a95");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate expDate = LocalDate.parse("2024-11-25", formatter);
+        prescriptionDto.setExpiryDate(expDate);
+        return prescriptionDto;
+    }
 }
