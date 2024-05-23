@@ -8,6 +8,7 @@ import com.rangers.medicineservice.dto.ScheduleFullDto;
 import com.rangers.medicineservice.entity.Schedule;
 import com.rangers.medicineservice.service.impl.ScheduleServiceImpl;
 import com.rangers.medicineservice.util.MailSender;
+import com.rangers.medicineservice.util.ZoomUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -34,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -224,7 +226,7 @@ class ScheduleControllerTest {
     })
     void createVisitTestExc404(String path, String jsonBodyVariable) throws Exception {
 
-        String jsonBody = null;
+        String jsonBody;
 
         if ("json1".equals(jsonBodyVariable)) {
             jsonBody = json1;
@@ -243,14 +245,15 @@ class ScheduleControllerTest {
     @ParameterizedTest
     @ValueSource(strings = {
             "/schedule/create/ac5c8867-676f-4737-931f-052cbb9b4a94",
-            "/schedule/create/18d62c9d-d863-4bb2-b7f4-c1dcf692116e"
+            "/schedule/create/ac5c8867-676f-4737-931f-052cbb9b4a95"
+//            "/schedule/create/18d62c9d-d863-4bb2-b7f4-c1dcf692116e"
     })
     void createVisitTestExc400(String path) throws Exception {
 
         String jsonBody = """
                 {
                     "user_id" : "ac5c8867676f4737931f052cbb9b4a11",
-                    "appointmentType" : "OFFLINE"
+                    "appointmentType" : "ONLINE"
                 }""";
 
         mockMvc.perform(MockMvcRequestBuilders

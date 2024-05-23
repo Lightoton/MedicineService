@@ -54,6 +54,7 @@ class MedicineControllerTest {
         String json = mvcResult.getResponse().getContentAsString();
         List<MedicineDto> actual = objectMapper.readValue(json, new TypeReference<>() {
         });
+//        Assertions.assertTrue(actual.size() == 3);
 
         Assertions.assertTrue(expected.size() == actual.size() && expected.containsAll(actual));
     }

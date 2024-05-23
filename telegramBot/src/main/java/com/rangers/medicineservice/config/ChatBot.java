@@ -211,6 +211,8 @@ public class ChatBot extends TelegramLongPollingBot {
             handleBackToMainManuCallback(chatId);
         } else if (callbackData.startsWith("back_btn:")) {
             handleBackupCallback(chatId, callbackData);
+        }   else if (callbackData.startsWith("do not stock the prescription")) {
+            handleChooseMedicinesCallback(chatId);
         }  else {
             handleDefaultCallback(chatId, callbackData);
         }
@@ -476,6 +478,10 @@ public class ChatBot extends TelegramLongPollingBot {
         }
     }
 
+    private void handleChooseMedicinesCallback(String chatId){
+        sendMenu(chatId, GetButtons.getMedicineCategoryButtons(), MenuHeader.CHOOSE_MEDICINE_CATEGORY);
+    }
+
     private void handleMedicineCategoryCallback(String chatId, String callbackData) {
         String categoryName = callbackData.substring("category:".length());
         sendMenu(chatId, GetButtons.getListsMedicines(categoryName), MenuHeader.CHOOSE_MEDICINE);
@@ -602,7 +608,7 @@ public class ChatBot extends TelegramLongPollingBot {
 
     private void handleChoosePrescriptionCallBack(String chatId) {
         String userId = userService.getUserIdByChatId(chatId);
-        List<PrescriptionDto> prescriptions = userService.getUserPrescriptions(UUID.fromString(userId));
+//        List<PrescriptionDto> prescriptions = userService.getUserPrescriptions(UUID.fromString(userId));
         sendMenu(chatId, GetButtons.getListPrescription(userId), MenuHeader.CHOOSE_PRESCRIPTION);
     }
 
