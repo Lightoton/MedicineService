@@ -7,7 +7,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Map;
-
+/**
+ * User variable storage class
+ *
+ * @author Viktor
+ */
 @Getter
 @Setter
 public class UserVariable {

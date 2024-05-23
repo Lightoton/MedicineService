@@ -3,7 +3,10 @@ package com.rangers.medicineservice.config;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-
+/**
+ * Configuration class for configuring bot properties.
+ * @author Viktor
+ */
 @Configuration
 @Data
 public class BotConfig {

@@ -1,5 +1,9 @@
 package com.rangers.medicineservice.utils.headers;
-
+/**
+ * This class contains constant strings used as headers or prompts in various menus and user interactions.
+ * @author Viktor
+ * @author Volha
+ */
 public class MenuHeader {
     public static final String CHOOSE_ACTION = "Please, choose action";
     public static final String CHOOSE_SPECIALIZATION = "Please, choose doctor's specialization";

@@ -28,7 +28,10 @@ public class GetBotInfo {
                                 [Maksym](https://www.linkedin.com/in/maksym-bondarenko-8a6ba0280/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
                                 [Oleksandr](https://www.linkedin.com/in/oleksandr-harbuz-1b9b41300)
                                 [Oleksii](https://www.linkedin.com/in/oleksii-chilibiiskyi/)
-                                [Viktor](https://github.com/Lightoton)
+                                [Viktor](https://www.linkedin.com/in/viktor-bulatov-46a54b30b/)
+                               \s
+                                *Project curator:*
+                                [Mikhail](https://www.linkedin.com/in/mikhail-egorov-54715917b/)
                                \s
                                 *We are constantly working to improve our bot and will be happy to receive your feedback and suggestions\\.*""";
     }
