@@ -1,5 +1,27 @@
 package com.rangers.medicineservice.utils;
-
+/**
+ * The {@code GetBotInfo} class provides a static method to retrieve information about the MedicineBot.
+ * <p>
+ * This information includes an overview of the bot's features, such as scheduling appointments with doctors,
+ * accessing the pharmacy, asking questions to the AI, and managing personal accounts.
+ * Additionally, it provides links to the development team's LinkedIn profiles and the project curator.
+ * </p>
+ * <p>
+ * Usage:
+ * <pre>
+ * {@code
+ * String botInfo = GetBotInfo.getBotInfo();
+ * System.out.println(botInfo);
+ * }
+ * </pre>
+ * </p>
+ *
+ * <p>
+ * This class is intended to be used as a utility class, so it does not require instantiation.
+ * </p>
+ *
+ * @author Oleksii Chilibiiskyi
+ */
 public class GetBotInfo {
     public static String getBotInfo() {
         return """

@@ -21,6 +21,18 @@ import java.util.*;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * The {@code OrderServiceImpl} class implements the {@link OrderService} interface and provides
+ * methods to create orders from cart items and prescriptions, as well as to retrieve all orders.
+ * <p>
+ * This class is annotated with {@link Service} to indicate that it's a service component
+ * in the Spring context and uses {@link Transactional} for managing transactions.
+ * </p>
+ * <p>
+ * The class makes use of several repositories and mappers to handle the persistence and mapping
+ * of orders, order details, cart items, prescriptions, users, and medicines.
+ * </p>
+ */
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
@@ -33,11 +45,18 @@ public class OrderServiceImpl implements OrderService {
     private final MedicineRepository medicineRepository;
     private final PrescriptionRepository prescriptionRepository;
     private final UserMapper userMapper;
-    private final MedicineMapper medicineMapper;
     private final OrderMapper orderMapper;
     private final OrderFromPrescriptionMapper orderFromPrescriptionMapper;
     private final CartItemMapper cartItemMapper;
 
+    /**
+     * Creates an order from a set of cart items.
+     *
+     * @param cartItems the set of cart items to create the order from
+     * @return a DTO representing the created order
+     * @throws IllegalArgumentException  if the cart items set is empty or if any medicine is not found
+     * @throws RunOutOfMedicineException if there is not enough quantity of any medicine
+     */
     @Override
     @Transactional
     public CreatedOrderDto createOrder(Set<CartItem> cartItems) {
@@ -101,6 +120,15 @@ public class OrderServiceImpl implements OrderService {
         return orderMapper.toDto(orderBeforeCreation);
     }
 
+    /**
+     * Adds an order based on a prescription.
+     *
+     * @param prescriptionDto the DTO representing the prescription
+     * @return a DTO representing the created order
+     * @throws DataNotExistExp         if the prescription details are not found or the user ID does not match
+     * @throws InActivePrescriptionExp if the prescription is inactive or expired
+     * @throws NotEnoughBalanceExp     if there is not enough quantity of any medicine
+     */
     @Override
     @Transactional
     public OrderFromPrescriptionDto addOrder(PrescriptionDto prescriptionDto) {
