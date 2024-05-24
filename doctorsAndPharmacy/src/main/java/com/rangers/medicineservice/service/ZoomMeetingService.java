@@ -10,6 +10,31 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * The {@code ZoomMeetingService} class provides functionality to create Zoom meetings.
+ * It uses {@link ZoomAuthService} to obtain an access token for Zoom API requests.
+ * <p>
+ * This class is annotated with {@link Service} to indicate that it's a service component
+ * in the Spring context.
+ * </p>
+ * <p>
+ * Usage:
+ * <pre>
+ * {@code
+ * @Autowired
+ * private ZoomMeetingService zoomMeetingService;
+ *
+ * String meetingLink = zoomMeetingService.createZoomMeeting(startTime);
+ * }
+ * </pre>
+ * </p>
+ *
+ * @author Oleksii Chilibiiskyi
+ * @see RestTemplate
+ * @see ZoomAuthService
+ * @see HttpHeaders
+ * @see HttpEntity
+ */
 @Service
 public class ZoomMeetingService {
 
@@ -23,6 +48,17 @@ public class ZoomMeetingService {
         this.zoomAuthService = zoomAuthService;
     }
 
+    /**
+     * Creates a Zoom meeting.
+     * <p>
+     * This method sends an HTTP POST request to the Zoom API to create a meeting using the specified start time.
+     * The request includes the necessary headers and body with the meeting details.
+     * </p>
+     *
+     * @param startTime the start time of the meeting in ISO_LOCAL_DATE_TIME format with a 'Z' suffix
+     * @return the URL to join the created Zoom meeting
+     * @throws RuntimeException if the request to create the Zoom meeting fails
+     */
     public String createZoomMeeting(String startTime) {
 
         String accessToken = zoomAuthService.getAccessToken();
@@ -46,9 +82,20 @@ public class ZoomMeetingService {
         }
     }
 
+    /**
+     * Constructs an {@code HttpEntity} with the meeting details.
+     * <p>
+     * This method constructs the request body with the meeting details including the topic, type, start time, duration,
+     * timezone, password, agenda, and settings. The headers are also included in the {@code HttpEntity}.
+     * </p>
+     *
+     * @param startTime the start time of the meeting in ISO_LOCAL_DATE_TIME format with a 'Z' suffix
+     * @param headers   the headers to include in the request
+     * @return the constructed {@code HttpEntity} with the request body and headers
+     */
     private static @NotNull HttpEntity<String> getStringHttpEntity(String startTime, HttpHeaders headers) {
         String requestBody = "{\n" +
-                "    \"topic\":\"You have an appointment with a doctor ______\",\n" +
+                "    \"topic\":\"You have an appointment with a doctor \",\n" +
                 "    \"type\":\"2\",\n" +
                 "    \"start_time\":\"" + startTime + "\",\n" +
                 "    \"duration\":\"60\",\n" +
