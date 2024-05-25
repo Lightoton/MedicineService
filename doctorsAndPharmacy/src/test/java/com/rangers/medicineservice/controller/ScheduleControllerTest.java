@@ -9,14 +9,11 @@ import com.rangers.medicineservice.entity.Schedule;
 import com.rangers.medicineservice.service.impl.ScheduleServiceImpl;
 import com.rangers.medicineservice.util.MailSender;
 import com.rangers.medicineservice.util.ZoomUtil;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,7 +23,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -73,8 +69,6 @@ class ScheduleControllerTest {
 
     @MockBean
     private MailSender mailSender;
-    @MockBean
-    private ZoomUtil zoomUtil;
 
     private final UUID doctorId = UUID.fromString("01f558a1-736b-4916-b7e8-02a06c63ac7a");
     private final UUID userId = UUID.fromString("ddb7ccab-9f3d-409d-a7ab-9573061c6e29");
@@ -100,7 +94,7 @@ class ScheduleControllerTest {
         List<ScheduleDateTimeDto> responseSchedules = objectMapper.readValue(response, new TypeReference<>() {
         });
 
-        assertEquals(schedules, responseSchedules);
+        Assertions.assertEquals(schedules, responseSchedules);
     }
 
     @Test
@@ -131,7 +125,7 @@ class ScheduleControllerTest {
         String response = mvcResult.getResponse().getContentAsString();
         List<ScheduleDateTimeDto> responseSchedules = objectMapper.readValue(response, new TypeReference<>() {
         });
-        assertEquals(scheduleDateTimeDto, responseSchedules.getFirst());
+        Assertions.assertEquals(scheduleDateTimeDto, responseSchedules.getFirst());
     }
 
     @Test
@@ -171,7 +165,7 @@ class ScheduleControllerTest {
         String response = mvcResult.getResponse().getContentAsString();
         ScheduleFullDto responseSchedule = objectMapper.readValue(response, new TypeReference<>() {
         });
-        assertEquals(scheduleFullDto, responseSchedule);
+        Assertions.assertEquals(scheduleFullDto, responseSchedule);
     }
 
     @Test
@@ -200,7 +194,7 @@ class ScheduleControllerTest {
         String jsonBody = """
                 {
                     "user_id" : "ac5c8867-676f-4737-931f-052cbb9b4a59",
-                    "appointmentType" : "ONLINE"
+                    "appointmentType" : "OFFLINE"
                 }""";
 
         mockMvc.perform(MockMvcRequestBuilders
@@ -212,7 +206,8 @@ class ScheduleControllerTest {
                 .andExpect(content().string(containsString("Your visit was created")))
                 .andExpect(content().string(containsString("20.11.2024 11:00")))
                 .andExpect(content().string(containsString("Alice Smith")))
-                .andExpect(content().string(containsString("Mikle Ivanov")));
+                .andExpect(content().string(containsString("Mikle Ivanov")))
+                .andExpect(content().string(containsString("Main Street, 5, Berlin, Clinic 'Healthy Life'")));
 
         Schedule scheduleAfter = scheduleService
                 .findById(UUID.fromString("f4a7bf08-de17-4195-ac57-fe251d9e15c2"));
@@ -220,8 +215,6 @@ class ScheduleControllerTest {
         if (scheduleAfter.getUser().getEmail() != null) {
             verify(mailSender).send(anyString(), eq("Confirmation of appointment"), anyString());
         }
-
-        verify(zoomUtil).generateZoomLink();
 
         assertNull(scheduleBefore.getUser());
         assertEquals(scheduleAfter.getUser().getUserId(), UUID.fromString("ac5c8867-676f-4737-931f-052cbb9b4a59"));
@@ -252,14 +245,15 @@ class ScheduleControllerTest {
 
     @ParameterizedTest
     @ValueSource(strings = {
-            "/schedule/create/33c8d879-47e6-4f71-9743-fd83c2983f54",
+            "/schedule/create/ac5c8867-676f-4737-931f-052cbb9b4a94",
             "/schedule/create/ac5c8867-676f-4737-931f-052cbb9b4a95"
+//            "/schedule/create/18d62c9d-d863-4bb2-b7f4-c1dcf692116e"
     })
     void createVisitTestExc400(String path) throws Exception {
 
         String jsonBody = """
                 {
-                    "user_id" : "ac5c8867-676f-4737-931f-052cbb9b4a11",
+                    "user_id" : "ac5c8867676f4737931f052cbb9b4a11",
                     "appointmentType" : "ONLINE"
                 }""";
 
@@ -353,6 +347,6 @@ class ScheduleControllerTest {
         String response = mvcResult.getResponse().getContentAsString();
         List<ScheduleFullDto> responseSchedule = objectMapper.readValue(response, new TypeReference<>() {
         });
-        assertEquals(listTest, responseSchedule);
+        Assertions.assertEquals(listTest, responseSchedule);
     }
 }

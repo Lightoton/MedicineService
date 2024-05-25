@@ -11,4 +11,6 @@ public class TestConfig {
     ZoomAuthService zoomAuthService;
     @MockBean
     ZoomMeetingService zoomMeetingService;
+    @MockBean
+    ZoomUtil zoomUtil;
 }
