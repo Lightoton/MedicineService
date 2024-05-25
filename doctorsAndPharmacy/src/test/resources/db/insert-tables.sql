@@ -32,7 +32,8 @@ VALUES
     (UNHEX('18d62c9dd8634bb2b7f4c1dcf692116e'), UNHEX('01f558a1736b4916b7e802a06c63ac7a'),null, '2024-11-23 10:00:00', 'FREE'),
     (UNHEX('1391e7dfbdf94faaa95fc6ea3cef7594'), UNHEX('01f558a1736b4916b7e802a06c63ac7a'),null, '2024-11-23 15:00:00', 'FREE'),
     (UNHEX('a18fc37a32ee44c0b1c1245859861055'), UNHEX('5c51a0874b5f4d038ab12d2bc4fc2f14'),null, '2024-10-24 20:00:00', 'FREE'),
-    (UNHEX('33c8d87947e64f719743fd83c2983fe2'), UNHEX('8bda13952ee34aee80c1842bedd9f4c1'),null, '2024-11-12 15:15:00', 'FREE');
+    (UNHEX('33c8d87947e64f719743fd83c2983fe2'), UNHEX('8bda13952ee34aee80c1842bedd9f4c1'),null, '2024-11-12 15:15:00', 'FREE'),
+    (UNHEX('33c8d87947e64f719743fd83c2983f54'), null,null, '2024-11-12 15:15:00', 'FREE');
 
 INSERT INTO prescriptions (prescription_id, doctor_id, user_id, exp_date, created_at, is_active)
 VALUES
