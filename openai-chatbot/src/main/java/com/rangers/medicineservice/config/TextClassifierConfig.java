@@ -10,11 +10,9 @@ import opennlp.tools.util.TrainingParameters;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +25,7 @@ import java.util.List;
 @Configuration
 public class TextClassifierConfig {
 
-    @Value("${training.opennlp.data.path}")
-    private String trainingDataPath;
+private static final String TRAINING_DATA_PATH = "training_opennlp_data.txt";
 
     /**
      * Method for training a text categorization model.
@@ -41,7 +38,9 @@ public class TextClassifierConfig {
         List<DocumentSample> documentSamples = new ArrayList<>();
 
         // Reading the training data file
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(trainingDataPath), StandardCharsets.UTF_8))) {
+        ClassPathResource resource = new ClassPathResource(TRAINING_DATA_PATH);
+        try (InputStream inputStream = resource.getInputStream();
+             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
             String line;
             // Read each line from the file
             while ((line = reader.readLine()) != null) {

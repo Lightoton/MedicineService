@@ -24,9 +24,9 @@ spring:
 
 
   datasource:
-    url: jdbc:mysql://localhost:3306/medicine_service_test
+    url: jdbc:mysql://localhost:3306/test
     username: root
-    password: 23402
+    password: 7203312
 
   liquibase:
     enabled: false

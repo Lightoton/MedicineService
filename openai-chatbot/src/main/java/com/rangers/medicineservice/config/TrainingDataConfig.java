@@ -6,9 +6,11 @@ import com.rangers.medicineservice.entity.QuestionAnswer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,8 +22,7 @@ import java.util.List;
 @Configuration
 public class TrainingDataConfig {
 
-    @Value("${training.openai.data.path}")
-    private String trainingFilePath;
+private static final String TRAINING_FILE_PATH ="training_file.json";
 
     /**
      * Bean for reading training data from a file and converting it to a list of QuestionAnswer objects.
@@ -31,13 +32,13 @@ public class TrainingDataConfig {
     public List<QuestionAnswer> trainingData() {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            File file = new File(trainingFilePath);
-            return objectMapper.readValue(file, new TypeReference<>() {});
+            ClassPathResource resource = new ClassPathResource(TRAINING_FILE_PATH);
+            return objectMapper.readValue(resource.getInputStream(), new TypeReference<>() {});
         } catch (IOException e) {
-            e.printStackTrace();
+
             return Collections.emptyList();
         }
     }
-}
+    }
 
 
