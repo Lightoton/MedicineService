@@ -2,7 +2,6 @@ package com.rangers.medicineservice.service;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -44,11 +43,11 @@ public class ZoomAuthService {
 
     Dotenv dotenv = Dotenv.load();
 
-    private final String clientId= dotenv.get("ZOOM_CLIENT_ID");
+    private final String clientId = dotenv.get("ZOOM_CLIENT_ID");
 
-    private final String accountId= dotenv.get("ZOOM_ACCOUNT_ID");
+    private final String accountId = dotenv.get("ZOOM_ACCOUNT_ID");
 
-    private final String clientSecret= dotenv.get("ZOOM_CLIENT_SECRET");
+    private final String clientSecret = dotenv.get("ZOOM_CLIENT_SECRET");
 
     private final RestTemplate restTemplate;
 

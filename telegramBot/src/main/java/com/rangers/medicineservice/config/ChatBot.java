@@ -16,7 +16,6 @@ import com.rangers.medicineservice.utils.formater.ScheduleFormat;
 import com.rangers.medicineservice.utils.headers.MenuHeader;
 import com.rangers.medicineservice.utils.userVariable.UserVariable;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -284,9 +283,9 @@ public class ChatBot extends TelegramLongPollingBot {
             handleChooseMedicinesCallback(chatId);
         } else if (callbackData.startsWith("back_btn:")) {
             handleBackupCallback(chatId, callbackData);
-        }   else if (callbackData.startsWith("do not stock the prescription")) {
+        } else if (callbackData.startsWith("do not stock the prescription")) {
             handleChooseMedicinesCallback(chatId);
-        }  else {
+        } else {
             handleDefaultCallback(chatId, callbackData);
         }
     }
