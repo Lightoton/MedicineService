@@ -67,12 +67,12 @@ public class ChatBot extends TelegramLongPollingBot {
     private final PrescriptionServiceImpl prescriptionService;
     private final OrderServiceImpl orderService;
 
-    public ChatBot(@Value("${bot.token}") String botToken, ChatController chatController, RegistrationUser registrationUser,
+    public ChatBot(ChatController chatController, RegistrationUser registrationUser,
                    UserServiceImpl userService, BotConfig config,
                    ScheduleServiceImpl scheduleService, SupportMailSender supportMainSender, ScheduleMapper scheduleMapper
             , ScheduleFormat scheduleFormat, MedicineServiceImpl medicineService, CartItemServiceImpl cartItemService,
                    PrescriptionServiceImpl prescriptionService, OrderServiceImpl orderService) {
-        super(botToken);
+        super(config.token);
         this.chatController = chatController;
         this.registrationUser = registrationUser;
         this.userService = userService;
@@ -86,6 +86,7 @@ public class ChatBot extends TelegramLongPollingBot {
         this.prescriptionService = prescriptionService;
         this.orderService = orderService;
     }
+
 
     /**
      * Returns the bot username.

@@ -1,5 +1,6 @@
 package com.rangers.medicineservice.service;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -19,7 +20,7 @@ import java.util.Objects;
  * </p>
  * <p>
  * The Zoom API credentials (client ID, account ID, and client secret) are injected from the
- * application properties using the {@code @Value} annotation.
+ * application properties using the dotenv.
  * </p>
  * <p>
  * Usage:
@@ -41,14 +42,13 @@ import java.util.Objects;
 @Service
 public class ZoomAuthService {
 
-    @Value("${zoom.client-id}")
-    private String clientId;
+    Dotenv dotenv = Dotenv.load();
 
-    @Value("${zoom.account-id}")
-    private String accountId;
+    private final String clientId= dotenv.get("ZOOM_CLIENT_ID");
 
-    @Value("${zoom.client-secret}")
-    private String clientSecret;
+    private final String accountId= dotenv.get("ZOOM_ACCOUNT_ID");
+
+    private final String clientSecret= dotenv.get("ZOOM_CLIENT_SECRET");
 
     private final RestTemplate restTemplate;
 
