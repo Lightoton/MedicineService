@@ -18,9 +18,11 @@ import com.rangers.medicineservice.repository.OrderRepository;
 import com.rangers.medicineservice.repository.PrescriptionRepository;
 import com.rangers.medicineservice.repository.ScheduleRepository;
 import com.rangers.medicineservice.repository.UserRepository;
+import com.rangers.medicineservice.service.interf.OrderService;
 import com.rangers.medicineservice.service.interf.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,6 +30,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * The {@code UserServiceImpl} class implements the {@link UserService} interface and provides
+ * methods to create users , update user, get userId by chatId, and get History Orders
+ * History Schedules, HistoryPrescriptions of user.
+ *
+ */
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
