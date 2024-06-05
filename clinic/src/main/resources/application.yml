@@ -13,7 +13,7 @@ spring:
     username: medicine.service@outlook.com
     password: medicineservice1
     port: 587
-    protocol: STARTTLS
+    protocol: smtp
     properties:
       mail:
         debug: true
@@ -23,18 +23,12 @@ spring:
           required: true
 
   datasource:
-    url: jdbc:mysql://localhost:3306/medicine_service
-    username: root
-    password: 23402
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB:app}
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:7203312}
 
   liquibase:
     change-log: classpath:db/changelog/changelog-master.xml
-bot:
-  name: ${bot.name}
-  token: ${bot.token}
-zoom:
-  client-id: ${zoom.client-id}
-  client-secret: ${zoom.client-secret}
-  account-id: ${zoom.account-id}
+
 server:
   port: 8080

@@ -1,6 +1,6 @@
 package com.rangers.medicineservice.config;
 
-import org.springframework.beans.factory.annotation.Value;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
@@ -8,13 +8,14 @@ import org.springframework.web.client.RestTemplate;
 /**
  * Configuration class for creating and setting up a RestTemplate bean
  * that adds the OpenAI API key to the Authorization header for all outgoing requests.
+ *
  * @author Maksym Bondarenko
  */
 @Configuration
 public class RestTemplateConfig {
 
-    @Value("${openai.key}")
-    private String openaiApiKey;
+    Dotenv dotenv = Dotenv.load();
+    private final String openaiApiKey = dotenv.get("OPEN_AI_KEY");
 
     @Bean(name = "openai_restTemplate")
     public RestTemplate restTemplate() {

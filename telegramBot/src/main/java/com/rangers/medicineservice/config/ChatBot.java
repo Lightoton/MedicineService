@@ -16,7 +16,6 @@ import com.rangers.medicineservice.utils.formater.ScheduleFormat;
 import com.rangers.medicineservice.utils.headers.MenuHeader;
 import com.rangers.medicineservice.utils.userVariable.UserVariable;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -67,12 +66,12 @@ public class ChatBot extends TelegramLongPollingBot {
     private final PrescriptionServiceImpl prescriptionService;
     private final OrderServiceImpl orderService;
 
-    public ChatBot(@Value("${bot.token}") String botToken, ChatController chatController, RegistrationUser registrationUser,
+    public ChatBot(ChatController chatController, RegistrationUser registrationUser,
                    UserServiceImpl userService, BotConfig config,
                    ScheduleServiceImpl scheduleService, SupportMailSender supportMainSender, ScheduleMapper scheduleMapper
             , ScheduleFormat scheduleFormat, MedicineServiceImpl medicineService, CartItemServiceImpl cartItemService,
                    PrescriptionServiceImpl prescriptionService, OrderServiceImpl orderService) {
-        super(botToken);
+        super(config.token);
         this.chatController = chatController;
         this.registrationUser = registrationUser;
         this.userService = userService;
@@ -86,6 +85,7 @@ public class ChatBot extends TelegramLongPollingBot {
         this.prescriptionService = prescriptionService;
         this.orderService = orderService;
     }
+
 
     /**
      * Returns the bot username.
@@ -283,9 +283,9 @@ public class ChatBot extends TelegramLongPollingBot {
             handleChooseMedicinesCallback(chatId);
         } else if (callbackData.startsWith("back_btn:")) {
             handleBackupCallback(chatId, callbackData);
-        }   else if (callbackData.startsWith("do not stock the prescription")) {
+        } else if (callbackData.startsWith("do not stock the prescription")) {
             handleChooseMedicinesCallback(chatId);
-        }  else {
+        } else {
             handleDefaultCallback(chatId, callbackData);
         }
     }

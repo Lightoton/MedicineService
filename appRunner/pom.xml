@@ -6,9 +6,11 @@
         <groupId>com.rangers.medicineservice</groupId>
         <artifactId>MedicineService</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath/>
     </parent>
 
     <artifactId>appRunner</artifactId>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
@@ -31,20 +33,15 @@
             <artifactId>openai-chatbot</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
-    </dependencies>
 
+    </dependencies>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
+                    <mainClass>com.rangers.medicineservice.MedicineServiceApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

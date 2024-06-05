@@ -1,4 +1,4 @@
 FROM openjdk:21
-ARG JAR_FILE=target/*.jar
-COPY ./out/artifacts/MedicineService_jar/MedicineService.jar /myproj/app.jar
-ENTRYPOINT ["java","-jar","/myproj/app.jar"]
+COPY appRunner/target/appRunner-0.0.1-SNAPSHOT.jar app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
+EXPOSE 8080
