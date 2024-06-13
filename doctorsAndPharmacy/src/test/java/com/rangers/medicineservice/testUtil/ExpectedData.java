@@ -89,7 +89,7 @@ public class ExpectedData {
         medicine.setName("Claritin");
         medicine.setDescription("Non-drowsy antihistamine for seasonal allergy relief.");
         medicine.setPrice(BigDecimal.valueOf(8.99));
-        medicine.setCategory(MedicineCategory.ANTIHIAMINES);
+        medicine.setCategory(MedicineCategory.ANTIHISTAMINES);
         return medicine;
     }
 

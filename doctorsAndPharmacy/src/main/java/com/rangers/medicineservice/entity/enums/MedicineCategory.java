@@ -2,8 +2,14 @@ package com.rangers.medicineservice.entity.enums;
 
 public enum MedicineCategory {
     SEDATIVES,
-    ANTIHIAMINES,
+    ANTIHISTAMINES,
     VITAMINS_AND_SUPPLEMENTS,
     PAIN_RELIEVERS,
-    ANTIBIOTICS
+    ANTIBIOTICS,
+    ANTIDIABETICS,
+    CARDIOVASCULAR,
+    GASTROINTESTINAL,
+    RESPIRATORY,
+    HORMONES,
+    CORTICOSTEROIDS
 }
