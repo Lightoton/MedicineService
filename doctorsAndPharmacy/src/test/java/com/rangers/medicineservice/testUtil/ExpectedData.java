@@ -9,7 +9,6 @@ import com.rangers.medicineservice.entity.Prescription;
 import com.rangers.medicineservice.entity.User;
 import com.rangers.medicineservice.entity.enums.MedicineCategory;
 
-import javax.swing.text.DateFormatter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,7 +18,7 @@ import java.util.UUID;
 
 public class ExpectedData {
 
-    public static List<DoctorDto> getExpectedDoctors(){
+    public static List<DoctorDto> getExpectedDoctors() {
         DoctorDto doctor1 = new DoctorDto();
         doctor1.setFullName("Alice Smith");
         doctor1.setSpecialization("FAMILY_DOCTOR");
@@ -31,13 +30,13 @@ public class ExpectedData {
         return List.of(doctor1, doctor2);
     }
 
-    public static List<MedicineDto> getExpectedMedicines(){
+    public static List<MedicineDto> getExpectedMedicines() {
         MedicineDto medicineDto1 = new MedicineDto();
         medicineDto1.setId("01f558a1-736b-4916-b7e8-02a06c63ac8a");
         medicineDto1.setName("Claritin");
         medicineDto1.setDescription("Non-drowsy antihistamine for seasonal allergy relief.");
         medicineDto1.setPrice("8.99");
-        medicineDto1.setCategory("ANTIHIAMINES");
+        medicineDto1.setCategory("ANTIHISTAMINES");
         medicineDto1.setAvailableQuantity("25");
 
         MedicineDto medicineDto2 = new MedicineDto();
@@ -59,13 +58,13 @@ public class ExpectedData {
         return List.of(medicineDto1, medicineDto2, medicineDto3);
     }
 
-    public static List<MedicineDto> getExpectedMedicineByCategory(){
+    public static List<MedicineDto> getExpectedMedicineByCategory() {
         MedicineDto medicineDto1 = new MedicineDto();
         medicineDto1.setId("01f558a1-736b-4916-b7e8-02a06c63ac8a");
         medicineDto1.setName("Claritin");
         medicineDto1.setDescription("Non-drowsy antihistamine for seasonal allergy relief.");
         medicineDto1.setPrice("8.99");
-        medicineDto1.setCategory("ANTIHIAMINES");
+        medicineDto1.setCategory("ANTIHISTAMINES");
         medicineDto1.setAvailableQuantity("25");
         return List.of(medicineDto1);
     }
@@ -83,7 +82,7 @@ public class ExpectedData {
         return List.of(cartItem);
     }
 
-    public static Medicine getExpectedMedicine(){
+    public static Medicine getExpectedMedicine() {
         Medicine medicine = new Medicine();
         medicine.setMedicineId(UUID.fromString("01f558a1-736b-4916-b7e8-02a06c63ac8a"));
         medicine.setName("Claritin");

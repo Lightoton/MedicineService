@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rangers.medicineservice.TestConfig;
 import com.rangers.medicineservice.dto.MedicineDto;
-import com.rangers.medicineservice.entity.CartItem;
 import com.rangers.medicineservice.entity.Medicine;
 import com.rangers.medicineservice.service.impl.MedicineServiceImpl;
 import com.rangers.medicineservice.testUtil.ExpectedData;
@@ -71,15 +70,16 @@ class MedicineControllerTest {
     }
 
     @Test
-    void getByCategoryPositiveTest() throws Exception{
+    void getByCategoryPositiveTest() throws Exception {
         List<MedicineDto> expected = ExpectedData.getExpectedMedicineByCategory();
 
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/medicine/getByCategory/ANTIHIAMINES"))
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/medicine/getByCategory/ANTIHISTAMINES"))
                 .andExpect(status().isOk())
                 .andReturn();
 
         String json = mvcResult.getResponse().getContentAsString();
-        List<MedicineDto> actual = objectMapper.readValue(json, new TypeReference<>() {});
+        List<MedicineDto> actual = objectMapper.readValue(json, new TypeReference<>() {
+        });
 
         Assertions.assertTrue(expected.size() == actual.size() && expected.containsAll(actual));
     }
@@ -96,18 +96,19 @@ class MedicineControllerTest {
     }
 
     @Test
-    void getByNamePositiveTest() throws Exception{
+    void getByNamePositiveTest() throws Exception {
         Medicine expected = ExpectedData.getExpectedMedicine();
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/medicine/getByName/Claritin"))
                 .andExpect(status().isOk())
                 .andReturn();
         String json = mvcResult.getResponse().getContentAsString();
-        Medicine actual = objectMapper.readValue(json, new TypeReference<>() {});
+        Medicine actual = objectMapper.readValue(json, new TypeReference<>() {
+        });
         Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    void getByNameTestExc404() throws Exception{
+    void getByNameTestExc404() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/medicine/getByName/Non-existing_name"))
                 .andExpect(status().isNotFound())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
