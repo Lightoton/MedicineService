@@ -1,0 +1,830 @@
+[
+  {
+    "question": "What should I do if I have a headache?",
+    "answer": "Headaches can have various causes, such as tension, stress, or even serious medical conditions. It's important to pay attention to symptoms and, if necessary, consult with a doctor."
+  },
+  {
+    "question": "What are common symptoms of a cold?",
+    "answer": "Common symptoms of a cold include coughing, sneezing, sore throat, runny or stuffy nose, and sometimes fever. Rest and fluids are often recommended to help manage symptoms."
+  },
+  {
+    "question": "How can I prevent the flu?",
+    "answer": "To prevent the flu, it's important to get vaccinated annually, practice good hand hygiene by washing hands frequently, avoid close contact with sick individuals, and maintain a healthy lifestyle with adequate sleep and nutrition."
+  },
+  {
+    "question": "What are the symptoms of food poisoning?",
+    "answer": "Symptoms of food poisoning can include nausea, vomiting, diarrhea, stomach cramps, and fever. It's important to stay hydrated and seek medical attention if symptoms are severe or persistent."
+  },
+  {
+    "question": "What should I do if I suspect I have a broken bone?",
+    "answer": "If you suspect you have a broken bone, it's important to seek medical attention immediately. Avoid moving the affected area and apply ice to reduce swelling while waiting for medical help."
+  },
+  {
+    "question": "What are the symptoms of a urinary tract infection (UTI)?",
+    "answer": "Symptoms of a UTI can include a strong, persistent urge to urinate, a burning sensation when urinating, passing frequent, small amounts of urine, urine that appears cloudy, urine that appears red, bright pink or cola-colored – a sign of blood in the urine, strong-smelling urine, pelvic pain, in women – especially in the center of the pelvis and around the area of the pubic bone."
+  },
+  {
+    "question": "How can I lower my cholesterol levels?",
+    "answer": "To lower cholesterol levels, it's important to maintain a healthy diet low in saturated and trans fats, increase consumption of fruits, vegetables, and whole grains, engage in regular physical activity, avoid smoking, limit alcohol consumption, and, if necessary, take prescribed cholesterol-lowering medications."
+  },
+  {
+    "question": "What are the symptoms of a heart attack?",
+    "answer": "Symptoms of a heart attack can include chest pain or discomfort, pain or discomfort in the jaw, neck, or back, shortness of breath, nausea, vomiting, lightheadedness, or cold sweats. It's important to seek emergency medical attention if you experience any of these symptoms."
+  },
+  {
+    "question": "How can I prevent dehydration?",
+    "answer": "To prevent dehydration, it's important to drink plenty of fluids throughout the day, especially water. Avoid excessive alcohol and caffeine consumption, eat water-rich fruits and vegetables, and be mindful of fluid intake during hot weather or physical activity."
+  },
+  {
+    "question": "What are the symptoms of depression?",
+    "answer": "Symptoms of depression can include persistent feelings of sadness, hopelessness, or emptiness, loss of interest or pleasure in activities once enjoyed, changes in appetite or weight, sleep disturbances, fatigue or loss of energy, feelings of worthlessness or guilt, difficulty concentrating or making decisions, and thoughts of death or suicide."
+  },
+  {
+    "question": "How can I manage stress effectively?",
+    "answer": "To manage stress effectively, it's important to practice relaxation techniques such as deep breathing, meditation, or yoga, engage in regular physical activity, maintain a healthy lifestyle with adequate sleep and nutrition, prioritize tasks and set realistic goals, seek social support from friends and family, and consider seeking professional help if stress becomes overwhelming."
+  },
+  {
+    "question": "What are the benefits of regular exercise?",
+    "answer": "Regular exercise offers numerous health benefits, including improved cardiovascular health, increased strength and flexibility, weight management, reduced risk of chronic diseases such as heart disease and diabetes, improved mood and mental health, and increased longevity."
+  },
+  {
+    "question": "How can I improve my sleep quality?",
+    "answer": "To improve sleep quality, it's important to maintain a consistent sleep schedule by going to bed and waking up at the same time every day, create a relaxing bedtime routine, create a comfortable sleep environment free from distractions, avoid caffeine, nicotine, and alcohol close to bedtime, and limit screen time before bed."
+  },
+  {
+    "question": "What are the symptoms of an allergic reaction?",
+    "answer": "Symptoms of an allergic reaction can include sneezing, runny or stuffy nose, itchy or watery eyes, itching or rash on the skin, hives, swelling of the face, lips, tongue, or throat, difficulty breathing, wheezing, or chest tightness. Severe allergic reactions, known as anaphylaxis, can be life-threatening and require immediate medical attention."
+  },
+  {
+    "question": "How can I prevent the spread of infectious diseases?",
+    "answer": "To prevent the spread of infectious diseases, it's important to practice good hygiene habits such as frequent handwashing with soap and water, covering your mouth and nose when coughing or sneezing, avoiding close contact with sick individuals, staying home when sick, keeping vaccinations up to date, and following public health guidelines during outbreaks."
+  },
+  {
+    "question": "What are the symptoms of asthma?",
+    "answer": "Symptoms of asthma can include wheezing, coughing, shortness of breath, and chest tightness. Asthma symptoms can vary in severity and may be triggered by factors such as allergens, exercise, or respiratory infections."
+  },
+  {
+    "question": "How can I manage high blood pressure?",
+    "answer": "To manage high blood pressure, it's important to maintain a healthy diet low in sodium, saturated fats, and cholesterol, engage in regular physical activity, maintain a healthy weight, limit alcohol consumption, avoid smoking, and take prescribed medications as directed by your healthcare provider."
+  },
+  {
+    "question": "What are the symptoms of a stroke?",
+    "answer": "Symptoms of a stroke can include sudden numbness or weakness in the face, arm, or leg, especially on one side of the body, sudden confusion, trouble speaking or understanding speech, sudden trouble seeing in one or both eyes, sudden trouble walking, dizziness, loss of balance or coordination, and sudden severe headache with no known cause."
+  },
+  {
+    "question": "How can I prevent skin cancer?",
+    "answer": "To prevent skin cancer, it's important to limit sun exposure, especially during peak hours, wear protective clothing, such as hats and sunglasses, use sunscreen with a high SPF, avoid tanning beds, and perform regular skin self-exams to monitor for any changes or abnormalities."
+  },
+  {
+    "question": "What are the symptoms of diabetes?",
+    "answer": "Symptoms of diabetes can include frequent urination, excessive thirst, unexplained weight loss, extreme hunger, fatigue, irritability, blurred vision, slow-healing wounds, and frequent infections. It's important to see a healthcare provider for proper diagnosis and management."
+  },
+  {
+    "question": "How can I prevent osteoporosis?",
+    "answer": "To prevent osteoporosis, it's important to consume an adequate amount of calcium and vitamin D through diet and supplements if necessary, engage in weight-bearing exercises such as walking or strength training, avoid smoking, limit alcohol consumption, and maintain a healthy lifestyle."
+  },
+  {
+    "question": "What are the symptoms of a concussion?",
+    "answer": "Symptoms of a concussion can include headache, dizziness, confusion, nausea or vomiting, sensitivity to light or noise, fatigue, blurred vision, memory problems, and difficulty concentrating. It's important to seek medical attention if you suspect a concussion, especially if symptoms worsen or persist."
+  },
+  {
+    "question": "How can I improve my immune system?",
+    "answer": "To improve your immune system, it's important to maintain a healthy lifestyle with regular exercise, adequate sleep, a balanced diet rich in fruits, vegetables, and whole grains, manage stress effectively, avoid smoking, limit alcohol consumption, and practice good hygiene habits such as frequent handwashing."
+  },
+  {
+    "question": "What are the symptoms of gastroesophageal reflux disease (GERD)?",
+    "answer": "Symptoms of GERD can include heartburn, regurgitation of stomach contents into the mouth, chest pain, difficulty swallowing, chronic cough, hoarseness, or sore throat. It's important to seek medical evaluation if you experience persistent or severe symptoms."
+  },
+  {
+    "question": "How can I prevent back pain?",
+    "answer": "To prevent back pain, it's important to maintain good posture, engage in regular exercise to strengthen the core and back muscles, lift heavy objects properly using your legs, avoid sitting or standing in one position for prolonged periods, and maintain a healthy weight."
+  },
+  {
+    "question": "What are the symptoms of anxiety?",
+    "answer": "Symptoms of anxiety can include excessive worrying, restlessness, irritability, fatigue, muscle tension, difficulty concentrating, sleep disturbances, and physical symptoms such as sweating, trembling, or rapid heartbeat."
+  },
+  {
+    "question": "How can I treat a minor burn?",
+    "answer": "To treat a minor burn, it's important to run cool water over the burn for several minutes to reduce pain and swelling, apply an antibiotic ointment and cover with a sterile bandage or gauze, take over-the-counter pain relievers if necessary, and seek medical attention if the burn is severe or covers a large area."
+  },
+  {
+    "question": "What are the symptoms of a sinus infection?",
+    "answer": "Symptoms of a sinus infection can include nasal congestion, facial pain or pressure, headache, cough, fatigue, fever, and thick, discolored nasal discharge. Sinus infections can be acute or chronic and may require medical treatment depending on severity."
+  },
+  {
+    "question": "How can I prevent the spread of the flu?",
+    "answer": "To prevent the spread of the flu, it's important to get vaccinated annually, practice good hand hygiene by washing hands frequently with soap and water, avoid close contact with sick individuals, cover your mouth and nose when coughing or sneezing, and stay home when sick to prevent spreading the virus to others."
+  },
+  {
+    "question": "What are the symptoms of pneumonia?",
+    "answer": "Symptoms of pneumonia can include cough, fever, chills, shortness of breath, chest pain, fatigue, nausea, vomiting, and confusion, especially in older adults. Pneumonia can be caused by bacteria, viruses, or fungi and may require medical treatment."
+  },
+  {
+    "question": "How can I improve my digestive health?",
+    "answer": "To improve digestive health, it's important to eat a balanced diet rich in fiber, fruits, vegetables, and whole grains, drink plenty of water, engage in regular physical activity, manage stress effectively, avoid smoking, and limit intake of processed foods, alcohol, and caffeine."
+  },
+  {
+    "question": "What are the symptoms of a urinary tract infection (UTI) in men?",
+    "answer": "Symptoms of a UTI in men can include a strong, persistent urge to urinate, a burning sensation when urinating, passing frequent, small amounts of urine, urine that appears cloudy, urine that appears red, bright pink or cola-colored – a sign of blood in the urine, strong-smelling urine, pelvic pain, especially in the center of the pelvis and around the area of the pubic bone."
+  },
+  {
+    "question": "How can I prevent common sports injuries?",
+    "answer": "To prevent common sports injuries, it's important to warm up properly before physical activity, use appropriate protective gear such as helmets and pads, engage in strength and flexibility training, stay hydrated, listen to your body and avoid overexertion, and seek medical attention for any persistent or severe pain or injury."
+  },
+  {
+    "question": "What are the symptoms of anemia?",
+    "answer": "Symptoms of anemia can include fatigue, weakness, pale or yellowish skin, shortness of breath, dizziness or lightheadedness, cold hands and feet, chest pain, and irregular heartbeats. Anemia can be caused by various factors including iron deficiency, vitamin deficiency, chronic diseases, or blood loss."
+  },
+  {
+    "question": "How can I improve my cardiovascular health?",
+    "answer": "To improve cardiovascular health, it's important to maintain a healthy diet low in saturated fats, cholesterol, and sodium, engage in regular aerobic exercise such as walking, jogging, or swimming, manage stress effectively, avoid smoking, limit alcohol consumption, and monitor blood pressure and cholesterol levels regularly."
+  },
+  {
+    "question": "What are the symptoms of a kidney infection?",
+    "answer": "Symptoms of a kidney infection can include fever, chills, back or side pain, groin pain, abdominal pain, frequent urination, painful urination, blood in the urine, and nausea or vomiting. Kidney infections can be serious and may require medical treatment."
+  },
+  {
+    "question": "How can I prevent urinary tract infections (UTIs) in women?",
+    "answer": "To prevent UTIs in women, it's important to drink plenty of fluids, urinate frequently, wipe from front to back after using the bathroom, practice good hygiene habits, wear cotton underwear and loose-fitting clothing, avoid using irritating feminine products, and consider cranberry supplements or juice."
+  },
+  {
+    "question": "What are the symptoms of a heartburn?",
+    "answer": "Symptoms of heartburn can include a burning sensation in the chest, throat, or upper abdomen, chest pain, difficulty swallowing, regurgitation of food or sour liquid, and a sensation of food being stuck in the throat. Heartburn is often triggered by certain foods, beverages, or lifestyle factors."
+  },
+  {
+    "question": "How can I manage my allergies?",
+    "answer": "To manage allergies, it's important to identify and avoid triggers such as pollen, dust mites, pet dander, and certain foods, use over-the-counter or prescription allergy medications as directed by your healthcare provider, consider allergen immunotherapy (allergy shots), and manage symptoms with nasal saline rinses or decongestants."
+  },
+  {
+    "question": "What are the symptoms of an ear infection?",
+    "answer": "Symptoms of an ear infection can include ear pain, drainage from the ear, hearing loss, fever, headache, and irritability, especially in young children. Ear infections can be caused by bacteria or viruses and may require medical treatment."
+  },
+  {
+    "question": "How can I prevent common colds and flu?",
+    "answer": "To prevent common colds and flu, it's important to practice good hand hygiene by washing hands frequently with soap and water, avoid close contact with sick individuals, cover your mouth and nose when coughing or sneezing, get vaccinated annually for the flu, and maintain a healthy lifestyle with adequate sleep and nutrition."
+  },
+  {
+    "question": "What are the symptoms of acid reflux?",
+    "answer": "Symptoms of acid reflux can include heartburn, regurgitation of stomach contents into the mouth or throat, chest pain, difficulty swallowing, chronic cough, sore throat, hoarseness, or a sensation of a lump in the throat. Acid reflux can be managed with lifestyle changes and medications."
+  },
+  {
+    "question": "How can I improve my lung health?",
+    "answer": "To improve lung health, it's important to avoid smoking and exposure to secondhand smoke, engage in regular aerobic exercise to improve lung capacity, practice good posture and deep breathing techniques, maintain a healthy weight, and avoid exposure to air pollutants and respiratory irritants."
+  },
+  {
+    "question": "What are the symptoms of an allergic reaction to medication?",
+    "answer": "Symptoms of an allergic reaction to medication can include hives, rash, itching, swelling of the face, lips, tongue, or throat, wheezing or difficulty breathing, and anaphylaxis, which is a severe, life-threatening allergic reaction. It's important to seek immediate medical attention if you experience signs of a severe allergic reaction."
+  },
+  {
+    "question": "How can I prevent falls and injuries in older adults?",
+    "answer": "To prevent falls and injuries in older adults, it's important to maintain a safe home environment by removing tripping hazards, installing grab bars and handrails, ensuring proper lighting, wearing appropriate footwear, engaging in regular exercise to improve strength and balance, and reviewing medications for side effects that may affect balance."
+  },
+  {
+    "question": "What are the symptoms of an enlarged prostate?",
+    "answer": "Symptoms of an enlarged prostate, also known as benign prostatic hyperplasia (BPH), can include frequent urination, urgency to urinate, difficulty starting or maintaining urination, weak urine stream, dribbling at the end of urination, and urinary retention. BPH is common in older men and may require medical treatment."
+  },
+  {
+    "question": "How can I prevent heat-related illnesses?",
+    "answer": "To prevent heat-related illnesses, it's important to stay hydrated by drinking plenty of fluids, avoid prolonged exposure to high temperatures, seek shade or air-conditioned environments during hot weather, wear lightweight, loose-fitting clothing, and take breaks and rest frequently during outdoor activities."
+  },
+  {
+    "question": "What are the symptoms of an eye infection?",
+    "answer": "Symptoms of an eye infection can include redness, itching, burning or stinging sensation, discharge from the eye, watery eyes, blurred vision, sensitivity to light, and eyelid swelling. Eye infections can be caused by bacteria, viruses, or allergens and may require medical treatment."
+  },
+  {
+    "question": "How can I prevent dental cavities?",
+    "answer": "To prevent dental cavities, it's important to brush teeth twice a day with fluoride toothpaste, floss daily to remove plaque between teeth, limit sugary and acidic foods and beverages, avoid frequent snacking, and visit the dentist regularly for check-ups and cleanings."
+  },
+  {
+    "question": "What are the symptoms of anemia in children?",
+    "answer": "Symptoms of anemia in children can include pale skin, fatigue or weakness, irritability, shortness of breath, cold hands and feet, dizziness or lightheadedness, headache, and rapid heartbeat. Anemia can affect growth and development and may require medical evaluation and treatment."
+  },
+  {
+    "question": "How can I prevent traveler's diarrhea?",
+    "answer": "To prevent traveler's diarrhea, it's important to drink bottled or boiled water, avoid ice cubes and raw or undercooked foods, eat fruits and vegetables that can be peeled, avoid unpasteurized dairy products, and practice good hand hygiene by washing hands frequently with soap and water."
+  },
+  {
+    "question": "What are the symptoms of sleep apnea?",
+    "answer": "Symptoms of sleep apnea can include loud snoring, pauses in breathing during sleep, choking or gasping for air during sleep, daytime sleepiness or fatigue, morning headaches, irritability, and difficulty concentrating. Sleep apnea can have serious health consequences and may require medical evaluation and treatment."
+  },
+  {
+    "question": "How can I prevent skin infections?",
+    "answer": "To prevent skin infections, it's important to maintain good hygiene by washing hands frequently with soap and water, keep cuts and scrapes clean and covered until healed, avoid sharing personal items such as towels and razors, and avoid contact with individuals who have active skin infections."
+  },
+  {
+    "question": "What are the symptoms of a concussion in children?",
+    "answer": "Symptoms of a concussion in children can include headache, nausea or vomiting, dizziness or balance problems, fatigue, difficulty concentrating, memory problems, sensitivity to light or noise, irritability, and changes in sleep patterns. It's important to seek medical attention if a child experiences a head injury or signs of a concussion."
+  },
+  {
+    "question": "How can I improve my mental health?",
+    "answer": "To improve mental health, it's important to engage in activities that promote relaxation and stress reduction such as meditation, yoga, or deep breathing exercises, maintain a healthy lifestyle with regular exercise and balanced nutrition, prioritize self-care activities, seek social support from friends and family, and consider therapy or counseling if needed."
+  },
+  {
+    "question": "What are the symptoms of a stomach ulcer?",
+    "answer": "Symptoms of a stomach ulcer can include burning stomach pain, bloating, nausea or vomiting, indigestion, loss of appetite, weight loss, and bloody or black stool. Stomach ulcers can be caused by infection with Helicobacter pylori bacteria, prolonged use of nonsteroidal anti-inflammatory drugs (NSAIDs), or excessive alcohol consumption."
+  },
+  {
+    "question": "How can I prevent mosquito-borne illnesses?",
+    "answer": "To prevent mosquito-borne illnesses, it's important to use insect repellent containing DEET, wear long-sleeved shirts and long pants when outdoors, avoid outdoor activities during peak mosquito activity times, eliminate standing water around the home where mosquitoes breed, and use mosquito nets or screens on windows and doors."
+  },
+  {
+    "question": "What are the symptoms of a migraine headache?",
+    "answer": "Symptoms of a migraine headache can include severe throbbing or pulsating pain, usually on one side of the head, sensitivity to light, sound, or smells, nausea or vomiting, and visual disturbances such as aura or flashing lights. Migraine headaches can be debilitating and may require medical treatment."
+  },
+  {
+    "question": "How can I prevent foodborne illnesses?",
+    "answer": "To prevent foodborne illnesses, it's important to practice proper food handling and preparation techniques such as washing hands and surfaces frequently, cooking foods to the proper temperature, refrigerating perishable foods promptly, avoiding cross-contamination between raw and cooked foods, and consuming foods from reputable sources."
+  },
+  {
+    "question": "What are the symptoms of a gallbladder attack?",
+    "answer": "Symptoms of a gallbladder attack can include sudden, intense pain in the upper abdomen that may radiate to the back or shoulder, nausea or vomiting, and abdominal bloating or indigestion. Gallbladder attacks are often triggered by gallstones and may require medical evaluation and treatment."
+  },
+  {
+    "question": "How can I prevent dental infections?",
+    "answer": "To prevent dental infections, it's important to practice good oral hygiene by brushing teeth twice a day with fluoride toothpaste, flossing daily to remove plaque between teeth, avoiding sugary and acidic foods and beverages, and visiting the dentist regularly for check-ups and cleanings."
+  },
+  {
+    "question": "What are the symptoms of dehydration?",
+    "answer": "Symptoms of dehydration can include thirst, dry mouth, dark-colored urine, infrequent urination, fatigue, dizziness, confusion, and irritability. Severe dehydration can be life-threatening and may require medical attention."
+  },
+  {
+    "question": "How can I prevent osteoarthritis?",
+    "answer": "To prevent osteoarthritis, it's important to maintain a healthy weight, engage in regular exercise to strengthen muscles and joints, avoid repetitive stress on joints, use proper body mechanics and ergonomics, and consume a balanced diet rich in fruits, vegetables, and omega-3 fatty acids."
+  },
+  {
+    "question": "What are the symptoms of a urinary tract infection (UTI) in children?",
+    "answer": "Symptoms of a UTI in children can include fever, irritability, poor feeding, vomiting, diarrhea, strong-smelling urine, cloudy or bloody urine, frequent urination, pain or burning with urination, and abdominal or back pain. UTIs in children may require medical evaluation and treatment."
+  },
+  {
+    "question": "How can I prevent blood clots?",
+    "answer": "To prevent blood clots, it's important to maintain a healthy lifestyle with regular exercise, maintain a healthy weight, avoid smoking, eat a balanced diet low in saturated fats and high in fruits and vegetables, stay hydrated, and avoid prolonged periods of immobility, especially during travel."
+  },
+  {
+    "question": "What are the symptoms of a skin rash?",
+    "answer": "Symptoms of a skin rash can include redness, itching, swelling, bumps, blisters, or scales on the skin, warmth or tenderness, and pain or discomfort. Skin rashes can have various causes including allergic reactions, infections, or underlying medical conditions."
+  },
+  {
+    "question": "How can I prevent muscle cramps?",
+    "answer": "To prevent muscle cramps, it's important to stay hydrated by drinking plenty of fluids, maintain electrolyte balance by consuming foods rich in potassium, magnesium, and calcium, warm up properly before physical activity, stretch muscles regularly, and avoid overexertion."
+  },
+  {
+    "question": "What are the symptoms of a sinus headache?",
+    "answer": "Symptoms of a sinus headache can include pain or pressure in the forehead, cheeks, or bridge of the nose, nasal congestion, runny nose, and facial swelling. Sinus headaches are often triggered by sinus congestion or inflammation and may require treatment with decongestants or nasal corticosteroids."
+  },
+  {
+    "question": "How can I prevent motion sickness?",
+    "answer": "To prevent motion sickness, it's important to sit in the front seat of a car or over the wing of an airplane, focus on the horizon or a fixed point, avoid reading or using electronic devices, avoid strong odors and greasy or spicy foods, and consider over-the-counter medications such as antihistamines or antinausea drugs."
+  },
+  {
+    "question": "What are the symptoms of a stomach virus?",
+    "answer": "Symptoms of a stomach virus, also known as viral gastroenteritis, can include diarrhea, nausea or vomiting, abdominal cramps or pain, fever, and muscle aches. Stomach viruses are highly contagious and spread through contact with contaminated food, water, or surfaces."
+  },
+  {
+    "question": "How can I prevent varicose veins?",
+    "answer": "To prevent varicose veins, it's important to maintain a healthy weight, engage in regular exercise to improve circulation, elevate legs when resting or sleeping, avoid standing or sitting for prolonged periods, wear compression stockings, and avoid tight clothing that constricts blood flow."
+  },
+  {
+    "question": "What are the symptoms of food poisoning?",
+    "answer": "Symptoms of food poisoning can include nausea, vomiting, diarrhea, abdominal cramps or pain, fever, and chills. Food poisoning is caused by consuming contaminated food or beverages and may require medical treatment depending on severity and underlying cause."
+  },
+  {
+    "question": "How can I prevent allergic reactions to insect stings?",
+    "answer": "To prevent allergic reactions to insect stings, it's important to avoid areas where insects are abundant, wear protective clothing such as long sleeves and pants, avoid bright-colored clothing and floral prints, use insect repellent containing DEET, and seek immediate medical attention if stung by an insect and experience signs of an allergic reaction."
+  },
+  {
+    "question": "What are the symptoms of a spider bite?",
+    "answer": "Symptoms of a spider bite can include pain or swelling at the site of the bite, redness or rash, itching, muscle pain or cramping, and in some cases, fever, chills, or nausea. Spider bites can vary in severity depending on the type of spider and may require medical evaluation and treatment."
+  },
+  {
+    "question": "How can I prevent heat exhaustion?",
+    "answer": "To prevent heat exhaustion, it's important to stay hydrated by drinking plenty of fluids, avoid prolonged exposure to high temperatures, take breaks and rest frequently during outdoor activities, wear lightweight, loose-fitting clothing, and seek shade or air-conditioned environments during hot weather."
+  },
+  {
+    "question": "What are the symptoms of a broken bone?",
+    "answer": "Symptoms of a broken bone can include pain, swelling, bruising, deformity, inability to bear weight on the affected limb, and a snapping or grinding sensation at the time of injury. Broken bones, also known as fractures, may require immobilization, casting, or surgical intervention for proper healing."
+  },
+  {
+    "question": "How can I prevent dental abscesses?",
+    "answer": "To prevent dental abscesses, it's important to practice good oral hygiene by brushing teeth twice a day with fluoride toothpaste, flossing daily to remove plaque between teeth, avoiding sugary and acidic foods and beverages, and visiting the dentist regularly for check-ups and cleanings."
+  },
+  {
+    "question": "What are the symptoms of a head lice infestation?",
+    "answer": "Symptoms of a head lice infestation can include itching or tickling sensation on the scalp, visible lice or eggs (nits) on the scalp or hair shafts, and small red bumps or sores on the scalp, neck, or shoulders. Head lice are highly contagious and require treatment with medicated shampoos or lotions."
+  },
+  {
+    "question": "How can I prevent altitude sickness?",
+    "answer": "To prevent altitude sickness, it's important to ascend gradually to higher altitudes, stay hydrated by drinking plenty of fluids, avoid strenuous physical activity until acclimatized, consider medications such as acetazolamide (Diamox) or dexamethasone, and descend to lower altitudes if symptoms of altitude sickness develop."
+  },
+  {
+    "question": "What are the symptoms of pneumonia in children?",
+    "answer": "Symptoms of pneumonia in children can include fever, cough, rapid or difficult breathing, wheezing, chest pain, loss of appetite, fatigue, and irritability. Pneumonia can be caused by bacteria, viruses, or fungi and may require medical evaluation and treatment."
+  },
+  {
+    "question": "How can I prevent swimmer's ear?",
+    "answer": "To prevent swimmer's ear, it's important to keep ears dry by wearing earplugs or a swim cap when swimming, tilt the head to drain water from the ears after swimming, avoid inserting objects into the ear canal, and use a hairdryer on a low setting to dry ears after swimming."
+  },
+  {
+    "question": "What are the symptoms of a concussion in athletes?",
+    "answer": "Symptoms of a concussion in athletes can include headache, dizziness, nausea or vomiting, confusion, sensitivity to light or noise, difficulty concentrating, memory problems, and changes in mood or behavior. Athletes should be evaluated by a healthcare provider if a concussion is suspected."
+  },
+  {
+    "question": "How can I prevent cold sores?",
+    "answer": "To prevent cold sores, it's important to avoid close contact with individuals who have active cold sores, avoid sharing personal items such as utensils, towels, or lip balm, manage stress effectively, avoid excessive exposure to sunlight, and consider antiviral medications for recurrent outbreaks."
+  },
+  {
+    "question": "What are the symptoms of whooping cough?",
+    "answer": "Symptoms of whooping cough, also known as pertussis, can include severe coughing fits followed by a high-pitched whooping sound, vomiting during or after coughing fits, exhaustion, and difficulty breathing. Whooping cough can be serious, especially in infants, and requires medical treatment."
+  },
+  {
+    "question": "How can I prevent eye strain?",
+    "answer": "To prevent eye strain, it's important to take frequent breaks from screens by following the 20-20-20 rule (every 20 minutes, look at something 20 feet away for 20 seconds), adjust screen brightness and contrast settings, use proper lighting, position screens at eye level, and consider computer glasses with blue light filters."
+  },
+  {
+    "question": "What are the symptoms of a spider bite?",
+    "answer": "Symptoms of a spider bite can include redness, swelling, pain, itching, and a blister or ulcer at the site of the bite. In some cases, systemic symptoms such as fever, headache, nausea, or muscle pain may occur. Spider bites should be evaluated by a healthcare provider if severe symptoms develop."
+  },
+  {
+    "question": "How can I prevent poison ivy rash?",
+    "answer": "To prevent poison ivy rash, it's important to learn to recognize and avoid contact with poison ivy, poison oak, and poison sumac plants, wear protective clothing such as long sleeves and pants when in wooded or overgrown areas, wash skin and clothing promptly after exposure, and use barrier creams or lotions before outdoor activities."
+  },
+  {
+    "question": "What are the symptoms of a tick bite?",
+    "answer": "Symptoms of a tick bite can include redness, swelling, itching, and a small, hard bump at the site of the bite. In some cases, systemic symptoms such as fever, headache, fatigue, or muscle aches may occur. Tick bites should be monitored for signs of infection or tick-borne diseases."
+  },
+  {
+    "question": "How can I prevent heat rash?",
+    "answer": "To prevent heat rash, it's important to stay cool and dry in hot, humid weather, wear lightweight, loose-fitting clothing, avoid tight or occlusive clothing that traps sweat, use air conditioning or fans to stay cool indoors, and take cool showers or baths to lower body temperature."
+  },
+  {
+    "question": "What are the symptoms of anaphylaxis?",
+    "answer": "Symptoms of anaphylaxis can include hives, swelling of the face, lips, tongue, or throat, wheezing or difficulty breathing, rapid heartbeat, fainting or loss of consciousness, nausea or vomiting, and abdominal pain. Anaphylaxis is a severe, life-threatening allergic reaction that requires immediate medical attention."
+  },
+  {
+    "question": "How can I prevent altitude sickness when hiking?",
+    "answer": "To prevent altitude sickness when hiking at high elevations, it's important to ascend gradually, acclimatize to higher altitudes by spending a few days at intermediate elevations, stay hydrated by drinking plenty of fluids, avoid alcohol and sedatives, and descend to lower altitudes if symptoms of altitude sickness develop."
+  },
+  {
+    "question": "What are the symptoms of a yeast infection?",
+    "answer": "Symptoms of a yeast infection, also known as candidiasis, can include itching, burning, or soreness in the vaginal area, redness or swelling of the vulva, vaginal rash or irritation, and thick, white vaginal discharge that may resemble cottage cheese. Yeast infections are common and can usually be treated with over-the-counter antifungal medications."
+  },
+  {
+    "question": "How can I prevent exercise-related injuries?",
+    "answer": "To prevent exercise-related injuries, it's important to warm up before physical activity with dynamic stretches or light cardio, use proper form and technique during exercises, gradually increase intensity and duration of workouts, wear appropriate footwear and protective gear, listen to your body and rest when needed, and cross-train to avoid overuse injuries."
+  },
+  {
+    "question": "What are the symptoms of a urinary tract infection (UTI) in men?",
+    "answer": "Symptoms of a UTI in men can include frequent urination, urgency to urinate, pain or burning with urination, difficulty starting or maintaining urination, weak urine stream, lower abdominal or pelvic pain, and blood in the urine. UTIs in men may require medical evaluation and treatment."
+  },
+  {
+    "question": "How can I prevent swimmer's itch?",
+    "answer": "To prevent swimmer's itch, it's important to avoid swimming or wading in freshwater areas where swimmer's itch is common, towel off or shower immediately after leaving the water, avoid feeding birds or mammals near water, and use waterproof sunscreen to prevent penetration of cercariae (parasitic larvae) into the skin."
+  },
+  {
+    "question": "What are the symptoms of shingles?",
+    "answer": "Symptoms of shingles can include pain, burning, numbness, or tingling sensation, rash or blisters on one side of the body, fever, headache, fatigue, and sensitivity to light. Shingles is caused by the reactivation of the varicella-zoster virus, the same virus that causes chickenpox, and may require antiviral medication for treatment."
+  },
+  {
+    "question": "How can I prevent poison ivy exposure when gardening?",
+    "answer": "To prevent poison ivy exposure when gardening, it's important to wear long sleeves, long pants, gloves, and closed-toe shoes, avoid touching or handling plants that may be poison ivy, wash gardening tools and clothing after use, and apply barrier creams or lotions to exposed skin before gardening."
+  },
+  {
+    "question": "What are the symptoms of a spider bite?",
+    "answer": "Symptoms of a spider bite can include redness, swelling, pain, itching, and a blister or ulcer at the site of the bite. In some cases, systemic symptoms such as fever, headache, nausea, or muscle pain may occur. Spider bites should be evaluated by a healthcare provider if severe symptoms develop."
+  },
+  {
+    "question": "How can I prevent poison ivy rash?",
+    "answer": "To prevent poison ivy rash, it's important to learn to recognize and avoid contact with poison ivy, poison oak, and poison sumac plants, wear protective clothing such as long sleeves and pants when in wooded or overgrown areas, wash skin and clothing promptly after exposure, and use barrier creams or lotions before outdoor activities."
+  },
+  {
+    "question": "What are the symptoms of a tick bite?",
+    "answer": "Symptoms of a tick bite can include redness, swelling, itching, and a small, hard bump at the site of the bite. In some cases, systemic symptoms such as fever, headache, fatigue, or muscle aches may occur. Tick bites should be monitored for signs of infection or tick-borne diseases."
+  },
+  {
+    "question": "How can I prevent heat rash?",
+    "answer": "To prevent heat rash, it's important to stay cool and dry in hot, humid weather, wear lightweight, loose-fitting clothing, avoid tight or occlusive clothing that traps sweat, use air conditioning or fans to stay cool indoors, and take cool showers or baths to lower body temperature."
+  },
+  {
+    "question": "What are the symptoms of anaphylaxis?",
+    "answer": "Symptoms of anaphylaxis can include hives, swelling of the face, lips, tongue, or throat, wheezing or difficulty breathing, rapid heartbeat, fainting or loss of consciousness, nausea or vomiting, and abdominal pain. Anaphylaxis is a severe, life-threatening allergic reaction that requires immediate medical attention."
+  },
+  {
+    "question": "How can I prevent altitude sickness when hiking?",
+    "answer": "To prevent altitude sickness when hiking at high elevations, it's important to ascend gradually, acclimatize to higher altitudes by spending a few days at intermediate elevations, stay hydrated by drinking plenty of fluids, avoid alcohol and sedatives, and descend to lower altitudes if symptoms of altitude sickness develop."
+  },
+  {
+    "question": "What are the symptoms of a yeast infection?",
+    "answer": "Symptoms of a yeast infection, also known as candidiasis, can include itching, burning, or soreness in the vaginal area, redness or swelling of the vulva, vaginal rash or irritation, and thick, white vaginal discharge that may resemble cottage cheese. Yeast infections are common and can usually be treated with over-the-counter antifungal medications."
+  },
+  {
+    "question": "How can I prevent exercise-related injuries?",
+    "answer": "To prevent exercise-related injuries, it's important to warm up before physical activity with dynamic stretches or light cardio, use proper form and technique during exercises, gradually increase intensity and duration of workouts, wear appropriate footwear and protective gear, listen to your body and rest when needed, and cross-train to avoid overuse injuries."
+  },
+  {
+    "question": "What are the symptoms of a urinary tract infection (UTI) in men?",
+    "answer": "Symptoms of a UTI in men can include frequent urination, urgency to urinate, pain or burning with urination, difficulty starting or maintaining urination, weak urine stream, lower abdominal or pelvic pain, and blood in the urine. UTIs in men may require medical evaluation and treatment."
+  },
+  {
+    "question": "How can I prevent swimmer's itch?",
+    "answer": "To prevent swimmer's itch, it's important to avoid swimming or wading in freshwater areas where swimmer's itch is common, towel off or shower immediately after leaving the water, avoid feeding birds or mammals near water, and use waterproof sunscreen to prevent penetration of cercariae (parasitic larvae) into the skin."
+  },
+  {
+    "question": "What are the symptoms of shingles?",
+    "answer": "Symptoms of shingles can include pain, burning, numbness, or tingling sensation, rash or blisters on one side of the body, fever, headache, fatigue, and sensitivity to light. Shingles is caused by the reactivation of the varicella-zoster virus, the same virus that causes chickenpox, and may require antiviral medication for treatment."
+  },
+  {
+    "question": "How can I prevent poison ivy exposure when gardening?",
+    "answer": "To prevent poison ivy exposure when gardening, it's important to wear long sleeves, long pants, gloves, and closed-toe shoes, avoid touching or handling plants that may be poison ivy, wash gardening tools and clothing after use, and apply barrier creams or lotions to exposed skin before gardening."
+  },
+  {
+    "question": "What are the symptoms of a head lice infestation?",
+    "answer": "Symptoms of a head lice infestation can include itching or tickling sensation on the scalp, visible lice or eggs (nits) on the scalp or hair shafts, and small red bumps or sores on the scalp, neck, or shoulders. Head lice are highly contagious and require treatment with medicated shampoos or lotions."
+  },
+  {
+    "question": "How can I prevent altitude sickness?",
+    "answer": "To prevent altitude sickness, it's important to ascend gradually to higher altitudes, stay hydrated by drinking plenty of fluids, avoid strenuous physical activity until acclimatized, consider medications such as acetazolamide (Diamox) or dexamethasone, and descend to lower altitudes if symptoms of altitude sickness develop."
+  },
+  {
+    "question": "What are the symptoms of pneumonia in children?",
+    "answer": "Symptoms of pneumonia in children can include fever, cough, rapid or difficult breathing, wheezing, chest pain, loss of appetite, fatigue, and irritability. Pneumonia can be caused by bacteria, viruses, or fungi and may require medical evaluation and treatment."
+  },
+  {
+    "question": "How can I prevent swimmer's ear?",
+    "answer": "To prevent swimmer's ear, it's important to keep ears dry by wearing earplugs or a swim cap when swimming, tilt the head to drain water from the ears after swimming, avoid inserting objects into the ear canal, and use a hairdryer on a low setting to dry ears after swimming."
+  },
+  {
+    "question": "What are the symptoms of a concussion in athletes?",
+    "answer": "Symptoms of a concussion in athletes can include headache, dizziness, nausea or vomiting, confusion, sensitivity to light or noise, difficulty concentrating, memory problems, and changes in mood or behavior. Athletes should be evaluated by a healthcare provider if a concussion is suspected."
+  },
+  {
+    "question": "How can I prevent cold sores?",
+    "answer": "To prevent cold sores, it's important to avoid close contact with individuals who have active cold sores, avoid sharing personal items such as utensils, towels, or lip balm, manage stress effectively, avoid excessive exposure to sunlight, and consider antiviral medications for recurrent outbreaks."
+  },
+  {
+    "question": "What are the symptoms of whooping cough?",
+    "answer": "Symptoms of whooping cough, also known as pertussis, can include severe coughing fits followed by a high-pitched whooping sound, vomiting during or after coughing fits, exhaustion, and difficulty breathing. Whooping cough can be serious, especially in infants, and requires medical treatment."
+  },
+  {
+    "question": "How can I prevent eye strain?",
+    "answer": "To prevent eye strain, it's important to take frequent breaks from screens by following the 20-20-20 rule (every 20 minutes, look at something 20 feet away for 20 seconds), adjust screen brightness and contrast settings, use proper lighting, position screens at eye level, and consider computer glasses with blue light filters."
+  },
+  {
+    "question": "What are the symptoms of a concussion?",
+    "answer": "Symptoms of a concussion can include headache, dizziness, nausea or vomiting, confusion, sensitivity to light or noise, difficulty concentrating, memory problems, and changes in mood or behavior. Concussions are mild traumatic brain injuries that require medical evaluation and monitoring."
+  },
+  {
+    "question": "How can I prevent food poisoning?",
+    "answer": "To prevent food poisoning, it's important to practice proper food handling and preparation techniques such as washing hands and surfaces frequently, cooking foods to the proper temperature, refrigerating perishable foods promptly, avoiding cross-contamination between raw and cooked foods, and consuming foods from reputable sources."
+  },
+  {
+    "question": "What are the symptoms of a gallbladder attack?",
+    "answer": "Symptoms of a gallbladder attack can include sudden, intense pain in the upper abdomen that may radiate to the back or shoulder, nausea or vomiting, and abdominal bloating or indigestion. Gallbladder attacks are often triggered by gallstones and may require medical evaluation and treatment."
+  },
+  {
+    "question": "How can I prevent dental infections?",
+    "answer": "To prevent dental infections, it's important to practice good oral hygiene by brushing teeth twice a day with fluoride toothpaste, flossing daily to remove plaque between teeth, avoiding sugary and acidic foods and beverages, and visiting the dentist regularly for check-ups and cleanings."
+  },
+  {
+    "question": "What are the symptoms of dehydration?",
+    "answer": "Symptoms of dehydration can include thirst, dry mouth, dark-colored urine, infrequent urination, fatigue, dizziness, confusion, and irritability. Severe dehydration can be life-threatening and may require medical attention."
+  },
+  {
+    "question": "How can I prevent osteoarthritis?",
+    "answer": "To prevent osteoarthritis, it's important to maintain a healthy weight, engage in regular exercise to strengthen muscles and joints, avoid repetitive stress on joints, use proper body mechanics and ergonomics, and consume a balanced diet rich in fruits, vegetables, and omega-3 fatty acids."
+  },
+  {
+    "question": "What are the symptoms of a urinary tract infection (UTI) in children?",
+    "answer": "Symptoms of a UTI in children can include fever, irritability, poor feeding, vomiting, diarrhea, strong-smelling urine, cloudy or bloody urine, frequent urination, pain or burning with urination, and abdominal or back pain. UTIs in children may require medical evaluation and treatment."
+  },
+  {
+    "question": "How can I prevent blood clots?",
+    "answer": "To prevent blood clots, it's important to maintain a healthy lifestyle with regular exercise, maintain a healthy weight, avoid smoking, eat a balanced diet low in saturated fats and high in fruits and vegetables, stay hydrated, and avoid prolonged periods of immobility, especially during travel."
+  },
+  {
+    "question": "What are the symptoms of a skin rash?",
+    "answer": "Symptoms of a skin rash can include redness, itching, swelling, bumps, blisters, or scales on the skin, warmth or tenderness, and pain or discomfort. Skin rashes can have various causes including allergic reactions, infections, or underlying medical conditions."
+  },
+  {
+    "question": "How can I prevent muscle cramps?",
+    "answer": "To prevent muscle cramps, it's important to stay hydrated by drinking plenty of fluids, maintain electrolyte balance by consuming foods rich in potassium, magnesium, and calcium, warm up properly before physical activity, stretch muscles regularly, and avoid overexertion."
+  },
+  {
+    "question": "What are the symptoms of a sinus headache?",
+    "answer": "Symptoms of a sinus headache can include pain or pressure in the forehead, cheeks, or bridge of the nose, nasal congestion, runny nose, and facial swelling. Sinus headaches are often triggered by sinus congestion or inflammation and may require treatment with decongestants or nasal corticosteroids."
+  },
+  {
+    "question": "How can I prevent motion sickness?",
+    "answer": "To prevent motion sickness, it's important to sit in the front seat of a car or over the wing of an airplane, focus on the horizon or a fixed point, avoid reading or using electronic devices, avoid strong odors and greasy or spicy foods, and consider over-the-counter medications such as antihistamines or antinausea drugs."
+  },
+  {
+    "question": "What are the symptoms of a stomach virus?",
+    "answer": "Symptoms of a stomach virus, also known as viral gastroenteritis, can include diarrhea, nausea or vomiting, abdominal cramps or pain, fever, and muscle aches. Stomach viruses are highly contagious and spread through contact with contaminated food, water, or surfaces."
+  },
+  {
+    "question": "How can I prevent varicose veins?",
+    "answer": "To prevent varicose veins, it's important to maintain a healthy weight, engage in regular exercise to improve circulation, elevate legs when resting or sleeping, avoid standing or sitting for prolonged periods, wear compression stockings, and avoid tight clothing that constricts blood flow."
+  },
+  {
+    "question": "What are the symptoms of food poisoning?",
+    "answer": "Symptoms of food poisoning can include nausea, vomiting, diarrhea, abdominal cramps or pain, fever, and chills. Food poisoning is caused by consuming contaminated food or beverages and may require medical treatment depending on severity and underlying cause."
+  },
+  {
+    "question": "How can I prevent allergic reactions to insect stings?",
+    "answer": "To prevent allergic reactions to insect stings, it's important to avoid areas where insects are abundant, wear protective clothing such as long sleeves and pants, avoid bright-colored clothing and floral prints, use insect repellent containing DEET, and seek immediate medical attention if stung by an insect and experience signs of an allergic reaction."
+  },
+  {
+    "question": "What are the symptoms of a spider bite?",
+    "answer": "Symptoms of a spider bite can include pain or swelling at the site of the bite, redness or rash, itching, muscle pain or cramping, and in some cases, fever, chills, or nausea. Spider bites can vary in severity depending on the type of spider and may require medical evaluation and treatment."
+  },
+  {
+    "question": "How can I prevent heat exhaustion?",
+    "answer": "To prevent heat exhaustion, it's important to stay hydrated by drinking plenty of fluids, avoid prolonged exposure to high temperatures, take breaks and rest frequently during outdoor activities, wear lightweight, loose-fitting clothing, and seek shade or air-conditioned environments during hot weather."
+  },
+  {
+    "question": "What are the symptoms of a broken bone?",
+    "answer": "Symptoms of a broken bone can include pain, swelling, bruising, deformity, inability to bear weight on the affected limb, and a snapping or grinding sensation at the time of injury. Broken bones, also known as fractures, may require immobilization, casting, or surgical intervention for proper healing."
+  },
+  {
+    "question": "How can I prevent dental abscesses?",
+    "answer": "To prevent dental abscesses, it's important to practice good oral hygiene by brushing teeth twice a day with fluoride toothpaste, flossing daily to remove plaque between teeth, avoiding sugary and acidic foods and beverages, and visiting the dentist regularly for check-ups and cleanings."
+  },
+  {
+    "question": "What are the symptoms of a head lice infestation?",
+    "answer": "Symptoms of a head lice infestation can include itching or tickling sensation on the scalp, visible lice or eggs (nits) on the scalp or hair shafts, and small red bumps or sores on the scalp, neck, or shoulders. Head lice are highly contagious and require treatment with medicated shampoos or lotions."
+  },
+  {
+    "question": "How can I prevent altitude sickness?",
+    "answer": "To prevent altitude sickness, it's important to ascend gradually to higher altitudes, stay hydrated by drinking plenty of fluids, avoid strenuous physical activity until acclimatized, consider medications such as acetazolamide (Diamox) or dexamethasone, and descend to lower altitudes if symptoms of altitude sickness develop."
+  },
+  {
+    "question": "What are the symptoms of pneumonia in children?",
+    "answer": "Symptoms of pneumonia in children can include fever, cough, rapid or difficult breathing, wheezing, chest pain, loss of appetite, fatigue, and irritability. Pneumonia can be caused by bacteria, viruses, or fungi and may require medical evaluation and treatment."
+  },
+  {
+    "question": "How can I prevent swimmer's ear?",
+    "answer": "To prevent swimmer's ear, it's important to keep ears dry by wearing earplugs or a swim cap when swimming, tilt the head to drain water from the ears after swimming, avoid inserting objects into the ear canal, and use a hairdryer on a low setting to dry ears after swimming."
+  },
+  {
+    "question": "What are the symptoms of a concussion in athletes?",
+    "answer": "Symptoms of a concussion in athletes can include headache, dizziness, nausea or vomiting, confusion, sensitivity to light or noise, difficulty concentrating, memory problems, and changes in mood or behavior. Athletes should be evaluated by a healthcare provider if a concussion is suspected."
+  },
+  {
+    "question": "How can I prevent cold sores?",
+    "answer": "To prevent cold sores, it's important to avoid close contact with individuals who have active cold sores, avoid sharing personal items such as utensils, towels, or lip balm, manage stress effectively, avoid excessive exposure to sunlight, and consider antiviral medications for recurrent outbreaks."
+  },
+  {
+    "question": "What are the symptoms of whooping cough?",
+    "answer": "Symptoms of whooping cough, also known as pertussis, can include severe coughing fits followed by a high-pitched whooping sound, vomiting during or after coughing fits, exhaustion, and difficulty breathing. Whooping cough can be serious, especially in infants, and requires medical treatment."
+  },
+  {
+    "question": "How can I prevent eye strain?",
+    "answer": "To prevent eye strain, it's important to take frequent breaks from screens by following the 20-20-20 rule (every 20 minutes, look at something 20 feet away for 20 seconds), adjust screen brightness and contrast settings, use proper lighting, position screens at eye level, and consider computer glasses with blue light filters."
+  },
+  {
+    "question": "What are the symptoms of a concussion?",
+    "answer": "Symptoms of a concussion can include headache, dizziness, nausea or vomiting, confusion, sensitivity to light or noise, difficulty concentrating, memory problems, and changes in mood or behavior. Concussions are mild traumatic brain injuries that require medical evaluation and monitoring."
+  },
+  {
+    "question": "How can I prevent food poisoning?",
+    "answer": "To prevent food poisoning, it's important to practice proper food handling and preparation techniques such as washing hands and surfaces frequently, cooking foods to the proper temperature, refrigerating perishable foods promptly, avoiding cross-contamination between raw and cooked foods, and consuming foods from reputable sources."
+  },
+  {
+    "question": "What are the symptoms of a gallbladder attack?",
+    "answer": "Symptoms of a gallbladder attack can include sudden, intense pain in the upper abdomen that may radiate to the back or shoulder, nausea or vomiting, and abdominal bloating or indigestion. Gallbladder attacks are often triggered by gallstones and may require medical evaluation and treatment."
+  },
+  {
+    "question": "How can I prevent dental infections?",
+    "answer": "To prevent dental infections, it's important to practice good oral hygiene by brushing teeth twice a day with fluoride toothpaste, flossing daily to remove plaque between teeth, avoiding sugary and acidic foods and beverages, and visiting the dentist regularly for check-ups and cleanings."
+  },
+  {
+    "question": "What are the symptoms of dehydration?",
+    "answer": "Symptoms of dehydration can include thirst, dry mouth, dark-colored urine, infrequent urination, fatigue, dizziness, confusion, and irritability. Severe dehydration can be life-threatening and may require medical attention."
+  },
+  {
+    "question": "How can I prevent osteoarthritis?",
+    "answer": "To prevent osteoarthritis, it's important to maintain a healthy weight, engage in regular exercise to strengthen muscles and joints, avoid repetitive stress on joints, use proper body mechanics and ergonomics, and consume a balanced diet rich in fruits, vegetables, and omega-3 fatty acids."
+  },
+  {
+    "question": "What are the symptoms of a urinary tract infection (UTI) in children?",
+    "answer": "Symptoms of a UTI in children can include fever, irritability, poor feeding, vomiting, diarrhea, strong-smelling urine, cloudy or bloody urine, frequent urination, pain or burning with urination, and abdominal or back pain. UTIs in children may require medical evaluation and treatment."
+  },
+  {
+    "question": "How can I prevent blood clots?",
+    "answer": "To prevent blood clots, it's important to maintain a healthy lifestyle with regular exercise, maintain a healthy weight, avoid smoking, eat a balanced diet low in saturated fats and high in fruits and vegetables, stay hydrated, and avoid prolonged periods of immobility, especially during travel."
+  },
+  {
+    "question": "What are the symptoms of a skin rash?",
+    "answer": "Symptoms of a skin rash can include redness, itching, swelling, bumps, blisters, or scales on the skin, warmth or tenderness, and pain or discomfort. Skin rashes can have various causes including allergic reactions, infections, or underlying medical conditions."
+  },
+  {
+    "question": "How can I prevent muscle cramps?",
+    "answer": "To prevent muscle cramps, it's important to stay hydrated by drinking plenty of fluids, maintain electrolyte balance by consuming foods rich in potassium, magnesium, and calcium, warm up properly before physical activity, stretch muscles regularly, and avoid overexertion."
+  },
+  {
+    "question": "What are the symptoms of a sinus headache?",
+    "answer": "Symptoms of a sinus headache can include pain or pressure in the forehead, cheeks, or bridge of the nose, nasal congestion, runny nose, and facial swelling. Sinus headaches are often triggered by sinus congestion or inflammation and may require treatment with decongestants or nasal corticosteroids."
+  },
+  {
+    "question": "How can I prevent motion sickness?",
+    "answer": "To prevent motion sickness, it's important to sit in the front seat of a car or over the wing of an airplane, focus on the horizon or a fixed point, avoid reading or using electronic devices, avoid strong odors and greasy or spicy foods, and consider over-the-counter medications such as antihistamines or antinausea drugs."
+  },
+  {
+    "question": "What are the symptoms of a stomach virus?",
+    "answer": "Symptoms of a stomach virus, also known as viral gastroenteritis, can include diarrhea, nausea or vomiting, abdominal cramps or pain, fever, and muscle aches. Stomach viruses are highly contagious and spread through contact with contaminated food, water, or surfaces."
+  },
+  {
+    "question": "How can I prevent varicose veins?",
+    "answer": "To prevent varicose veins, it's important to maintain a healthy weight, engage in regular exercise to improve circulation, elevate legs when resting or sleeping, avoid standing or sitting for prolonged periods, wear compression stockings, and avoid tight clothing that constricts blood flow."
+  },
+  {
+    "question": "What are the symptoms of food poisoning?",
+    "answer": "Symptoms of food poisoning can include nausea, vomiting, diarrhea, abdominal cramps or pain, fever, and chills. Food poisoning is caused by consuming contaminated food or beverages and may require medical treatment depending on severity and underlying cause."
+  },
+  {
+    "question": "How can I prevent allergic reactions to insect stings?",
+    "answer": "To prevent allergic reactions to insect stings, it's important to avoid areas where insects are abundant, wear protective clothing such as long sleeves and pants, avoid bright-colored clothing and floral prints, use insect repellent containing DEET, and seek immediate medical attention if stung by an insect and experience signs of an allergic reaction."
+  },
+  {
+    "question": "What are the symptoms of a spider bite?",
+    "answer": "Symptoms of a spider bite can include pain or swelling at the site of the bite, redness or rash, itching, muscle pain or cramping, and in some cases, fever, chills, or nausea. Spider bites can vary in severity depending on the type of spider and may require medical evaluation and treatment."
+  },
+  {
+    "question": "How can I prevent heat exhaustion?",
+    "answer": "To prevent heat exhaustion, it's important to stay hydrated by drinking plenty of fluids, avoid prolonged exposure to high temperatures, take breaks and rest frequently during outdoor activities, wear lightweight, loose-fitting clothing, and seek shade or air-conditioned environments during hot weather."
+  },
+  {
+    "question": "What are the symptoms of a broken bone?",
+    "answer": "Symptoms of a broken bone can include pain, swelling, bruising, deformity, inability to bear weight on the affected limb, and a snapping or grinding sensation at the time of injury. Broken bones, also known as fractures, may require immobilization, casting, or surgical intervention for proper healing."
+  },
+  {
+    "question": "How can I prevent dental abscesses?",
+    "answer": "To prevent dental abscesses, it's important to practice good oral hygiene by brushing teeth twice a day with fluoride toothpaste, flossing daily to remove plaque between teeth, avoiding sugary and acidic foods and beverages, and visiting the dentist regularly for check-ups and cleanings."
+  },
+  {
+    "question": "What are the symptoms of a head lice infestation?",
+    "answer": "Symptoms of a head lice infestation can include itching or tickling sensation on the scalp, visible lice or eggs (nits) on the scalp or hair shafts, and small red bumps or sores on the scalp, neck, or shoulders. Head lice are highly contagious and require treatment with medicated shampoos or lotions."
+  },
+  {
+    "question": "How can I prevent altitude sickness?",
+    "answer": "To prevent altitude sickness, it's important to ascend gradually to higher altitudes, stay hydrated by drinking plenty of fluids, avoid strenuous physical activity until acclimatized, consider medications such as acetazolamide (Diamox) or dexamethasone, and descend to lower altitudes if symptoms of altitude sickness develop."
+  },
+  {
+    "question": "What are the symptoms of pneumonia in children?",
+    "answer": "Symptoms of pneumonia in children can include fever, cough, rapid or difficult breathing, wheezing, chest pain, loss of appetite, fatigue, and irritability. Pneumonia can be caused by bacteria, viruses, or fungi and may require medical evaluation and treatment."
+  },
+  {
+    "question": "How can I prevent swimmer's ear?",
+    "answer": "To prevent swimmer's ear, it's important to keep ears dry by wearing earplugs or a swim cap when swimming, tilt the head to drain water from the ears after swimming, avoid inserting objects into the ear canal, and use a hairdryer on a low setting to dry ears after swimming."
+  },
+  {
+    "question": "What are the symptoms of a concussion in athletes?",
+    "answer": "Symptoms of a concussion in athletes can include headache, dizziness, nausea or vomiting, confusion, sensitivity to light or noise, difficulty concentrating, memory problems, and changes in mood or behavior. Athletes should be evaluated by a healthcare provider if a concussion is suspected."
+  },
+  {
+    "question": "How can I prevent cold sores?",
+    "answer": "To prevent cold sores, it's important to avoid close contact with individuals who have active cold sores, avoid sharing personal items such as utensils, towels, or lip balm, manage stress effectively, avoid excessive exposure to sunlight, and consider antiviral medications for recurrent outbreaks."
+  },
+  {
+    "question": "What are the symptoms of whooping cough?",
+    "answer": "Symptoms of whooping cough, also known as pertussis, can include severe coughing fits followed by a high-pitched whooping sound, vomiting during or after coughing fits, exhaustion, and difficulty breathing. Whooping cough can be serious, especially in infants, and requires medical treatment."
+  },
+  {
+    "question": "How can I prevent eye strain?",
+    "answer": "To prevent eye strain, it's important to take frequent breaks from screens by following the 20-20-20 rule (every 20 minutes, look at something 20 feet away for 20 seconds), adjust screen brightness and contrast settings, use proper lighting, position screens at eye level, and consider computer glasses with blue light filters."
+  },
+  {
+    "question": "What are the symptoms of a concussion?",
+    "answer": "Symptoms of a concussion can include headache, dizziness, nausea or vomiting, confusion, sensitivity to light or noise, difficulty concentrating, memory problems, and changes in mood or behavior. Concussions are mild traumatic brain injuries that require medical evaluation and monitoring."
+  },
+  {
+    "question": "How can I prevent food poisoning?",
+    "answer": "To prevent food poisoning, it's important to practice proper food handling and preparation techniques such as washing hands and surfaces frequently, cooking foods to the proper temperature, refrigerating perishable foods promptly, avoiding cross-contamination between raw and cooked foods, and consuming foods from reputable sources."
+  },
+  {
+    "question": "What are the symptoms of a gallbladder attack?",
+    "answer": "Symptoms of a gallbladder attack can include sudden, intense pain in the upper abdomen that may radiate to the back or shoulder, nausea or vomiting, and abdominal bloating or indigestion. Gallbladder attacks are often triggered by gallstones and may require medical evaluation and treatment."
+  },
+  {
+    "question": "How can I prevent dental infections?",
+    "answer": "To prevent dental infections, it's important to practice good oral hygiene by brushing teeth twice a day with fluoride toothpaste, flossing daily to remove plaque between teeth, avoiding sugary and acidic foods and beverages, and visiting the dentist regularly for check-ups and cleanings."
+  },
+  {
+    "question": "What are the symptoms of dehydration?",
+    "answer": "Symptoms of dehydration can include thirst, dry mouth, dark-colored urine, infrequent urination, fatigue, dizziness, confusion, and irritability. Severe dehydration can be life-threatening and may require medical attention."
+  },
+  {
+    "question": "How can I prevent osteoarthritis?",
+    "answer": "To prevent osteoarthritis, it's important to maintain a healthy weight, engage in regular exercise to strengthen muscles and joints, avoid repetitive stress on joints, use proper body mechanics and ergonomics, and consume a balanced diet rich in fruits, vegetables, and omega-3 fatty acids."
+  },
+  {
+    "question": "What are the symptoms of a urinary tract infection (UTI) in children?",
+    "answer": "Symptoms of a UTI in children can include fever, irritability, poor feeding, vomiting, diarrhea, strong-smelling urine, cloudy or bloody urine, frequent urination, pain or burning with urination, and abdominal or back pain. UTIs in children may require medical evaluation and treatment."
+  },
+  {
+    "question": "How can I prevent blood clots?",
+    "answer": "To prevent blood clots, it's important to maintain a healthy lifestyle with regular exercise, maintain a healthy weight, avoid smoking, eat a balanced diet low in saturated fats and high in fruits and vegetables, stay hydrated, and avoid prolonged periods of immobility, especially during travel."
+  },
+  {
+    "question": "What are the symptoms of a skin rash?",
+    "answer": "Symptoms of a skin rash can include redness, itching, swelling, bumps, blisters, or scales on the skin, warmth or tenderness, and pain or discomfort. Skin rashes can have various causes including allergic reactions, infections, or underlying medical conditions."
+  },
+  {
+    "question": "How can I prevent muscle cramps?",
+    "answer": "To prevent muscle cramps, it's important to stay hydrated by drinking plenty of fluids, maintain electrolyte balance by consuming foods rich in potassium, magnesium, and calcium, warm up properly before physical activity, stretch muscles regularly, and avoid overexertion."
+  },
+  {
+    "question": "What are the symptoms of a sinus headache?",
+    "answer": "Symptoms of a sinus headache can include pain or pressure in the forehead, cheeks, or bridge of the nose, nasal congestion, runny nose, and facial swelling. Sinus headaches are often triggered by sinus congestion or inflammation and may require treatment with decongestants or nasal corticosteroids."
+  },
+  {
+    "question": "How can I prevent motion sickness?",
+    "answer": "To prevent motion sickness, it's important to sit in the front seat of a car or over the wing of an airplane, focus on the horizon or a fixed point, avoid reading or using electronic devices, avoid strong odors and greasy or spicy foods, and consider over-the-counter medications such as antihistamines or antinausea drugs."
+  },
+  {
+    "question": "What are the symptoms of a stomach virus?",
+    "answer": "Symptoms of a stomach virus, also known as viral gastroenteritis, can include diarrhea, nausea or vomiting, abdominal cramps or pain, fever, and muscle aches. Stomach viruses are highly contagious and spread through contact with contaminated food, water, or surfaces."
+  },
+  {
+    "question": "How can I prevent varicose veins?",
+    "answer": "To prevent varicose veins, it's important to maintain a healthy weight, engage in regular exercise to improve circulation, elevate legs when resting or sleeping, avoid standing or sitting for prolonged periods, wear compression stockings, and avoid tight clothing that constricts blood flow."
+  },
+  {
+    "question": "What are the symptoms of food poisoning?",
+    "answer": "Symptoms of food poisoning can include nausea, vomiting, diarrhea, abdominal cramps or pain, fever, and chills. Food poisoning is caused by consuming contaminated food or beverages and may require medical treatment depending on severity and underlying cause."
+  },
+  {
+    "question": "How can I prevent allergic reactions to insect stings?",
+    "answer": "To prevent allergic reactions to insect stings, it's important to avoid areas where insects are abundant, wear protective clothing such as long sleeves and pants, avoid bright-colored clothing and floral prints, use insect repellent containing DEET, and seek immediate medical attention if stung by an insect and experience signs of an allergic reaction."
+  },
+  {
+    "question": "What are the symptoms of a spider bite?",
+    "answer": "Symptoms of a spider bite can include pain or swelling at the site of the bite, redness or rash, itching, muscle pain or cramping, and in some cases, fever, chills, or nausea. Spider bites can vary in severity depending on the type of spider and may require medical evaluation and treatment."
+  },
+  {
+    "question": "How can I prevent heat exhaustion?",
+    "answer": "To prevent heat exhaustion, it's important to stay hydrated by drinking plenty of fluids, avoid prolonged exposure to high temperatures, take breaks and rest frequently during outdoor activities, wear lightweight, loose-fitting clothing, and seek shade or air-conditioned environments during hot weather."
+  },
+  {
+    "question": "What are the symptoms of a broken bone?",
+    "answer": "Symptoms of a broken bone can include pain, swelling, bruising, deformity, inability to bear weight on the affected limb, and a snapping or grinding sensation at the time of injury. Broken bones, also known as fractures, may require immobilization, casting, or surgical intervention for proper healing."
+  },
+  {
+    "question": "How can I prevent dental abscesses?",
+    "answer": "To prevent dental abscesses, it's important to practice good oral hygiene by brushing teeth twice a day with fluoride toothpaste, flossing daily to remove plaque between teeth, avoiding sugary and acidic foods and beverages, and visiting the dentist regularly for check-ups and cleanings."
+  },
+  {
+    "question": "What are the symptoms of a head lice infestation?",
+    "answer": "Symptoms of a head lice infestation can include itching or tickling sensation on the scalp, visible lice or eggs (nits) on the scalp or hair shafts, and small red bumps or sores on the scalp, neck, or shoulders. Head lice are highly contagious and require treatment with medicated shampoos or lotions."
+  },
+  {
+    "question": "How can I prevent altitude sickness?",
+    "answer": "To prevent altitude sickness, it's important to ascend gradually to higher altitudes, stay hydrated by drinking plenty of fluids, avoid strenuous physical activity until acclimatized, consider medications such as acetazolamide (Diamox) or dexamethasone, and descend to lower altitudes if symptoms of altitude sickness develop."
+  },
+  {
+    "question": "What are the symptoms of pneumonia in children?",
+    "answer": "Symptoms of pneumonia in children can include fever, cough, rapid or difficult breathing, wheezing, chest pain, loss of appetite, fatigue, and irritability. Pneumonia can be caused by bacteria, viruses, or fungi and may require medical evaluation and treatment."
+  },
+  {
+    "question": "How can I prevent swimmer's ear?",
+    "answer": "To prevent swimmer's ear, it's important to keep ears dry by wearing earplugs or a swim cap when swimming, tilt the head to drain water from the ears after swimming, avoid inserting objects into the ear canal, and use a hairdryer on a low setting to dry ears after swimming."
+  },
+  {
+    "question": "What are the symptoms of a concussion in athletes?",
+    "answer": "Symptoms of a concussion in athletes can include headache, dizziness, nausea or vomiting, confusion, sensitivity to light or noise, difficulty concentrating, memory problems, and changes in mood or behavior. Athletes should be evaluated by a healthcare provider if a concussion is suspected."
+  },
+  {
+    "question": "How can I prevent cold sores?",
+    "answer": "To prevent cold sores, it's important to avoid close contact with individuals who have active cold sores, avoid sharing personal items such as utensils, towels, or lip balm, manage stress effectively, avoid excessive exposure to sunlight, and consider antiviral medications for recurrent outbreaks."
+  },
+  {
+    "question": "What are the symptoms of whooping cough?",
+    "answer": "Symptoms of whooping cough, also known as pertussis, can include severe coughing fits followed by a high-pitched whooping sound, vomiting during or after coughing fits, exhaustion, and difficulty breathing. Whooping cough can be serious, especially in infants, and requires medical treatment."
+  },
+  {
+    "question": "How can I prevent eye strain?",
+    "answer": "To prevent eye strain, it's important to take frequent breaks from screens by following the 20-20-20 rule (every 20 minutes, look at something 20 feet away for 20 seconds), adjust screen brightness and contrast settings, use proper lighting, position screens at eye level, and consider computer glasses with blue light filters."
+  },
+  {
+    "question": "What are the symptoms of a concussion?",
+    "answer": "Symptoms of a concussion can include headache, dizziness, nausea or vomiting, confusion, sensitivity to light or noise, difficulty concentrating, memory problems, and changes in mood or behavior. Concussions are mild traumatic brain injuries that require medical evaluation and monitoring."
+  },
+  {
+    "question": "How can I prevent food poisoning?",
+    "answer": "To prevent food poisoning, it's important to practice proper food handling and preparation techniques such as washing hands and surfaces frequently, cooking foods to the proper temperature, refrigerating perishable foods promptly, avoiding cross-contamination between raw and cooked foods, and consuming foods from reputable sources."
+  },
+  {
+    "question": "What are the symptoms of a gallbladder attack?",
+    "answer": "Symptoms of a gallbladder attack can include sudden, intense pain in the upper abdomen that may radiate to the back or shoulder, nausea or vomiting, and abdominal bloating or indigestion. Gallbladder attacks are often triggered by gallstones and may require medical evaluation and treatment."
+  },
+  {
+    "question": "How can I prevent dental infections?",
+    "answer": "To prevent dental infections, it's important to practice good oral hygiene by brushing teeth twice a day with fluoride toothpaste, flossing daily to remove plaque between teeth, avoiding sugary and acidic foods and beverages, and visiting the dentist regularly for check-ups and cleanings."
+  },
+  {
+    "question": "What are the symptoms of dehydration?",
+    "answer": "Symptoms of dehydration can include thirst, dry mouth, dark-colored urine, infrequent urination, fatigue, dizziness, confusion, and irritability. Severe dehydration can be life-threatening and may require medical attention."
+  },
+  {
+    "question": "How can I prevent osteoarthritis?",
+    "answer": "To prevent osteoarthritis, it's important to maintain a healthy weight, engage in regular exercise to strengthen muscles and joints, avoid repetitive stress on joints, use proper body mechanics and ergonomics, and consume a balanced diet rich in fruits, vegetables, and omega-3 fatty acids."
+  }
+]
