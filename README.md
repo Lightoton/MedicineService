@@ -2,6 +2,9 @@
 
 [ ⚡Here you can see the video presentation ](https://www.youtube.com/watch?v=WV-xZFAvjhg)
 
+![photo_2024-07-08_13-38-52](https://github.com/Alexf17/MedicineService/assets/98961066/d5e3c7ee-1173-4d5b-bcdb-4268335fcd03)
+
+
 The Telegram Bot and RESTful Application are designed for your convenience and offer a wide range of healthcare services. 
 Below you will find a description of all available features:
 
@@ -28,7 +31,7 @@ Below you will find a description of all available features:
 [Viktor Bulatov](https://www.linkedin.com/in/viktor-bulatov-46a54b30b/)
 
 *Project curator:*
-[Mikhail](https://www.linkedin.com/in/mikhail-egorov-54715917b/)
+[Mikhail Egorov](https://www.linkedin.com/in/mikhail-egorov-54715917b/)
 
 *We are constantly working to improve our bot and will be happy to receive your feedback and suggestions.*
 ___ 
