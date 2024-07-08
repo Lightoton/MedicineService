@@ -1,5 +1,8 @@
 # Medicine Service Project [Backend and Telegram Bot]
-The Telegram Bot and RESTful Application are designed for your convenience and offers a wide range of healthcare services. 
+
+[ ⚡Here you can see the video presentation ](https://www.youtube.com/watch?v=WV-xZFAvjhg)
+
+The Telegram Bot and RESTful Application are designed for your convenience and offer a wide range of healthcare services. 
 Below you will find a description of all available features:
 
 *Schedule an appointment with a doctor*
@@ -15,14 +18,14 @@ Below you will find a description of all available features:
 • The user can ask questions and get answers from our AI, which will help them make decisions about their health.
 
 *Personal account*
-• View all your appointments with doctors and prescriptions that have been issued to you, view/change personal data.
+• View all your appointments with doctors and prescriptions that have been issued to you, and view/change personal data.
 
 *Development team:*
-[Volha](https://www.linkedin.com/in/volha-zadziarkouskaya-84a1292b7/)
-[Maksym](https://www.linkedin.com/in/maksym-bondarenko-8a6ba0280/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
-[Oleksandr](https://www.linkedin.com/in/oleksandr-harbuz-1b9b41300)
-[Oleksii](https://www.linkedin.com/in/oleksii-chilibiiskyi/)
-[Viktor](https://www.linkedin.com/in/viktor-bulatov-46a54b30b/)
+[Volha Zadziarkouskaya](https://www.linkedin.com/in/volha-zadziarkouskaya-84a1292b7/)
+[Maksym Bondarenko](https://www.linkedin.com/in/maksym-bondarenko-8a6ba0280/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
+[Oleksandr Harbuz](https://www.linkedin.com/in/oleksandr-harbuz-1b9b41300)
+[Oleksii Chilibiiskyi](https://www.linkedin.com/in/oleksii-chilibiiskyi/)
+[Viktor Bulatov](https://www.linkedin.com/in/viktor-bulatov-46a54b30b/)
 
 *Project curator:*
 [Mikhail](https://www.linkedin.com/in/mikhail-egorov-54715917b/)
