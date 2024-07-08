@@ -21,10 +21,10 @@ Below you will find a description of all available features:
 • View all your appointments with doctors and prescriptions that have been issued to you, and view/change personal data.
 
 *Development team:*
-[Volha Zadziarkouskaya](https://www.linkedin.com/in/volha-zadziarkouskaya-84a1292b7/)
-[Maksym Bondarenko](https://www.linkedin.com/in/maksym-bondarenko-8a6ba0280/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
-[Oleksandr Harbuz](https://www.linkedin.com/in/oleksandr-harbuz-1b9b41300)
-[Oleksii Chilibiiskyi](https://www.linkedin.com/in/oleksii-chilibiiskyi/)
+[Volha Zadziarkouskaya](https://www.linkedin.com/in/volha-zadziarkouskaya-84a1292b7/),
+[Maksym Bondarenko](https://www.linkedin.com/in/maksym-bondarenko-8a6ba0280/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app),
+[Oleksandr Harbuz](https://www.linkedin.com/in/oleksandr-harbuz-1b9b41300),
+[Oleksii Chilibiiskyi](https://www.linkedin.com/in/oleksii-chilibiiskyi/),
 [Viktor Bulatov](https://www.linkedin.com/in/viktor-bulatov-46a54b30b/)
 
 *Project curator:*
